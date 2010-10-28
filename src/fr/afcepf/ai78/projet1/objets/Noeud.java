@@ -13,8 +13,16 @@ public class Noeud {
 	
 	public Noeud(Stagiaire donnee) {
 		this.donnee = donnee;
+		
+	}
+	
+	
+
+	public void setPosition() {
 		this.position = nbStagiaire++;
 	}
+
+
 
 	public boolean hasFilsG() {
 		return !(filsG==null);
