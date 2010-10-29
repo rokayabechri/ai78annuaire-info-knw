@@ -10,9 +10,16 @@ public class Stagiaire {
 	
 	
 	public Stagiaire() {
-
 	}
 
+	public Stagiaire(String nom, String prenom, String departement,
+			String promotion, int annee) {
+		this.nom = nom;
+		this.prenom = prenom;
+		this.departement = departement;
+		this.promotion = promotion;
+		this.annee = annee;
+	}
 
 	@Override
 	public String toString() {
@@ -54,20 +61,9 @@ public class Stagiaire {
 			return false;
 		return true;
 	}
-
-
-	public Stagiaire(String nom, String prenom, String departement,
-			String promotion, int annee) {
-		this.nom = nom;
-		this.prenom = prenom;
-		this.departement = departement;
-		this.promotion = promotion;
-		this.annee = annee;
-	}
-
+	
 	public int compareTo(Stagiaire unStagiaire){
 		
-		//System.out.println("dans constructeur: "+unStagiaire);
 		if(this.nom.trim().compareToIgnoreCase(unStagiaire.getNom().trim())<0){
 			return -1;
 		}else if(this.nom.trim().compareToIgnoreCase(unStagiaire.getNom().trim())>0){
@@ -143,7 +139,4 @@ public class Stagiaire {
 		this.annee = annee;
 	}
 	
-	
-	
-
 }

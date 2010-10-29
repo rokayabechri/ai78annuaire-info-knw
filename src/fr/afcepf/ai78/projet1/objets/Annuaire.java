@@ -2,7 +2,6 @@ package fr.afcepf.ai78.projet1.objets;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import fr.afcepf.ai78.projet1.fileManager.GestionBinaire;
 
 public class Annuaire {
