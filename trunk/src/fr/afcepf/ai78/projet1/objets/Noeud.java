@@ -2,38 +2,27 @@ package fr.afcepf.ai78.projet1.objets;
 
 public class Noeud extends Stagiaire{
 	
-	private static int nbStagiaire = 0; 
 	private int posParent = -1;
 	private int posFilsG = -1;
 	private int posFilsD = -1;
-
-	
-	
 	
 	public Noeud() {
 		super();
 	}
 	
-	
-	
-
-	public Noeud(String nom, String prenom, String departement,
-			String promotion, int annee) {
+	public Noeud(String nom, String prenom, String departement,String promotion, int annee) {
 		super(nom, prenom, departement, promotion, annee);
-		
 	}
 
 	public boolean isRacine(){
 		return (posParent==-1);
 	}
 
-
 	public boolean hasFilsG() {
 		return !(posFilsG==-1);
 	}
 	
 	public boolean hasFilsD() {
-
 		return !(posFilsD==-1);
 	}
 
@@ -66,11 +55,4 @@ public class Noeud extends Stagiaire{
 		return "Noeud [Nom="+nom+" posParent=" + posParent + ", posFilsG=" + posFilsG
 				+ ", posFilsD=" + posFilsD + "]";
 	}
-
-
-	
-
-	
-	
-
 }
