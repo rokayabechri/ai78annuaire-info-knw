@@ -2,6 +2,8 @@ package fr.afcepf.ai78.projet1.interfaces;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -26,6 +28,8 @@ import fr.afcepf.ai78.projet1.objets.Stagiaire;
 
 public class FenetrePrincipale extends JFrame implements ActionListener{
 
+
+
 	private JPanel contentPane;
 	private JButton btnOuvrirAnnuaire;
 	private JButton btnNouvelAnnuaire;
@@ -39,6 +43,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	private JMenuItem mntmSuppression;
 	private JMenuItem mntmEdition;
 	private JMenuItem mntmAjout;
+	private JDialog popUp;
+
 
 	/**
 	 * Launch the application.
@@ -134,9 +140,9 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		       nomFichier = nomFichier.substring(0, nomFichier.indexOf("."));
 		       if(annuaireCourant.creationArbreBinaire(chemin, "c:/"+nomFichier+".bin")){
 		    	   //contentPane.remove(panelLancement);
-		    	   JOptionPane.showMessageDialog(null, "Création OK");
+		    	   JOptionPane.showMessageDialog(this, "Création OK");
 		    	   contentPane.remove(panelLancement);
-			       contentPane.add(new AffichageAnnuaire(annuaireCourant),BorderLayout.CENTER);
+			       contentPane.add(new AffichageAnnuaire(this),BorderLayout.CENTER);
 			       contentPane.revalidate();
 		       }else{
 		    	   JOptionPane.showMessageDialog(null, "Fichier incorrect");
@@ -146,5 +152,20 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		}
 		
 	}
+	
+	public JPanel getContentPane() {
+		return contentPane;
+	}
 
+	public GestionBinaire getAnnuaireCourant() {
+		return annuaireCourant;
+	}
+	
+	public JDialog getPopUp() {
+		return popUp;
+	}
+
+	public void setPopUp(JDialog popUp) {
+		this.popUp = popUp;
+	}
 }
