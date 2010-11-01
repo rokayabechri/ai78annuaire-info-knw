@@ -59,6 +59,6 @@ public class ModeleStagiaire extends AbstractTableModel {
 	public String getColumnName(int column) {
 		return entete[column];
 	}
-	
 
+	
 }

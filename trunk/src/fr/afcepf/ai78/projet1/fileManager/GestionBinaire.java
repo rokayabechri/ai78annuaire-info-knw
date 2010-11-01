@@ -50,8 +50,11 @@ public class GestionBinaire {
 					indiceTableau = 0;
 					
 					if(!ajoutElementArbreBinaire(unNoeud,-1,0,false)){
-						getFichier().seek(getFichier().length());
-						ecrireNoeud(unNoeud);
+						ecrireNoeud(getPositionAjout(),unNoeud);
+						if(!fantome.isEmpty()){
+							fantome.remove(0);
+						}
+						
 					}
 				}
 			}
@@ -59,10 +62,13 @@ public class GestionBinaire {
 			return true;
 			
 		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 			return false;
 		} catch (IOException e) {
+			e.printStackTrace();
 			return false;
 		}catch(Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -77,10 +83,11 @@ public class GestionBinaire {
 				existeDeja = false;
 				
 				if(parent != null){
+					int positionAjout = getPositionAjout();
 					if(parent.compareTo(stagiaire)<0){
-						ecrireInt((stagiaire.getParent()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE+AnnuaireConstante.TAILLE_PARENT+AnnuaireConstante.TAILLE_FILSG,(int)(getFichier().length()/AnnuaireConstante.TAILLE_NOEUD));
+						ecrireInt((stagiaire.getParent()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE+AnnuaireConstante.TAILLE_PARENT+AnnuaireConstante.TAILLE_FILSG,positionAjout);
 					}else{
-						ecrireInt((stagiaire.getParent()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE+AnnuaireConstante.TAILLE_PARENT,(int)(getFichier().length()/AnnuaireConstante.TAILLE_NOEUD));
+						ecrireInt((stagiaire.getParent()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE+AnnuaireConstante.TAILLE_PARENT,positionAjout);
 						
 					}
 				}
@@ -100,10 +107,8 @@ public class GestionBinaire {
 			return existeDeja;
 			
 		}catch (FileNotFoundException e) {
-			//e.printStackTrace();
 			return false;
 		} catch (IOException e) {
-			//e.printStackTrace();
 			return false;
 		}
 	}
@@ -205,8 +210,11 @@ public class GestionBinaire {
 								}
 								sousArbreGauche.setParent(arbre.getParent());
 								ecrireNoeud(posArbre,sousArbreGauche);
+								fantome.add(arbre.getFilsG());
 							}else{
 								ecrireInt((arbre.getParent()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE+AnnuaireConstante.TAILLE_PARENT, arbre.getFilsG());
+								ecrireInt((arbre.getFilsG()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE, arbre.getParent());
+								fantome.add(posArbre);
 							}
 
 						} else {
@@ -221,6 +229,7 @@ public class GestionBinaire {
 								}			
 								sousArbreDroit.setParent(arbre.getParent());
 								ecrireNoeud(posArbre,sousArbreDroit);
+								fantome.add(arbre.getFilsD());
 
 
 							} else {
@@ -274,7 +283,17 @@ public class GestionBinaire {
 		}
 	}
 	
-		
+	private int getPositionAjout() throws IOException{
+		if(fantome.isEmpty()){
+
+			return ((int)(getFichier().length()/AnnuaireConstante.TAILLE_NOEUD));
+
+		}else{
+
+			return fantome.get(0);
+		}
+	}
+ 
 	public List<Noeud> lireFichier(){
 		List<Noeud> liste = new ArrayList<Noeud>();
 		try {

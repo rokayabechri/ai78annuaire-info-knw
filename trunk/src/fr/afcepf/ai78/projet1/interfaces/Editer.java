@@ -1,6 +1,6 @@
 package fr.afcepf.ai78.projet1.interfaces;
 
-import javax.swing.JPanel;
+
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
@@ -8,14 +8,11 @@ import javax.swing.JTextField;
 import com.swtdesigner.FocusTraversalOnArray;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.IOException;
 
-import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JButton;
@@ -25,30 +22,28 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
-
-import fr.afcepf.ai78.projet1.objets.Noeud;
-
 import javax.swing.JComboBox;
 
-public class Ajouter extends JDialog implements ActionListener,WindowListener{
+public class Editer extends JDialog implements ActionListener,WindowListener{
 	private JButton btnAnnuler;
-	private JButton btnSauvegarder;
 	private JLabel lblAnne;
 	private JLabel lblNom;
 	private JLabel lblPrnom;
 	private JLabel lblAnne_1;
 	private JLabel lblPromotion;
-	private JTextField textNom;
-	private JTextField textPrenom;
-	private JTextField textDepartement;
-	private JComboBox comboBox;
-	private JTextField textAnnee;
-	private FenetrePrincipale frame;
+	private JTextField txtNom;
+	private JTextField txtPrenom;
+	private JTextField txtDepartement;
+	private JComboBox cBPromotion;
+	private JTextField txtAnnee;
+	private JButton btnValider;
+	private AffichageAnnuaire parent;
+
 	/**
 	 * Create the panel.
 	 */
-	public Ajouter(FenetrePrincipale frame) {
-		this.frame = frame;
+	public Editer(AffichageAnnuaire parent) {
+		this.parent = parent;
 		getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("95px"),
@@ -73,86 +68,46 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		lblNom = new JLabel("Nom :");
 		getContentPane().add(lblNom, "2, 2, right, center");
 		
-		textNom = new JTextField();
-		getContentPane().add(textNom, "4, 2, fill, default");
-		textNom.setColumns(10);
+		txtNom = new JTextField(parent.getTable().getValueAt(parent.getTable().getSelectedRow(), 0).toString());
+		getContentPane().add(txtNom, "4, 2, fill, default");
+		txtNom.setColumns(10);
 		
 		lblAnne = new JLabel("Prénom :");
 		lblAnne.setHorizontalAlignment(SwingConstants.RIGHT);
 		getContentPane().add(lblAnne, "2, 4, right, default");
 		
-		textPrenom = new JTextField();
-		textPrenom.setColumns(10);
-		getContentPane().add(textPrenom, "4, 4, fill, default");
+		txtPrenom = new JTextField(parent.getTable().getValueAt(parent.getTable().getSelectedRow(), 1).toString());
+		txtPrenom.setColumns(10);
+		getContentPane().add(txtPrenom, "4, 4, fill, default");
 		
 		lblPromotion = new JLabel("Promotion :");
 		lblPromotion.setHorizontalAlignment(SwingConstants.RIGHT);
 		getContentPane().add(lblPromotion, "2, 6, right, default");
 		
-		comboBox = new JComboBox();
-		comboBox.setMinimumSize(new Dimension(12, 26));
-		getContentPane().add(comboBox, "4, 6");
+		cBPromotion = new JComboBox();
+		cBPromotion.setMinimumSize(new Dimension(12, 26));
+		getContentPane().add(cBPromotion, "4, 6");
 		
 		lblPrnom = new JLabel("Année :");
 		getContentPane().add(lblPrnom, "2, 8, right, default");
 		
-		textAnnee = new JTextField();
-		getContentPane().add(textAnnee, "4, 8, left, default");
-		textAnnee.setColumns(10);
+		txtAnnee = new JTextField(parent.getTable().getValueAt(parent.getTable().getSelectedRow(), 3).toString());
+		getContentPane().add(txtAnnee, "4, 8, left, default");
+		txtAnnee.setColumns(10);
 		
-		btnSauvegarder = new JButton("Sauvegarder");
-		getContentPane().add(btnSauvegarder, "8, 8");
+		btnValider = new JButton("Valider");
+		getContentPane().add(btnValider, "8, 8");
 		
 		lblAnne_1 = new JLabel("Département :");
 		lblAnne_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		getContentPane().add(lblAnne_1, "2, 10, right, default");
 		
-		textDepartement = new JTextField();
-		getContentPane().add(textDepartement, "4, 10, left, default");
-		textDepartement.setColumns(10);
+		txtDepartement = new JTextField(parent.getTable().getValueAt(parent.getTable().getSelectedRow(), 4).toString());
+		getContentPane().add(txtDepartement, "4, 10, left, default");
+		txtDepartement.setColumns(10);
 		
 		btnAnnuler = new JButton("Annuler");
 		getContentPane().add(btnAnnuler, "8, 10");
-		
-		btnSauvegarder.addActionListener(this);
-		btnAnnuler.addActionListener(this);
-		this.addWindowListener(this);
-		
-		
-
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-
-		if(e.getSource()==btnSauvegarder){
-
-			String nom = textNom.getText();
-			String prenom = textPrenom.getText();
-			String promotion = comboBox.getSelectedItem().toString();
-			String departement = textDepartement.getText();
-			String annee = textAnnee.getText();
-
-			if(!nom.equals("")&&!prenom.equals("")&&!promotion.equals("")&&!departement.equals("")&&!annee.equals("")){
-
-				Noeud unNoeud = new Noeud(nom,prenom,departement,promotion,Integer.parseInt(promotion));
-				frame.getAnnuaireCourant().ajoutElementArbreBinaire(unNoeud,-1,0,false);
-
-				try {
-					frame.getAnnuaireCourant().ecrireNoeud(unNoeud);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			}
-			
-			
-		}
-		
-		if(e.getSource()==btnAnnuler){
-
-			this.dispose();
-			frame.setPopUp(null);
-		}
 
 	}
 
@@ -165,13 +120,12 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 	@Override
 	public void windowClosed(WindowEvent arg0) {
 		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void windowClosing(WindowEvent arg0) {
-		
-		frame.setPopUp(null);
-		
+		parent.getFrame().setPopUp(null);
 	}
 
 	@Override
@@ -197,4 +151,12 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+			
 }
