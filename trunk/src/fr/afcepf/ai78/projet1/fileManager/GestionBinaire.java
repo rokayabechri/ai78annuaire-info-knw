@@ -224,7 +224,7 @@ public class GestionBinaire {
 
 
 							} else {
-								remonter(arbre.getFilsG(), posArbre,0) ;
+								remonter(arbre.getFilsG(), posArbre, false) ;
 
 							}
 						}
@@ -236,14 +236,14 @@ public class GestionBinaire {
 		}
 	}
 
-	private void remonter(int posFils ,int posArbre,int compteur){
+	private void remonter(int posFils ,int posArbre,boolean unBoolean){
 
 		Noeud sousArbre = lireNoeud(posFils);
 		Noeud arbre = lireNoeud(posArbre);
 
 		if (!sousArbre.hasFilsD()) {
 			try {
-				if(compteur == 0){
+				if(!unBoolean){
 					
 					if(sousArbre.hasFilsG()){
 						ecrireInt((sousArbre.getFilsG()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE, posArbre);
@@ -270,9 +270,10 @@ public class GestionBinaire {
 			}
 
 		} else {
-			remonter(sousArbre.getFilsD(),posArbre,compteur+1);
+			remonter(sousArbre.getFilsD(),posArbre,true);
 		}
 	}
+	
 		
 	public List<Noeud> lireFichier(){
 		List<Noeud> liste = new ArrayList<Noeud>();
