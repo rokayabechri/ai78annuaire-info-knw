@@ -18,6 +18,7 @@ public class GestionBinaire {
 	
 	private RandomAccessFile fichier ;
 	private List<Integer> fantome = new ArrayList<Integer>();
+	private List<String> promo = new ArrayList<String>();
 	
 	
 	public GestionBinaire(){
@@ -75,9 +76,12 @@ public class GestionBinaire {
 	
 	public boolean ajoutElementArbreBinaire(Noeud stagiaire, int posParent, int posArbre, Boolean existeDeja) {
 		
+			if(!PromoExist(stagiaire.getPromotion())){
+				promo.add(stagiaire.getPromotion());
+			}
 		try{
 			Noeud parent = lireNoeud(posParent);
-			Noeud arbre = lireNoeud(posArbre);
+			Noeud arbre = lireNoeud(posArbre);			
 			if(arbre == null){
 				stagiaire.setParent(posParent);
 				existeDeja = false;
@@ -283,7 +287,7 @@ public class GestionBinaire {
 		}
 	}
 	
-	private int getPositionAjout() throws IOException{
+	public int getPositionAjout() throws IOException{
 		if(fantome.isEmpty()){
 
 			return ((int)(getFichier().length()/AnnuaireConstante.TAILLE_NOEUD));
@@ -306,7 +310,7 @@ public class GestionBinaire {
 		return liste;
 	}
 	
-	private void ecrireNoeud(int indice, Noeud ajout) throws IOException {
+	public void ecrireNoeud(int indice, Noeud ajout) throws IOException {
 		getFichier().seek(indice*AnnuaireConstante.TAILLE_NOEUD);
 		
 		getFichier().writeChars(formater(AnnuaireConstante.TAILLE_NOM,ajout.getNom()));
@@ -392,5 +396,23 @@ public class GestionBinaire {
 	public RandomAccessFile getFichier() {
 		return fichier;
 	}
+
+	private boolean PromoExist(String promotion)
+	{
+		boolean unBoolean = false;
+		
+		for (String string : promo) {
+			
+			if(string.equals(promotion)){
+				unBoolean = true;
+			}
+			
+		}
+		return unBoolean;
+	}
+
 	
+	public List<String> getPromo() {
+		return promo;
+	}
 }
