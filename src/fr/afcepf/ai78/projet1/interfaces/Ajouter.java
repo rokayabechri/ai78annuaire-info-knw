@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
 import javax.swing.JTextField;
-import com.swtdesigner.FocusTraversalOnArray;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Container;
@@ -14,6 +13,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.JComponent;
 import javax.swing.JDialog;
@@ -93,6 +95,11 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		comboBox.setMinimumSize(new Dimension(12, 26));
 		getContentPane().add(comboBox, "4, 6");
 		
+		for (String string : frame.getAnnuaireCourant().getPromo()) {
+			
+			comboBox.addItem(string);
+		}
+
 		lblPrnom = new JLabel("Année :");
 		getContentPane().add(lblPrnom, "2, 8, right, default");
 		
@@ -114,6 +121,7 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		btnAnnuler = new JButton("Annuler");
 		getContentPane().add(btnAnnuler, "8, 10");
 		
+		
 		btnSauvegarder.addActionListener(this);
 		btnAnnuler.addActionListener(this);
 		this.addWindowListener(this);
@@ -121,7 +129,7 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		
 
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
@@ -135,11 +143,13 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 
 			if(!nom.equals("")&&!prenom.equals("")&&!promotion.equals("")&&!departement.equals("")&&!annee.equals("")){
 
-				Noeud unNoeud = new Noeud(nom,prenom,departement,promotion,Integer.parseInt(promotion));
+				Noeud unNoeud = new Noeud(nom,prenom,departement,promotion,Integer.parseInt(annee));
 				frame.getAnnuaireCourant().ajoutElementArbreBinaire(unNoeud,-1,0,false);
 
 				try {
-					frame.getAnnuaireCourant().ecrireNoeud(unNoeud);
+					frame.getAnnuaireCourant().ecrireNoeud(frame.getAnnuaireCourant().getPositionAjout(),unNoeud);
+					this.dispose();
+					frame.setPopUp(null);	
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -156,6 +166,8 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 
 	}
 
+
+
 	@Override
 	public void windowActivated(WindowEvent arg0) {
 		// TODO Auto-generated method stub
@@ -169,7 +181,6 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 
 	@Override
 	public void windowClosing(WindowEvent arg0) {
-		
 		frame.setPopUp(null);
 		
 	}

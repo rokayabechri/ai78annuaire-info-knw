@@ -5,13 +5,13 @@ import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
 import javax.swing.JTextField;
-import com.swtdesigner.FocusTraversalOnArray;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 
 import javax.swing.JDialog;
 import javax.swing.JList;
@@ -22,6 +22,9 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
+
+import fr.afcepf.ai78.projet1.objets.Noeud;
+
 import javax.swing.JComboBox;
 
 public class Editer extends JDialog implements ActionListener,WindowListener{
@@ -88,6 +91,11 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		cBPromotion.setMinimumSize(new Dimension(12, 26));
 		getContentPane().add(cBPromotion, "4, 6");
 		
+		for (String string : parent.getFrame().getAnnuaireCourant().getPromo()) {	
+			cBPromotion.addItem(string);
+		}
+		cBPromotion.setSelectedItem(parent.getTable().getValueAt(parent.getTable().getSelectedRow(),2).toString());
+		
 		lblPrnom = new JLabel("Année :");
 		getContentPane().add(lblPrnom, "2, 8, right, default");
 		
@@ -108,7 +116,46 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		
 		btnAnnuler = new JButton("Annuler");
 		getContentPane().add(btnAnnuler, "8, 10");
+		
+		btnValider.addActionListener(this);
+		btnAnnuler.addActionListener(this);
+		addWindowListener(this);
 
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource()==btnValider){
+			
+			String nom = txtNom.getText();
+			String prenom = txtPrenom.getText();
+			String promotion = cBPromotion.getSelectedItem().toString();
+			String departement = txtDepartement.getText();
+			String annee = txtAnnee.getText();
+			
+			if(!nom.equals("")&&!prenom.equals("")&&!promotion.equals("")&&!departement.equals("")&&!annee.equals("")){
+
+				Noeud unNoeud = new Noeud(nom,prenom,departement,promotion,Integer.parseInt(annee));
+
+				parent.getFrame().getAnnuaireCourant().ajoutElementArbreBinaire(unNoeud,-1,0,false);
+
+				try {
+					parent.getFrame().getAnnuaireCourant().ecrireNoeud(parent.getFrame().getAnnuaireCourant().getPositionAjout(),unNoeud);
+					this.dispose();
+					parent.getFrame().setPopUp(null);	
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		
+		if(e.getSource()==btnAnnuler){
+			this.dispose();
+			parent.getFrame().setPopUp(null);
+		}
+		
+		
 	}
 
 	@Override
@@ -126,6 +173,7 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 	@Override
 	public void windowClosing(WindowEvent arg0) {
 		parent.getFrame().setPopUp(null);
+		
 	}
 
 	@Override
@@ -148,12 +196,6 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 
 	@Override
 	public void windowOpened(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
