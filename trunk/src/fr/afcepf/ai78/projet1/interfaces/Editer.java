@@ -35,12 +35,14 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 	private JTextField txtAnnee;
 	private JButton btnValider;
 	private AffichageAnnuaire parent;
+	private Noeud unNoeudAModifier;
 
 	/**
 	 * Create the panel.
 	 */
-	public Editer(AffichageAnnuaire parent) {
+	public Editer(AffichageAnnuaire parent,Noeud unNoeudAModifier) {
 		this.parent = parent;
+		this.unNoeudAModifier = unNoeudAModifier;
 		getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("95px"),
@@ -121,34 +123,35 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource()==btnValider){
-			
+
 			String nom = txtNom.getText();
 			String prenom = txtPrenom.getText();
 			String promotion = cBPromotion.getSelectedItem().toString();
 			String departement = txtDepartement.getText();
 			String annee = txtAnnee.getText();
-			
+
 			if(!nom.equals("")&&!prenom.equals("")&&!promotion.equals("")&&!departement.equals("")&&!annee.equals("")){
+				try {	
+					Noeud unNoeud = new Noeud(nom,prenom,departement,promotion,Integer.parseInt(annee));
+					parent.getFrame().getAnnuaireCourant().supprimer(unNoeudAModifier, 0);
+					parent.getFrame().getAnnuaireCourant().ajoutElementArbreBinaire(unNoeud,-1,0,false,parent.getFrame().getAnnuaireCourant().getPositionAjout());
 
-				Noeud unNoeud = new Noeud(nom,prenom,departement,promotion,Integer.parseInt(annee));
 
-				parent.getFrame().getAnnuaireCourant().ajoutElementArbreBinaire(unNoeud,-1,0,false);
 
-				try {
 					parent.getFrame().getAnnuaireCourant().ecrireNoeud(parent.getFrame().getAnnuaireCourant().getPositionAjout(),unNoeud);
 					this.dispose();
-					parent.getFrame().setPopUp(null);	
+					parent.getFrame().setPopUp(null);
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
 			}
 		}
-		
+
 		if(e.getSource()==btnAnnuler){
 			this.dispose();
 			parent.getFrame().setPopUp(null);
 		}
-		
+
 		
 	}
 
