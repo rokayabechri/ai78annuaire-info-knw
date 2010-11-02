@@ -1,5 +1,6 @@
 package fr.afcepf.ai78.projet1.interfaces;
 
+
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -34,6 +35,7 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 	private JComboBox comboBox;
 	private JTextField textAnnee;
 	private FenetrePrincipale frame;
+
 	/**
 	 * Create the panel.
 	 */
@@ -130,11 +132,10 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 			String annee = textAnnee.getText();
 
 			if(!nom.equals("")&&!prenom.equals("")&&!promotion.equals("")&&!departement.equals("")&&!annee.equals("")){
-
-				Noeud unNoeud = new Noeud(nom,prenom,departement,promotion,Integer.parseInt(annee));
-				frame.getAnnuaireCourant().ajoutElementArbreBinaire(unNoeud,-1,0,false);
-
 				try {
+					Noeud unNoeud = new Noeud(nom,prenom,departement,promotion,Integer.parseInt(annee));
+					frame.getAnnuaireCourant().ajoutElementArbreBinaire(unNoeud,-1,0,false,frame.getAnnuaireCourant().getPositionAjout());
+
 					frame.getAnnuaireCourant().ecrireNoeud(frame.getAnnuaireCourant().getPositionAjout(),unNoeud);
 					this.dispose();
 					frame.setPopUp(null);	
