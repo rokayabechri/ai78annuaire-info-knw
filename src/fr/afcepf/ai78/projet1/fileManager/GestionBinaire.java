@@ -217,7 +217,6 @@ public class GestionBinaire {
 								fantome.add(arbre.getFilsG());
 							}else{
 								ecrireInt((arbre.getParent()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE+AnnuaireConstante.TAILLE_PARENT, arbre.getFilsG());
-								ecrireInt((arbre.getFilsG()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE, arbre.getParent());
 								fantome.add(posArbre);
 							}
 
