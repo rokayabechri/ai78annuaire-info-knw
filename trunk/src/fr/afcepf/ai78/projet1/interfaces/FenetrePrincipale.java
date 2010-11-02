@@ -2,7 +2,6 @@ package fr.afcepf.ai78.projet1.interfaces;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -19,12 +18,9 @@ import javax.swing.JButton;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import fr.afcepf.ai78.projet1.fileManager.GestionBinaire;
-import fr.afcepf.ai78.projet1.objets.Stagiaire;
 
 public class FenetrePrincipale extends JFrame implements ActionListener{
 
@@ -112,7 +108,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		
 		panelLancement = new JPanel();
 		contentPane.add(panelLancement);
-		//contentPane.remove(panelLancement);
 		panelLancement.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		btnNouvelAnnuaire = new JButton("Nouvel Annuaire");
@@ -132,14 +127,13 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnOuvrirAnnuaire){
 			JFileChooser fc = new JFileChooser("C:/");
-			int returnVal = fc.showOpenDialog(null);
+			int returnVal = fc.showOpenDialog(this);
 		    if(returnVal == JFileChooser.APPROVE_OPTION) {
 		       String chemin = fc.getSelectedFile().toString();
 		       String nomFichier = fc.getSelectedFile().getName();
 		       
 		       nomFichier = nomFichier.substring(0, nomFichier.indexOf("."));
 		       if(annuaireCourant.creationArbreBinaire(chemin, "c:/"+nomFichier+".bin")){
-		    	   //contentPane.remove(panelLancement);
 		    	   JOptionPane.showMessageDialog(this, "Création OK");
 		    	   contentPane.remove(panelLancement);
 			       contentPane.add(new AffichageAnnuaire(this),BorderLayout.CENTER);
