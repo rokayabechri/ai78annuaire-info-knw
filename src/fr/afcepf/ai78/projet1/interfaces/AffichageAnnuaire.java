@@ -13,18 +13,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
-import javax.swing.Popup;
-
-import fr.afcepf.ai78.projet1.fileManager.GestionBinaire;
 import fr.afcepf.ai78.projet1.objets.Noeud;
 import fr.afcepf.ai78.projet1.objets.Stagiaire;
 
