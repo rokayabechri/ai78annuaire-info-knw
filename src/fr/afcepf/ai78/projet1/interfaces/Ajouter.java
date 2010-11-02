@@ -1,27 +1,15 @@
 package fr.afcepf.ai78.projet1.interfaces;
 
-import javax.swing.JPanel;
 import java.awt.Dimension;
 import javax.swing.JLabel;
-import java.awt.GridLayout;
 import javax.swing.JTextField;
-import java.awt.Component;
-import java.awt.ComponentOrientation;
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JList;
 import javax.swing.JButton;
-import javax.swing.BoxLayout;
 import javax.swing.SwingConstants;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
