@@ -75,7 +75,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		}
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 436, 339);
+		setBounds(100, 100, 845, 474);
 		
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -120,12 +120,20 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		btnOuvrirAnnuaire.setPreferredSize(new Dimension(175, 175));
 		panelLancement.add(btnOuvrirAnnuaire);
 		
-		btnOuvrirAnnuaire.addActionListener(this);
+		btnOuvrirAnnuaire.addActionListener(this);//ok
+		btnNouvelAnnuaire.addActionListener(this);
+		
+		mntmNouveau.addActionListener(this);
+		mntmOuvrir.addActionListener(this);//ok
+		
+		mntmAjout.addActionListener(this);
+		mntmSuppression.addActionListener(this);
+		mntmEdition.addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == btnOuvrirAnnuaire){
+		if(e.getSource() == btnOuvrirAnnuaire || e.getSource() == mntmOuvrir){
 			JFileChooser fc = new JFileChooser("C:/");
 			int returnVal = fc.showOpenDialog(this);
 		    if(returnVal == JFileChooser.APPROVE_OPTION) {
@@ -142,9 +150,10 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		    	   JOptionPane.showMessageDialog(null, "Fichier incorrect");
 		       }
 		    }
-
 		}
-		
+		if (e.getSource() == btnNouvelAnnuaire || e.getSource() == mntmNouveau) {
+			
+		}
 	}
 	
 	public JPanel getContentPane() {
