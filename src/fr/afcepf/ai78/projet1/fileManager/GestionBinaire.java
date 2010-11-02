@@ -50,7 +50,7 @@ public class GestionBinaire {
 					Noeud unNoeud = new Noeud(elements[0], elements[1], elements[2], elements[3], Integer.parseInt(elements[4]));
 					indiceTableau = 0;
 					
-					if(!ajoutElementArbreBinaire(unNoeud,-1,0,false)){
+					if(!ajoutElementArbreBinaire(unNoeud,-1,0,false,getPositionAjout())){
 						ecrireNoeud(getPositionAjout(),unNoeud);
 						if(!fantome.isEmpty()){
 							fantome.remove(0);
@@ -74,7 +74,7 @@ public class GestionBinaire {
 		}
 	}
 	
-	public boolean ajoutElementArbreBinaire(Noeud stagiaire, int posParent, int posArbre, Boolean existeDeja) {
+	public boolean ajoutElementArbreBinaire(Noeud stagiaire, int posParent, int posArbre, Boolean existeDeja,int positionAjout) {
 		
 			if(!PromoExist(stagiaire.getPromotion())){
 				promo.add(stagiaire.getPromotion());
@@ -87,22 +87,20 @@ public class GestionBinaire {
 				existeDeja = false;
 				
 				if(parent != null){
-					int positionAjout = getPositionAjout();
 					if(parent.compareTo(stagiaire)<0){
 						ecrireInt((stagiaire.getParent()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE+AnnuaireConstante.TAILLE_PARENT+AnnuaireConstante.TAILLE_FILSG,positionAjout);
 					}else{
-						ecrireInt((stagiaire.getParent()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE+AnnuaireConstante.TAILLE_PARENT,positionAjout);
-						
+						ecrireInt((stagiaire.getParent()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE+AnnuaireConstante.TAILLE_PARENT,positionAjout);						
 					}
 				}
 				
 			}else{
 				if(stagiaire.compareTo(arbre)<0){
-					existeDeja = ajoutElementArbreBinaire(stagiaire, posArbre, arbre.getFilsG(), existeDeja);
+					existeDeja = ajoutElementArbreBinaire(stagiaire, posArbre, arbre.getFilsG(), existeDeja,positionAjout);
 					
 				}else{
 					if(stagiaire.compareTo(arbre)>0){
-						existeDeja =  ajoutElementArbreBinaire(stagiaire, posArbre, arbre.getFilsD(), existeDeja);
+						existeDeja =  ajoutElementArbreBinaire(stagiaire, posArbre, arbre.getFilsD(), existeDeja,positionAjout);
 					}else{
 						existeDeja =  true;
 					}
@@ -162,6 +160,7 @@ public class GestionBinaire {
 	}
 	
 	public List<Stagiaire> rechercher(String nom, int posArbre , List<Stagiaire> liste){
+
 		Noeud arbre = lireNoeud(posArbre);
 		
 		if (arbre == null) {
@@ -183,6 +182,28 @@ public class GestionBinaire {
 			}
 		}
 		return liste;
+	}
+	
+	public int rechercher(Noeud unNoeud, int posArbre){
+
+		Noeud arbre = lireNoeud(posArbre);
+		int position=-1;
+		if (arbre == null) {
+			return -1 ;
+		} else {
+			if (unNoeud.compareTo(arbre) < 0 ) {
+				position = rechercher(unNoeud , arbre.getFilsG() );
+				
+			} else {
+				if (unNoeud.compareTo(arbre) > 0 ) {
+					position = rechercher(unNoeud , arbre.getFilsD() );
+					
+				} else {
+					position = posArbre;
+				}
+			}
+		}
+		return position;
 	}
 	
 	public void supprimer(Noeud unNoeud, int posArbre){
@@ -409,9 +430,9 @@ public class GestionBinaire {
 		}
 		return unBoolean;
 	}
-
 	
 	public List<String> getPromo() {
 		return promo;
 	}
+
 }
