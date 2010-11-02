@@ -204,13 +204,15 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		
 		if (e.getSource() == btnSupprimer) {
 			
-				
-				int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer "+txtEntree.getText(), "confirmaion",JOptionPane.OK_CANCEL_OPTION);
+
+				int indice = table.getSelectedRow();
+				int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer "+table.getValueAt(indice, 0), "confirmaion",JOptionPane.OK_CANCEL_OPTION);
 				if(val==0){
-					int indice = table.getSelectedRow();
+					
 					Noeud  unNoeud = new Noeud(table.getValueAt(indice, 0).toString(),table.getValueAt(indice, 1).toString(),table.getValueAt(indice, 4).toString(),table.getValueAt(indice, 2).toString(),Integer.parseInt(table.getValueAt(indice, 3).toString()));
 					frame.getAnnuaireCourant().supprimer(unNoeud, 0);
-				}
+			
+			}
 			e.setSource(btnAfficherTout);
 			actionPerformed(e);
 		}
@@ -228,6 +230,11 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		}
 	}
 	
+	public FenetrePrincipale getFrame() {
+		return frame;
+	}
+
+
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		
@@ -266,9 +273,6 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	
 	public JTable getTable() {
 		return table;
-	}
-	public FenetrePrincipale getFrame() {
-		return frame;
 	}
 }
 
