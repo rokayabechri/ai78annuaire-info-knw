@@ -108,7 +108,6 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		btnEditer.addActionListener(this);
 		btnSupprimer.addActionListener(this);
 	}
-
 	
 	public AffichageAnnuaire() {
 		setOpaque(false);
@@ -168,7 +167,6 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 
 	}
 
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -211,22 +209,26 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		}
 		
 		if (e.getSource() == btnEditer) {
+			int indice = table.getSelectedRow();
+			Noeud  unNoeud = new Noeud(table.getValueAt(indice, 0).toString(),table.getValueAt(indice, 1).toString(),table.getValueAt(indice, 4).toString(),table.getValueAt(indice, 2).toString(),Integer.parseInt(table.getValueAt(indice, 3).toString()));
+
 
 			if(frame.getPopUp()==null){
-				frame.setPopUp(new Editer(this));
+
+				frame.setPopUp(new Editer(this,unNoeud));
+
 				frame.getPopUp().setSize(450, 350);
 				frame.getPopUp().setVisible(true);
 			}else{
 
 				frame.getPopUp().toFront();
 			}
-		}
+		}		
 	}
 	
 	public FenetrePrincipale getFrame() {
 		return frame;
 	}
-
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
@@ -236,13 +238,11 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	
 	}
 
-
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
-
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
@@ -250,13 +250,11 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		
 	}
 
-
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
-
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
