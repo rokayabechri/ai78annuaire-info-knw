@@ -12,7 +12,6 @@ public class LimiteTexte extends PlainDocument {
 	
 	public LimiteTexte(int max){
 		super();
-		
 		this.max = max;
 	}
 	

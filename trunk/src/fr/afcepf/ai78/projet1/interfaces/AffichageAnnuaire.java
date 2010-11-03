@@ -42,6 +42,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	private JButton btnRechercher = new JButton("Rechercher");
 	private JScrollPane scrollPane = new JScrollPane();
 	private FenetrePrincipale frame;
+	private ModeleStagiaire modele = new ModeleStagiaire();
 
 
 	/**
@@ -84,7 +85,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		panelRecherche.add(btnAfficherTout);
 		btnAfficherTout.setToolTipText("Afficher la totalité des stagiaires présent dans l'annuaire.");
 
-		
+
 		JSeparator separator = new JSeparator();
 		separator.setPreferredSize(new Dimension(2, 30));
 		separator.setOrientation(SwingConstants.VERTICAL);
@@ -109,8 +110,8 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 
 
 		add(scrollPane, BorderLayout.CENTER);
-		
-		
+
+
 
 		table = new JTable(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout(0, new ArrayList<Stagiaire>())));
 		scrollPane.setViewportView(table);
@@ -186,20 +187,20 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		btnAfficherTout.addActionListener(this);
 		btnSupprimer.addActionListener(this);
 		btnEditer.addActionListener(this);
-		
+
 		txtEntree.addKeyListener(new KeyListener() {
-			
+
 			@Override
 			public void keyTyped(KeyEvent e) {
 				System.out.println(e.getSource());
-				
+
 			}
-			
+
 			@Override
 			public void keyReleased(KeyEvent e) {
 				System.out.println(e.getSource());				
 			}
-			
+
 			@Override
 			public void keyPressed(KeyEvent e) {
 				System.out.println(e.getSource());				
@@ -230,7 +231,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 				}
 
 			}
-			
+
 		}
 
 		if (e.getSource() == btnAfficherTout) {
@@ -279,7 +280,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		if (e.getSource() == btnEditer) {
 			int indice = table.getSelectedRow();
 			Noeud  unNoeud = new Noeud(table.getValueAt(indice, 0).toString(),table.getValueAt(indice, 1).toString(),table.getValueAt(indice, 4).toString(),table.getValueAt(indice, 2).toString(),Integer.parseInt(table.getValueAt(indice, 3).toString()));
-			
+
 
 			if(frame.getPopUp()==null){
 
@@ -337,13 +338,13 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	public JTable getTable() {
 		return table;
 	}
-	
+
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
+
 
 	}
-	
+
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if(e.getKeyCode()==10){
@@ -371,23 +372,25 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 			}
 		}
 	}
-		
+
 	@Override	
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 	}
 
-	
+
 	@Override
 	public void focusGained(FocusEvent arg0) {
 
 	}
 
-	
+
 	@Override
 	public void focusLost(FocusEvent arg0) {
-	
+
 	}
+	
+	
 
 }
 
