@@ -28,9 +28,6 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 	private FenetrePrincipale interfaceAnnuaire;
 
 
-	public GestionBinaire(){
-	}
-
 	public GestionBinaire(FenetrePrincipale interfaceAnnuaire, String fichierSource, String fichierSortie) {
 		this.fichierSource = fichierSource;
 		this.fichierSortie = fichierSortie;
@@ -95,14 +92,14 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		return liste;
 	}
 	
-	private boolean creationArbreBinaire(String fichierSource, String FichierSortie, double progressStart, double progressEnd) {
+	private boolean creationArbreBinaire(double progressStart, double progressEnd) {
 		try {
 			File f = new File(fichierSource);
 			BufferedReader br  = new BufferedReader(new FileReader(f));
 			LineNumberReader lnr = new LineNumberReader(new FileReader(f));
 			
 			lnr.skip(f.length());
-			setFichier(new RandomAccessFile(FichierSortie, "rw"));
+			fichier = new RandomAccessFile(fichierSortie, "rw");
 
 			String ligne = "";
 			int indiceTableau = 0;
@@ -148,7 +145,6 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 			return false;
 		}
 	}
-
 
 	public boolean ajoutElementArbreBinaire(Noeud stagiaire, int posParent, int posArbre, Boolean existeDeja,int positionAjout) {
 
@@ -521,11 +517,9 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		return promo;
 	}
 	
-	
-
 	@Override
 	public Boolean doInBackground() throws Exception {
-		return creationArbreBinaire(fichierSource, fichierSortie, 0, 100);
+		return creationArbreBinaire(0, 100);
 	}
 
 	@Override

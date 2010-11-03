@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.FileNotFoundException;
 import java.io.RandomAccessFile;
 
@@ -18,6 +20,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+
+import fr.afcepf.ai78.projet1.fileManager.GestionBinaire;
 
 public class NouvelAnnuaire extends JDialog implements ActionListener,WindowListener{
 	private JTextField txtAnnuaire;
@@ -86,19 +90,21 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 					int returnVal = fc.showOpenDialog(this);
 					if(returnVal == JFileChooser.APPROVE_OPTION) {
 						String chemin = fc.getSelectedFile().toString();
+						GestionBinaire gb = new GestionBinaire(frame, chemin, "c:/binaries/"+nomFichier+".bin");
+						gb.addPropertyChangeListener(new PropertyChangeListener() {
+									
+							public  void propertyChange(PropertyChangeEvent evt) {
+								if ("progress".equals(evt.getPropertyName())) {
+									frame.getProgressBar().setValue((Integer)evt.getNewValue());
+								}
+							}
+						});
 
-						if(frame.getAnnuaireCourant().creationArbreBinaire(chemin, "c:/binaries/"+nomFichier+".bin")){
-							JOptionPane.showMessageDialog(this, "Création OK");
-							frame.getContentPane().remove(frame.getPanelLancement());
-							frame.getContentPane().add(new AffichageAnnuaire(frame),BorderLayout.CENTER);
-							frame.setEnabled(true);
-							frame.toFront();
-							frame.getContentPane().revalidate();
-							frame.setPopUp(null);
-							this.dispose();
-						}else{
-							JOptionPane.showMessageDialog(this, "Fichier incorrect");
-						}
+						frame.setAnnuaireCourant(gb);
+						frame.getAnnuaireCourant().execute();
+						frame.setPopUp(null);
+						frame.toFront();
+						this.dispose();
 					}
 				}else{
 					JOptionPane.showMessageDialog(this, "Saisir un nom");
@@ -106,7 +112,6 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 			}else{
 
 				if(rdbtnNouveauFichier.isSelected()){
-
 
 					String nomFichier = txtAnnuaire.getText().toString();
 
@@ -118,11 +123,11 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 							frame.setPopUp(null);
 							String FichierSortie =  "c:/"+nomFichier+".bin";
 							frame.getAnnuaireCourant().setFichier(new RandomAccessFile(FichierSortie, "rw"));
-							frame.getContentPane().remove(frame.getPanelLancement());
+							frame.getContentPane().remove(frame.getContentPane().getComponent(0));
 							frame.getContentPane().add(new AffichageAnnuaire(frame),BorderLayout.CENTER);
 							frame.getContentPane().revalidate();
 							frame.setEnabled(true);
-							frame.toFront();		
+							frame.toFront();
 						} catch (FileNotFoundException e1) {
 							frame.setEnabled(true);
 							frame.toFront();
@@ -175,9 +180,8 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 	@Override
 	public void windowClosing(WindowEvent arg0) {
 		frame.setPopUp(null);
-
-
-		
+		frame.setEnabled(true);
+		frame.toFront();
 	}
 
 	@Override
