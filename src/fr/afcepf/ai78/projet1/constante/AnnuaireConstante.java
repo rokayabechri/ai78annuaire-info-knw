@@ -64,4 +64,9 @@ public class AnnuaireConstante {
 	 */
 	public static final int TAILLE_NOEUD = TAILLE_STAGIAIRE + TAILLE_PARENT + TAILLE_FILSG + TAILLE_FILSD ;
 	
+	/**
+	 * The number of line used by a trainee in the source file.
+	 */
+	public static final int NB_LIGNE_STAGIAIRE = 6;
+	
 }
