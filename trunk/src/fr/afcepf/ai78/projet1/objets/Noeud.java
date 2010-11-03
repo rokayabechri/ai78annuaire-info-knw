@@ -121,7 +121,7 @@ public class Noeud extends Stagiaire{
 	 */
 	@Override
 	public String toString() {
-		return "Noeud [Nom="+nom+" posParent=" + posParent + ", posFilsG=" + posFilsG
+		return super.toString()+" [posParent=" + posParent + ", posFilsG=" + posFilsG
 				+ ", posFilsD=" + posFilsD + "]";
 	}
 }
