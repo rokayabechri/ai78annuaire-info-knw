@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.PrintJob;
-
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -21,13 +20,14 @@ import javax.swing.JButton;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.RandomAccessFile;
 import java.util.Properties;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import fr.afcepf.ai78.projet1.fileManager.GestionBinaire;
+
 
 public class FenetrePrincipale extends JFrame implements ActionListener{
 
@@ -47,9 +47,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	private JDialog popUp;
 	private JMenu menuAide;
 	private JMenuItem mntmImprimer;
-	
-	
-	
 	
 	
 
@@ -158,46 +155,19 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
+
 		if(e.getSource() == btnOuvrirAnnuaire || e.getSource() == mntmOuvrir){
-			JFileChooser fc = new JFileChooser("C:/");
-			int returnVal = fc.showOpenDialog(this);
-		    if(returnVal == JFileChooser.APPROVE_OPTION) {
-		       String chemin = fc.getSelectedFile().toString();
-		       String nomFichier = fc.getSelectedFile().getName();
-		       
-		       nomFichier = nomFichier.substring(0, nomFichier.indexOf("."));
-		       if(annuaireCourant.creationArbreBinaire(chemin, "c:/"+nomFichier+".bin")){
-		    	   JOptionPane.showMessageDialog(this, "Création OK");
-		    	   contentPane.remove(panelLancement);
-			       contentPane.add(new AffichageAnnuaire(this),BorderLayout.CENTER);
-			       contentPane.revalidate();
-		       }else{
-		    	   JOptionPane.showMessageDialog(this, "Fichier incorrect");
-		       }
-		    }
-		}
-	
-		if (e.getSource() == btnNouvelAnnuaire || e.getSource() == mntmNouveau) {
 
-			String nomFichier = JOptionPane.showInputDialog(this, "saisir nom du nouvel annuaire");
+			this.setEnabled(false);
 
-			if(!nomFichier.equals("")){
-				try {			
-					String FichierSortie =  "c:/"+nomFichier+".bin";
-					annuaireCourant.setFichier(new RandomAccessFile(FichierSortie, "rw"));
-			    	contentPane.remove(panelLancement);
-				    contentPane.add(new AffichageAnnuaire(this),BorderLayout.CENTER);
-				    contentPane.revalidate();
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
+			File repertoire = new File("c:/binaries");
+			String [] listefichiers;  
+			listefichiers  = repertoire.list();
 
-			}	
-		}
-		
-		if (e.getSource() == menuAide) {
+
 			if(this.getPopUp()==null){
-				this.setPopUp(new JDialog(this,"programme realiser par W.Lepante, K.Augerau, N.Chouaib"));
+				this.setPopUp(new AnnaireExistant(this,listefichiers));
 				this.getPopUp().setSize(450, 350);
 				this.getPopUp().setLocationRelativeTo(this);
 				this.getPopUp().setVisible(true);
@@ -207,37 +177,83 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 					this.getPopUp().toFront();
 				}else{
 					this.getPopUp().dispose();
-					this.setPopUp(new JDialog(this));
+					this.setPopUp(new AnnaireExistant(this,listefichiers));
 					this.getPopUp().setSize(450, 350);
 					this.getPopUp().setLocationRelativeTo(this);
 					this.getPopUp().setVisible(true);
 
 				}
-
 			}
-
-
 		}
-		
-		if (e.getSource() == mntmImprimer) {
-			Properties props = new Properties();
 
-			props.put("awt.print.paperSize", "a4");
-			props.put("awt.print.destination", "printer");
+		if (e.getSource() == btnNouvelAnnuaire || e.getSource() == mntmNouveau) {
 
+			this.setEnabled(false);
 
-			PrintJob pJob = getToolkit().getPrintJob(this,
-					"titre de la page pdf", props);
-			if (pJob != null)
-			{
-				Graphics pg = pJob.getGraphics();
-				contentPane.getComponent(0).printAll(pg);
-				pg.dispose();
-				pJob.end();
+			if(this.getPopUp()==null){
+				this.setPopUp(new NouvelAnnuaire(this));
+				this.getPopUp().setSize(450, 350);
+				this.getPopUp().setLocationRelativeTo(this);
+				this.getPopUp().setVisible(true);
+
+			}else{
+				if(this.getPopUp().getClass().equals("fr.afcepf.ai78.projet1.interfaces.FenetrePrincipale")){
+					this.getPopUp().toFront();
+				}else{
+					this.getPopUp().dispose();
+					this.setPopUp(new NouvelAnnuaire(this));
+					this.getPopUp().setSize(450, 350);
+					this.getPopUp().setLocationRelativeTo(this);
+					this.getPopUp().setVisible(true);
+
+				}
 			}
-
 		}
+
+		//		if (e.getSource() == menuAide) {
+		//			if(this.getPopUp()==null){
+		//				this.setPopUp(new JDialog(this,"programme realiser par W.Lepante, K.Augerau, N.Chouaib"));
+		//				this.getPopUp().setSize(450, 350);
+		//				this.getPopUp().setLocationRelativeTo(this);
+		//				this.getPopUp().setVisible(true);
+		//
+		//			}else{
+		//				if(this.getPopUp().getClass().equals("fr.afcepf.ai78.projet1.interfaces.FenetrePrincipale")){
+		//					this.getPopUp().toFront();
+		//				}else{
+		//					this.getPopUp().dispose();
+		//					this.setPopUp(new NouvelAnnuaire(this));
+		//					this.getPopUp().setSize(450, 350);
+		//					this.getPopUp().setLocationRelativeTo(this);
+		//					this.getPopUp().setVisible(true);
+		//
+		//				}
+		//
+		//			}
+		//
+		//
+		//		}
+		//
+		//		if (e.getSource() == mntmImprimer) {
+		//			Properties props = new Properties();
+		//
+		//			props.put("awt.print.paperSize", "a4");
+		//			props.put("awt.print.destination", "printer");
+		//
+		//
+		//			PrintJob pJob = getToolkit().getPrintJob(this,
+		//					"titre de la page pdf", props);
+		//			if (pJob != null)
+		//			{
+		//				Graphics pg = pJob.getGraphics();
+		//				contentPane.getComponent(0).printAll(pg);
+		//				pg.dispose();
+		//				pJob.end();
+		//			}
+		//
+		//		}
 	}
+	
 	
 	public JPanel getContentPane() {
 		return contentPane;
@@ -253,5 +269,9 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 
 	public void setPopUp(JDialog popUp) {
 		this.popUp = popUp;
+	}
+
+	public JPanel getPanelLancement() {
+		return panelLancement;
 	}
 }
