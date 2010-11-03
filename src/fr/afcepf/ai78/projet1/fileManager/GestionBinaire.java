@@ -20,7 +20,6 @@ import fr.afcepf.ai78.projet1.objets.Stagiaire;
 
 public class GestionBinaire extends SwingWorker<Boolean, String>{
 
-	private RandomAccessFile fichier ;
 	private List<Integer> fantome = new ArrayList<Integer>();
 	private List<String> promo = new ArrayList<String>();
 	private String fichierSource = "";
@@ -99,7 +98,7 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 			LineNumberReader lnr = new LineNumberReader(new FileReader(f));
 			
 			lnr.skip(f.length());
-			fichier = new RandomAccessFile(fichierSortie, "rw");
+			RandomAccessFile fichier = new RandomAccessFile(fichierSortie, "rw");
 
 			String ligne = "";
 			int indiceTableau = 0;
@@ -131,7 +130,7 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 					setProgress((int) progressStart);
 				}
 			}
-
+			fichier.close();
 			return true;
 
 		} catch (FileNotFoundException e) {
@@ -144,11 +143,13 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 			e.printStackTrace();
 			return false;
 		}
+		
+		
 	}
 
 	public boolean ajoutElementArbreBinaire(Noeud stagiaire, int posParent, int posArbre, Boolean existeDeja,int positionAjout) {
 
-		if(!PromoExist(stagiaire.getPromotion())){
+		if(!promoExist(stagiaire.getPromotion())){
 
 			promo.add(stagiaire.getPromotion());
 		}
@@ -188,7 +189,16 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		}
 	}
 
-	public List<Stagiaire> afficherTout(int posArbre, List<Stagiaire> listeNoeud)
+	public List<Stagiaire> afficherTout(){
+		List<Stagiaire> liste = new ArrayList<Stagiaire>();
+		if(fantome.indexOf(0)==-1){
+			liste = afficherTout(0, new ArrayList<Stagiaire>());
+		}
+		
+		return liste;
+	}
+	
+	private List<Stagiaire> afficherTout(int posArbre, List<Stagiaire> listeNoeud)
 	{
 
 		Noeud arbre = lireNoeud(posArbre);
@@ -205,35 +215,6 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 
 
 		return listeNoeud;	
-	}
-
-	public List<Stagiaire> afficherTout(int posArbre, boolean gauche, boolean droite, List<Stagiaire> listeNoeud)
-
-	{
-		Noeud arbre = lireNoeud(posArbre);
-		if(gauche && arbre.hasFilsG()){
-			afficherTout(arbre.getFilsG(),true,true,listeNoeud);
-
-		}else{
-			if(gauche || droite){
-				listeNoeud.add(arbre);
-			}
-
-			if(droite && arbre.hasFilsD()){
-				afficherTout(arbre.getFilsD(),true,true,listeNoeud);
-
-			}else if(!arbre.isRacine()){
-				Noeud parent = lireNoeud(arbre.getParent());
-
-				if(parent.getFilsG() == posArbre){
-					afficherTout(arbre.getParent(),false,true,listeNoeud);
-				}else{
-					afficherTout(arbre.getParent(),false,false,listeNoeud);
-				}
-			}
-		}
-		return listeNoeud;
-
 	}
 
 	public List<Stagiaire> rechercher(String nom, int posArbre , List<Stagiaire> liste){
@@ -389,79 +370,71 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 	}
 
 	public int getPositionAjout() throws IOException{
-
+		
+		RandomAccessFile fichier = new RandomAccessFile(fichierSortie, "rw");
+		int position;
 		if(fantome.isEmpty()){
-
-			return ((int)(getFichier().length()/AnnuaireConstante.TAILLE_NOEUD));
-
+			position = ((int)(fichier.length()/AnnuaireConstante.TAILLE_NOEUD));
 		}else{
-
-			return fantome.get(fantome.size()-1);
+			position = fantome.get(fantome.size()-1);
 		}
-	}
-
-	public List<Noeud> lireFichier(){
-		List<Noeud> liste = new ArrayList<Noeud>();
-		try {
-			for (int i = 0; i < getFichier().length()/AnnuaireConstante.TAILLE_NOEUD; i++) {
-				liste.add(lireNoeud(i));
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return liste;
+		fichier.close();
+		return position;
 	}
 
 	public void ecrireNoeud(int indice, Noeud ajout) throws IOException {
-		getFichier().seek(indice*AnnuaireConstante.TAILLE_NOEUD);
+		
+		RandomAccessFile fichier = new RandomAccessFile(fichierSortie, "rw");
+		fichier.seek(indice*AnnuaireConstante.TAILLE_NOEUD);
 
-		getFichier().writeChars(formater(AnnuaireConstante.TAILLE_NOM,ajout.getNom()));
-		getFichier().writeChars(formater(AnnuaireConstante.TAILLE_PRENOM,ajout.getPrenom()));
-		getFichier().writeChars(formater(AnnuaireConstante.TAILLE_PROMOTION,ajout.getPromotion()));
-		getFichier().writeChars(formater(AnnuaireConstante.TAILLE_DEPARTEMENT,ajout.getDepartement()));
-		getFichier().writeInt(ajout.getAnnee());
-		getFichier().writeInt(ajout.getParent());
-		getFichier().writeInt(ajout.getFilsG());
-		getFichier().writeInt(ajout.getFilsD());
+		fichier.writeChars(formater(AnnuaireConstante.TAILLE_NOM,ajout.getNom()));
+		fichier.writeChars(formater(AnnuaireConstante.TAILLE_PRENOM,ajout.getPrenom()));
+		fichier.writeChars(formater(AnnuaireConstante.TAILLE_PROMOTION,ajout.getPromotion()));
+		fichier.writeChars(formater(AnnuaireConstante.TAILLE_DEPARTEMENT,ajout.getDepartement()));
+		fichier.writeInt(ajout.getAnnee());
+		fichier.writeInt(ajout.getParent());
+		fichier.writeInt(ajout.getFilsG());
+		fichier.writeInt(ajout.getFilsD());
+		
+		fichier.close();
 	}
 
-	public void ecrireNoeud(Noeud ajout) throws IOException {
 
-		getFichier().writeChars(formater(AnnuaireConstante.TAILLE_NOM,ajout.getNom()));
-		getFichier().writeChars(formater(AnnuaireConstante.TAILLE_PRENOM,ajout.getPrenom()));
-		getFichier().writeChars(formater(AnnuaireConstante.TAILLE_PROMOTION,ajout.getPromotion()));
-		getFichier().writeChars(formater(AnnuaireConstante.TAILLE_DEPARTEMENT,ajout.getDepartement()));
-		getFichier().writeInt(ajout.getAnnee());
-		getFichier().writeInt(ajout.getParent());
-		getFichier().writeInt(ajout.getFilsG());
-		getFichier().writeInt(ajout.getFilsD());
-	}
 
 	private Noeud lireNoeud(int indice) {
-
+		
 		Noeud unNoeud = new Noeud();
 		try {
+			
+			RandomAccessFile fichier = new RandomAccessFile(fichierSortie, "rw");
+			fichier.seek(indice*AnnuaireConstante.TAILLE_NOEUD);
 
-			getFichier().seek(indice*AnnuaireConstante.TAILLE_NOEUD);
-
-			unNoeud.setNom(lireChaine(AnnuaireConstante.TAILLE_NOM));
-			unNoeud.setPrenom(lireChaine(AnnuaireConstante.TAILLE_PRENOM));
-			unNoeud.setPromotion(lireChaine(AnnuaireConstante.TAILLE_PROMOTION));
-			unNoeud.setDepartement(lireChaine(AnnuaireConstante.TAILLE_DEPARTEMENT));
-			unNoeud.setAnnee(getFichier().readInt());
-			unNoeud.setParent(getFichier().readInt());
-			unNoeud.setFilsG(getFichier().readInt());
-			unNoeud.setFilsD(getFichier().readInt());
+			unNoeud.setNom(lireChaine(AnnuaireConstante.TAILLE_NOM,fichier));
+			unNoeud.setPrenom(lireChaine(AnnuaireConstante.TAILLE_PRENOM,fichier));
+			unNoeud.setPromotion(lireChaine(AnnuaireConstante.TAILLE_PROMOTION,fichier));
+			unNoeud.setDepartement(lireChaine(AnnuaireConstante.TAILLE_DEPARTEMENT,fichier));
+			unNoeud.setAnnee(fichier.readInt());
+			unNoeud.setParent(fichier.readInt());
+			unNoeud.setFilsG(fichier.readInt());
+			unNoeud.setFilsD(fichier.readInt());
+			
+			fichier.close();
 
 		} catch (IOException e) {
+			return null;
+		} catch (Exception e){
 			return null;
 		}
 		return unNoeud;
 	}
 
 	private void ecrireInt(int position, int element) throws IOException{
-		getFichier().seek(position);
-		getFichier().writeInt(element);
+		
+		RandomAccessFile fichier = new RandomAccessFile(fichierSortie, "rw");
+		fichier.seek(position);
+		fichier.writeInt(element);
+		
+		fichier.close();
 	}
 
 	private String formater (int taille ,String chaine){
@@ -473,17 +446,14 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		return chaine;
 	} 
 
-	private String lireChaine(int taille){
+	private String lireChaine(int taille,RandomAccessFile fichier) throws IOException{
 
 		String chaine="";
 
-		try {
-			byte [] tableauOctet = new byte [taille];
-			getFichier().read(tableauOctet);
-			chaine = new String(tableauOctet,"UTF-16").trim();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		byte [] tableauOctet = new byte [taille];
+		fichier.read(tableauOctet);
+		chaine = new String(tableauOctet,"UTF-16").trim();
+
 		return chaine;
 	}
 
@@ -491,15 +461,8 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		return fantome;
 	}
 
-	public void setFichier(RandomAccessFile fichier) {
-		this.fichier = fichier;
-	}
 
-	public RandomAccessFile getFichier() {
-		return fichier;
-	}
-
-	private boolean PromoExist(String promotion)
+	private boolean promoExist(String promotion)
 	{
 		boolean unBoolean = false;
 
