@@ -22,10 +22,9 @@ import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
-
-
 import fr.afcepf.ai78.projet1.objets.Noeud;
 import fr.afcepf.ai78.projet1.objets.Stagiaire;
+
 
 public class AffichageAnnuaire extends JPanel implements ActionListener,MouseListener,KeyListener, FocusListener{
 
@@ -86,16 +85,12 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		separator.setOrientation(SwingConstants.VERTICAL);
 		panelRecherche.add(separator);
 
-
 		panelRecherche.add(btnLister);
-
 
 		panelRecherche.add(btnRechercher);
 
-
 		lblEntree.setIcon(new ImageIcon(AffichageAnnuaire.class.getResource("/fr/afcepf/ai78/projet1/images/search_16.png")));
 		panelRecherche.add(lblEntree);
-
 
 		txtEntree.setName("Recherche");
 		txtEntree.setPreferredSize(new Dimension(150, 25));
