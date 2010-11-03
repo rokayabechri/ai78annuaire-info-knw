@@ -9,6 +9,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JDialog;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
@@ -18,13 +21,14 @@ import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
 
 import fr.afcepf.ai78.projet1.objets.Noeud;
+import fr.afcepf.ai78.projet1.objets.Stagiaire;
 
 import javax.swing.JComboBox;
 
-public class Ajouter extends JDialog implements ActionListener,WindowListener{
+public class RechercheAvancee extends JDialog implements ActionListener,WindowListener{
 	
 	private JButton btnAnnuler;
-	private JButton btnSauvegarder;
+	private JButton btnRechercherAv;
 	private JLabel lblAnne;
 	private JLabel lblNom;
 	private JLabel lblPrnom;
@@ -35,15 +39,17 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 	private JTextField textDepartement;
 	private JComboBox comboBox;
 	private JTextField textAnnee;
-	private FenetrePrincipale frame;
 	private JTextField textPromotion;
+	private AffichageAnnuaire parent;
 
 	/**
 	 * Create the panel.
 	 */
-	public Ajouter(FenetrePrincipale frame) {
-		setResizable(false);	
-		this.frame = frame;
+	public RechercheAvancee(AffichageAnnuaire parent) {
+		setResizable(false);
+//		setPreferredSize(new Dimension(480, 310));	
+		setBounds(100, 100, 500, 300);
+		this.parent = parent;
 		getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("85px"),
@@ -89,7 +95,7 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(comboBox, "4, 6");
 		comboBox.removeAllItems();
 		comboBox.addItem("");
-		for (String string : frame.getAnnuaireCourant().getPromo()) {
+		for (String string : parent.getFrame().getAnnuaireCourant().getPromo()) {
 			
 			comboBox.addItem(string);
 		}
@@ -108,11 +114,11 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(textAnnee, "4, 8, left, default");
 		textAnnee.setColumns(10);
 		
-		btnSauvegarder = new JButton("Sauvegarder");
-		getContentPane().add(btnSauvegarder, "6, 8");
+		btnRechercherAv = new JButton("Rechercher");
+		getContentPane().add(btnRechercherAv, "6, 8");
 		
 		
-		btnSauvegarder.addActionListener(this);
+		btnRechercherAv.addActionListener(this);
 		
 		lblAnne_1 = new JLabel("Département :");
 		lblAnne_1.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -135,7 +141,7 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		if(e.getSource()==btnSauvegarder){
+		if(e.getSource()==btnRechercherAv){
 			
 			String nom = textNom.getText();
 			String prenom = textPrenom.getText();
@@ -146,30 +152,25 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 				textPromotion.setText(comboBox.getSelectedItem().toString());
 				promotion = textPromotion.getText();
 			}
-
 			String departement = textDepartement.getText();
-			String annee = textAnnee.getText();
-
-			if((!nom.equals("")&&!prenom.equals("")&&!promotion.equals("")&&!annee.equals(""))){
-				try {
-					Noeud unNoeud = new Noeud(nom,prenom,departement,promotion,Integer.parseInt(annee));
-					frame.getAnnuaireCourant().ajoutElementArbreBinaire(unNoeud,-1,0,false,frame.getAnnuaireCourant().getPositionAjout());
-
-					frame.getAnnuaireCourant().ecrireNoeud(frame.getAnnuaireCourant().getPositionAjout(),unNoeud);
-					this.dispose();
-					frame.setPopUp(null);	
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+			int annee = -1;
+			try {
+				annee = Integer.parseInt(textAnnee.getText());
+			} catch (NumberFormatException e2) {
+				e2.printStackTrace();
 			}
-			
-			
-		}
+			List<Stagiaire> liste = new ArrayList<Stagiaire>() ;
+			liste = parent.getFrame().getAnnuaireCourant().rechercheRec(0, nom, prenom, promotion, annee, departement, liste);
+			parent.getTable().setModel(new ModeleStagiaire(liste));
+			this.dispose();
+			parent.getFrame().setPopUp(null);
+		}	
+		
 		
 		if(e.getSource()==btnAnnuler){
 
 			this.dispose();
-			frame.setPopUp(null);
+			parent.getFrame().setPopUp(null);
 		}
 		
 		if(e.getSource()==comboBox){
@@ -197,7 +198,7 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 
 	@Override
 	public void windowClosing(WindowEvent arg0) {
-		frame.setPopUp(null);
+		parent.getFrame().setPopUp(null);
 		
 	}
 
@@ -225,7 +226,4 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		
 	}
 
-	public FenetrePrincipale getFrame() {
-		return frame;
-	}
 }

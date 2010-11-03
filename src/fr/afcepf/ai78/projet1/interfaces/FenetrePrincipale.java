@@ -2,6 +2,9 @@ package fr.afcepf.ai78.projet1.interfaces;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Graphics;
+import java.awt.PrintJob;
+
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -18,13 +21,15 @@ import javax.swing.JButton;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.RandomAccessFile;
+import java.util.Properties;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import fr.afcepf.ai78.projet1.fileManager.GestionBinaire;
 
 public class FenetrePrincipale extends JFrame implements ActionListener{
-
-
 
 	private JPanel contentPane;
 	private JButton btnOuvrirAnnuaire;
@@ -40,16 +45,25 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	private JMenuItem mntmEdition;
 	private JMenuItem mntmAjout;
 	private JDialog popUp;
-
+	private JMenu menuAide;
+	private JMenuItem mntmImprimer;
+	
+	
+	
+	
+	
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+
 			public void run() {
+
 				try {
 					FenetrePrincipale frame = new FenetrePrincipale();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -75,7 +89,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		}
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 845, 474);
+		setBounds(100, 100, 550, 400);
 		
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -90,6 +104,9 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		mntmOuvrir = new JMenuItem("Ouvrir");
 		mnFichier.add(mntmOuvrir);
 		
+		mntmImprimer = new JMenuItem("Imprimer");
+		mnFichier.add(mntmImprimer);
+		
 		mnEdition = new JMenu("Edition");
 		menuBar.add(mnEdition);
 		
@@ -101,6 +118,9 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		
 		mntmEdition = new JMenuItem("Modifier");
 		mnEdition.add(mntmEdition);
+		
+		menuAide = new JMenu("?");
+		menuBar.add(menuAide);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -111,13 +131,15 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		panelLancement.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		btnNouvelAnnuaire = new JButton("Nouvel Annuaire");
-		btnNouvelAnnuaire.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/nouveau_48.png")));
-		btnNouvelAnnuaire.setPreferredSize(new Dimension(175, 175));
+		btnNouvelAnnuaire.setSelectedIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/btn_nouveau_over.png")));
+		btnNouvelAnnuaire.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/btn_nouveau.png")));
+		btnNouvelAnnuaire.setPreferredSize(new Dimension(250, 300));
 		panelLancement.add(btnNouvelAnnuaire);
 		
 		btnOuvrirAnnuaire = new JButton("Ouvrir Annuaire");
-		btnOuvrirAnnuaire.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/ouvrir_48.png")));
-		btnOuvrirAnnuaire.setPreferredSize(new Dimension(175, 175));
+		btnOuvrirAnnuaire.setSelectedIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/btn_ouvrir_over.png")));
+		btnOuvrirAnnuaire.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/btn_ouvrir.png")));
+		btnOuvrirAnnuaire.setPreferredSize(new Dimension(250, 300));
 		panelLancement.add(btnOuvrirAnnuaire);
 		
 		btnOuvrirAnnuaire.addActionListener(this);//ok
@@ -129,6 +151,9 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		mntmAjout.addActionListener(this);
 		mntmSuppression.addActionListener(this);
 		mntmEdition.addActionListener(this);
+		menuAide.addActionListener(this);
+		mntmImprimer.addActionListener(this);
+		
 	}
 
 	@Override
@@ -147,12 +172,70 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 			       contentPane.add(new AffichageAnnuaire(this),BorderLayout.CENTER);
 			       contentPane.revalidate();
 		       }else{
-		    	   JOptionPane.showMessageDialog(null, "Fichier incorrect");
+		    	   JOptionPane.showMessageDialog(this, "Fichier incorrect");
 		       }
 		    }
 		}
+	
 		if (e.getSource() == btnNouvelAnnuaire || e.getSource() == mntmNouveau) {
-			
+
+			String nomFichier = JOptionPane.showInputDialog(this, "saisir nom du nouvel annuaire");
+
+			if(!nomFichier.equals("")){
+				try {			
+					String FichierSortie =  "c:/"+nomFichier+".bin";
+					annuaireCourant.setFichier(new RandomAccessFile(FichierSortie, "rw"));
+			    	contentPane.remove(panelLancement);
+				    contentPane.add(new AffichageAnnuaire(this),BorderLayout.CENTER);
+				    contentPane.revalidate();
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+
+			}	
+		}
+		
+		if (e.getSource() == menuAide) {
+			if(this.getPopUp()==null){
+				this.setPopUp(new JDialog(this,"programme realiser par W.Lepante, K.Augerau, N.Chouaib"));
+				this.getPopUp().setSize(450, 350);
+				this.getPopUp().setLocationRelativeTo(this);
+				this.getPopUp().setVisible(true);
+
+			}else{
+				if(this.getPopUp().getClass().equals("fr.afcepf.ai78.projet1.interfaces.FenetrePrincipale")){
+					this.getPopUp().toFront();
+				}else{
+					this.getPopUp().dispose();
+					this.setPopUp(new JDialog(this));
+					this.getPopUp().setSize(450, 350);
+					this.getPopUp().setLocationRelativeTo(this);
+					this.getPopUp().setVisible(true);
+
+				}
+
+			}
+
+
+		}
+		
+		if (e.getSource() == mntmImprimer) {
+			Properties props = new Properties();
+
+			props.put("awt.print.paperSize", "a4");
+			props.put("awt.print.destination", "printer");
+
+
+			PrintJob pJob = getToolkit().getPrintJob(this,
+					"titre de la page pdf", props);
+			if (pJob != null)
+			{
+				Graphics pg = pJob.getGraphics();
+				contentPane.getComponent(0).printAll(pg);
+				pg.dispose();
+				pJob.end();
+			}
+
 		}
 	}
 	
