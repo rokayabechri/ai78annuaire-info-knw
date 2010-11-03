@@ -48,11 +48,11 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("85px"),
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("80dlu"),
+				ColumnSpec.decode("140px"),
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("80dlu"),
+				ColumnSpec.decode("140px"),
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("109px"),},
+				ColumnSpec.decode("90px"),},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("45px"),
@@ -69,14 +69,17 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(lblNom, "2, 2, right, center");
 		
 		textNom = new JTextField();
+		textNom.setToolTipText("<html>Renseigner le nom du nouveau stagiaire.</html>");
 		getContentPane().add(textNom, "4, 2, fill, default");
 		textNom.setColumns(10);
 		
 		lblAnne = new JLabel("Prénom :");
+		
 		lblAnne.setHorizontalAlignment(SwingConstants.RIGHT);
 		getContentPane().add(lblAnne, "2, 4, right, default");
 		
 		textPrenom = new JTextField();
+		textPrenom.setToolTipText("<html>Renseigner le prénom du nouveau stagiaire.</html>");
 		textPrenom.setColumns(10);
 		getContentPane().add(textPrenom, "4, 4, fill, default");
 		
@@ -85,6 +88,7 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(lblPromotion, "2, 6, right, default");
 		
 		comboBox = new JComboBox();
+		comboBox.setToolTipText("<html>Selectionner une promotion dans la liste déroulante.<br/>Choisir \"autres\" pour créer une nouvelle promotion.</html>");
 		comboBox.setMinimumSize(new Dimension(12, 26));
 		getContentPane().add(comboBox, "4, 6");
 		comboBox.removeAllItems();
@@ -96,6 +100,7 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		comboBox.addItem("autre");
 		
 		textPromotion = new JTextField();
+		textPromotion.setToolTipText("<html>Renseigner une nouvelle année de promotion.</html>");
 		textPromotion.setVisible(false);
 		getContentPane().add(textPromotion, "6, 6");
 		textPromotion.setColumns(10);
@@ -105,10 +110,12 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(lblPrnom, "2, 8, right, default");
 		
 		textAnnee = new JTextField();
+		textAnnee.setToolTipText("<html>Renseigner l'année de promotion du nouveau stagiaire.</html>");
 		getContentPane().add(textAnnee, "4, 8, left, default");
 		textAnnee.setColumns(10);
 		
 		btnSauvegarder = new JButton("Sauvegarder");
+		btnSauvegarder.setToolTipText("<html>Sauvegarder votre nouvelle enregistrement.</html>");
 		getContentPane().add(btnSauvegarder, "6, 8");
 		
 		
@@ -119,10 +126,12 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(lblAnne_1, "2, 10, right, default");
 		
 		textDepartement = new JTextField();
+		textDepartement.setToolTipText("<html>Renseigner le code département du nouveau stagiaire.</html>");
 		getContentPane().add(textDepartement, "4, 10, left, default");
 		textDepartement.setColumns(10);
 		
 		btnAnnuler = new JButton("Annuler");
+		btnAnnuler.setToolTipText("<html>Annuler votre enregistrement.<br/></html>");
 		getContentPane().add(btnAnnuler, "6, 10");
 		btnAnnuler.addActionListener(this);
 		comboBox.addActionListener(this);
