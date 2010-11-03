@@ -42,7 +42,6 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	private JButton btnRechercher = new JButton("Rechercher");
 	private JScrollPane scrollPane = new JScrollPane();
 	private FenetrePrincipale frame;
-	private ModeleStagiaire modele = new ModeleStagiaire();
 
 
 	/**
@@ -62,18 +61,16 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 
 		btnAjouter.setPreferredSize(new Dimension(95, 30));
 		panelOption.add(btnAjouter);
-		btnAjouter.setToolTipText("<html>Ajouter un stagiaire.</html>");
+
 
 		btnSupprimer.setPreferredSize(new Dimension(95, 30));
 		btnSupprimer.setEnabled(false);
 		panelOption.add(btnSupprimer);
-		btnSupprimer.setToolTipText("<html>Supprimer un stagiaire.</html>");
 
 
 		btnEditer.setPreferredSize(new Dimension(95, 30));
 		btnEditer.setEnabled(false);
 		panelOption.add(btnEditer);
-		btnEditer.setToolTipText("<html>Modifier un stagiaire.</html>");
 
 
 		FlowLayout fl_panelRecherche = (FlowLayout) panelRecherche.getLayout();
@@ -83,8 +80,6 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 
 
 		panelRecherche.add(btnAfficherTout);
-		btnAfficherTout.setToolTipText("Afficher la totalité des stagiaires présent dans l'annuaire.");
-
 
 		JSeparator separator = new JSeparator();
 		separator.setPreferredSize(new Dimension(2, 30));
@@ -96,7 +91,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 
 
 		panelRecherche.add(btnRechercher);
-		btnRechercher.setToolTipText("<html>Effectuer une recherche multicritère:<br>- Sur le nom:<br>- Sur le prénom:<br>- Sur la promotion:<br>- Sur l'année de promotion:<br>- Sur le département:</html>");
+
 
 		lblEntree.setIcon(new ImageIcon(AffichageAnnuaire.class.getResource("/fr/afcepf/ai78/projet1/images/search_16.png")));
 		panelRecherche.add(lblEntree);
@@ -106,14 +101,11 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		txtEntree.setPreferredSize(new Dimension(150, 25));
 		panelRecherche.add(txtEntree);
 		txtEntree.setColumns(10);
-		txtEntree.setToolTipText("<html>Effectuer une recherche par défaut sur le nom des stagiaires.</html>");
 
 
 		add(scrollPane, BorderLayout.CENTER);
 
-
-
-		table = new JTable(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout(0, new ArrayList<Stagiaire>())));
+		table = new JTable(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout()));
 		scrollPane.setViewportView(table);
 		table.addMouseListener(this);
 
@@ -145,7 +137,6 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 
 		btnSupprimer.setPreferredSize(new Dimension(95, 30));
 		panelOption.add(btnSupprimer);
-		btnEditer.setToolTipText("<html>Modifier un stagiaire.</html>");
 		btnEditer.setEnabled(false);
 
 		btnEditer.setPreferredSize(new Dimension(95, 30));
@@ -187,20 +178,20 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		btnAfficherTout.addActionListener(this);
 		btnSupprimer.addActionListener(this);
 		btnEditer.addActionListener(this);
-
+		
 		txtEntree.addKeyListener(new KeyListener() {
-
+			
 			@Override
 			public void keyTyped(KeyEvent e) {
 				System.out.println(e.getSource());
-
+				
 			}
-
+			
 			@Override
 			public void keyReleased(KeyEvent e) {
 				System.out.println(e.getSource());				
 			}
-
+			
 			@Override
 			public void keyPressed(KeyEvent e) {
 				System.out.println(e.getSource());				
@@ -231,11 +222,11 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 				}
 
 			}
-
+			
 		}
 
 		if (e.getSource() == btnAfficherTout) {
-			table.setModel(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout(0, new ArrayList<Stagiaire>())));
+			table.setModel(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout()));
 			btnSupprimer.setEnabled(false);
 			btnEditer.setEnabled(false);
 		}
@@ -280,7 +271,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		if (e.getSource() == btnEditer) {
 			int indice = table.getSelectedRow();
 			Noeud  unNoeud = new Noeud(table.getValueAt(indice, 0).toString(),table.getValueAt(indice, 1).toString(),table.getValueAt(indice, 4).toString(),table.getValueAt(indice, 2).toString(),Integer.parseInt(table.getValueAt(indice, 3).toString()));
-
+			
 
 			if(frame.getPopUp()==null){
 
@@ -338,13 +329,13 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	public JTable getTable() {
 		return table;
 	}
-
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
-
+		
 
 	}
-
+	
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if(e.getKeyCode()==10){
@@ -355,7 +346,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 				btnSupprimer.setEnabled(false);
 				btnEditer.setEnabled(false);
 			}else{
-				table.setModel(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout(0, new ArrayList<Stagiaire>())));
+				table.setModel(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout()));
 				btnSupprimer.setEnabled(false);
 				btnEditer.setEnabled(false);
 			}
@@ -366,31 +357,29 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 				btnSupprimer.setEnabled(false);
 				btnEditer.setEnabled(false);
 			} else{
-				table.setModel(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout(0, new ArrayList<Stagiaire>())));
+				table.setModel(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout()));
 				btnSupprimer.setEnabled(false);
 				btnEditer.setEnabled(false);
 			}
 		}
 	}
-
+		
 	@Override	
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 	}
 
-
+	
 	@Override
 	public void focusGained(FocusEvent arg0) {
 
 	}
 
-
+	
 	@Override
 	public void focusLost(FocusEvent arg0) {
-
+	
 	}
-	
-	
 
 }
 
