@@ -24,10 +24,10 @@ import javax.swing.plaf.basic.ComboPopup;
 
 public class Editer extends JDialog implements ActionListener,WindowListener{
 	private JButton btnAnnuler;
-	private JLabel lblAnne;
+	private JLabel lblPrenom;
 	private JLabel lblNom;
-	private JLabel lblPrnom;
-	private JLabel lblAnne_1;
+	private JLabel lblAnnee;
+	private JLabel lblDepartement;
 	private JLabel lblPromotion;
 	private JTextField txtNom;
 	private JTextField txtPrenom;
@@ -66,32 +66,39 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("45px"),}));
 		
+		
 		lblNom = new JLabel("Nom :");
 		getContentPane().add(lblNom, "2, 2, right, center");
+		
 		
 		txtNom = new JTextField(parent.getTable().getValueAt(parent.getTable().getSelectedRow(), 0).toString());
 		txtNom.setToolTipText("<html>Modifier le nom du stagiaire.</html>");
 		getContentPane().add(txtNom, "4, 2, fill, default");
 		txtNom.setColumns(10);
+		txtNom.setDocument(new LimiteTexte(30));
 		
-		lblAnne = new JLabel("Prénom :");
-		lblAnne.setHorizontalAlignment(SwingConstants.RIGHT);
-		getContentPane().add(lblAnne, "2, 4, right, default");
+		
+		lblPrenom = new JLabel("Prénom :");
+		lblPrenom.setHorizontalAlignment(SwingConstants.RIGHT);
+		getContentPane().add(lblPrenom, "2, 4, right, default");
+		
 		
 		txtPrenom = new JTextField(parent.getTable().getValueAt(parent.getTable().getSelectedRow(), 1).toString());
 		txtPrenom.setToolTipText("<html>Modifier le prénom du stagiaire.</html>");
 		txtPrenom.setColumns(10);
 		getContentPane().add(txtPrenom, "4, 4, fill, default");
+		txtPrenom.setDocument(new LimiteTexte(30));
+		
 		
 		lblPromotion = new JLabel("Promotion :");
 		lblPromotion.setHorizontalAlignment(SwingConstants.RIGHT);
 		getContentPane().add(lblPromotion, "2, 6, right, default");
 		
+		
 		cBPromotion = new JComboBox();
 		cBPromotion.setToolTipText("<html>Selectionner une promotion dans la liste déroulante.<br/>Choisir \"autres\" pour créer une nouvelle promotion.</html>");
 		cBPromotion.setMinimumSize(new Dimension(12, 26));
 		getContentPane().add(cBPromotion, "4, 6");
-		
 		cBPromotion.addItem("");
 		for (String string : parent.getFrame().getAnnuaireCourant().getPromo()) {	
 			cBPromotion.addItem(string);
@@ -99,36 +106,45 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		cBPromotion.addItem("autre");
 		cBPromotion.setSelectedItem(parent.getTable().getValueAt(parent.getTable().getSelectedRow(),2).toString());
 		
+		
 		textPromotion = new JTextField();
 		textPromotion.setToolTipText("<html>Renseigner une nouvelle année de promotion.</html>");
 		textPromotion.setVisible(false);
 		getContentPane().add(textPromotion, "6, 6");
 		textPromotion.setColumns(10);
+		textPromotion.setDocument(new LimiteTexte(10));
 		
 		
+		lblAnnee = new JLabel("Année :");
+		getContentPane().add(lblAnnee, "2, 8, right, default");
 		
-		lblPrnom = new JLabel("Année :");
-		getContentPane().add(lblPrnom, "2, 8, right, default");
 		
 		txtAnnee = new JTextField(parent.getTable().getValueAt(parent.getTable().getSelectedRow(), 3).toString());
 		txtAnnee.setToolTipText("<html>Modifier l'année de promotion du stagiaire.</html>");
 		getContentPane().add(txtAnnee, "4, 8, left, default");
 		txtAnnee.setColumns(10);
+		txtAnnee.setDocument(new LimiteTexte(4));
+		
 		
 		btnValider = new JButton("Valider");
 		btnValider.setToolTipText("<html>Valider votre édition.</html>");
 		getContentPane().add(btnValider, "6, 8");
 		
+		
 		btnValider.addActionListener(this);
 		
-		lblAnne_1 = new JLabel("Département :");
-		lblAnne_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		getContentPane().add(lblAnne_1, "2, 10, right, default");
+		
+		lblDepartement = new JLabel("Département :");
+		lblDepartement.setHorizontalAlignment(SwingConstants.RIGHT);
+		getContentPane().add(lblDepartement, "2, 10, right, default");
+		
 		
 		txtDepartement = new JTextField(parent.getTable().getValueAt(parent.getTable().getSelectedRow(), 4).toString());
 		txtDepartement.setToolTipText("<html>Modifier le code département du stagiaire.</html>");
 		getContentPane().add(txtDepartement, "4, 10, left, default");
 		txtDepartement.setColumns(10);
+		txtDepartement.setDocument(new LimiteTexte(2));
+		
 		
 		btnAnnuler = new JButton("Annuler");
 		btnAnnuler.setToolTipText("<html>Annuler votre édition.</html>");
