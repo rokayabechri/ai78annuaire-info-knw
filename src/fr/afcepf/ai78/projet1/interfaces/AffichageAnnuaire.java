@@ -61,16 +61,18 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 
 		btnAjouter.setPreferredSize(new Dimension(95, 30));
 		panelOption.add(btnAjouter);
-
+		btnAjouter.setToolTipText("<html>Ajouter un stagiaire.</html>");
 
 		btnSupprimer.setPreferredSize(new Dimension(95, 30));
 		btnSupprimer.setEnabled(false);
 		panelOption.add(btnSupprimer);
+		btnSupprimer.setToolTipText("<html>Supprimer un stagiaire.</html>");
 
 
 		btnEditer.setPreferredSize(new Dimension(95, 30));
 		btnEditer.setEnabled(false);
 		panelOption.add(btnEditer);
+		btnEditer.setToolTipText("<html>Modifier un stagiaire.</html>");
 
 
 		FlowLayout fl_panelRecherche = (FlowLayout) panelRecherche.getLayout();
@@ -80,7 +82,9 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 
 
 		panelRecherche.add(btnAfficherTout);
+		btnAfficherTout.setToolTipText("Afficher la totalité des stagiaires présent dans l'annuaire.");
 
+		
 		JSeparator separator = new JSeparator();
 		separator.setPreferredSize(new Dimension(2, 30));
 		separator.setOrientation(SwingConstants.VERTICAL);
@@ -91,7 +95,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 
 
 		panelRecherche.add(btnRechercher);
-
+		btnRechercher.setToolTipText("<html>Effectuer une recherche multicritère:<br>- Sur le nom:<br>- Sur le prénom:<br>- Sur la promotion:<br>- Sur l'année de promotion:<br>- Sur le département:</html>");
 
 		lblEntree.setIcon(new ImageIcon(AffichageAnnuaire.class.getResource("/fr/afcepf/ai78/projet1/images/search_16.png")));
 		panelRecherche.add(lblEntree);
@@ -101,9 +105,12 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		txtEntree.setPreferredSize(new Dimension(150, 25));
 		panelRecherche.add(txtEntree);
 		txtEntree.setColumns(10);
+		txtEntree.setToolTipText("<html>Effectuer une recherche par défaut sur le nom des stagiaires.</html>");
 
 
 		add(scrollPane, BorderLayout.CENTER);
+		
+		
 
 		table = new JTable(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout(0, new ArrayList<Stagiaire>())));
 		scrollPane.setViewportView(table);
@@ -137,6 +144,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 
 		btnSupprimer.setPreferredSize(new Dimension(95, 30));
 		panelOption.add(btnSupprimer);
+		btnEditer.setToolTipText("<html>Modifier un stagiaire.</html>");
 		btnEditer.setEnabled(false);
 
 		btnEditer.setPreferredSize(new Dimension(95, 30));
