@@ -2,12 +2,11 @@ package fr.afcepf.ai78.projet1.interfaces;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.Graphics;
-import java.awt.PrintJob;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
@@ -21,32 +20,29 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.RandomAccessFile;
-import java.util.Properties;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import fr.afcepf.ai78.projet1.fileManager.GestionBinaire;
 
 
 public class FenetrePrincipale extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
-	private JButton btnOuvrirAnnuaire;
-	private JButton btnNouvelAnnuaire;
-	private JMenuItem mntmNouveau;
-	private JMenuItem mntmOuvrir;
 	private JPanel panelLancement;
 	private JMenu mnFichier;
-	private JMenuBar menuBar;
-	private GestionBinaire annuaireCourant = new GestionBinaire();
+	private JMenu menuAide;
 	private JMenu mnEdition;
+	private JMenuItem mntmNouveau;
+	private JMenuItem mntmOuvrir;
 	private JMenuItem mntmSuppression;
 	private JMenuItem mntmEdition;
-	private JMenuItem mntmAjout;
-	private JDialog popUp;
-	private JMenu menuAide;
 	private JMenuItem mntmImprimer;
+	private JMenuItem mntmAjout;
+	private JMenuBar menuBar;
+	private JButton btnOuvrirAnnuaire;
+	private JButton btnNouvelAnnuaire;
+	private JDialog popUp;
+	private JProgressBar progressBar;
+	private GestionBinaire annuaireCourant;
 	
 	
 
@@ -85,6 +81,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 			e.printStackTrace();
 		}
 		
+		setTitle("Gestion d'annuaire");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 550, 400);
 		
@@ -139,12 +136,13 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		btnOuvrirAnnuaire.setPreferredSize(new Dimension(250, 300));
 		panelLancement.add(btnOuvrirAnnuaire);
 		
-		btnOuvrirAnnuaire.addActionListener(this);//ok
+		progressBar = new JProgressBar();
+		contentPane.add(progressBar, BorderLayout.SOUTH);
+		
+		btnOuvrirAnnuaire.addActionListener(this);
 		btnNouvelAnnuaire.addActionListener(this);
-		
 		mntmNouveau.addActionListener(this);
-		mntmOuvrir.addActionListener(this);//ok
-		
+		mntmOuvrir.addActionListener(this);
 		mntmAjout.addActionListener(this);
 		mntmSuppression.addActionListener(this);
 		mntmEdition.addActionListener(this);
@@ -254,6 +252,17 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		//		}
 	}
 	
+	public void appelAffichage(boolean liste){
+		if(liste){
+			contentPane.remove(contentPane.getComponent(0));
+			contentPane.add(new AffichageAnnuaire(this),BorderLayout.CENTER);
+			setEnabled(true);
+			contentPane.revalidate();
+		}else{
+			JOptionPane.showMessageDialog(this, "Fichier incorrect");
+			setEnabled(true);
+		}
+	}
 	
 	public JPanel getContentPane() {
 		return contentPane;
@@ -273,5 +282,13 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 
 	public JPanel getPanelLancement() {
 		return panelLancement;
+	}
+
+	public void setAnnuaireCourant(GestionBinaire annuaireCourant) {
+		this.annuaireCourant = annuaireCourant;
+	}
+
+	public JProgressBar getProgressBar() {
+		return progressBar;
 	}
 }
