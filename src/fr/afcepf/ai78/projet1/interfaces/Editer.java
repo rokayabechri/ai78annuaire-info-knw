@@ -49,11 +49,11 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("85px"),
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(80dlu;pref)"),
+				ColumnSpec.decode("140px"),
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(80dlu;default)"),
+				ColumnSpec.decode("140px"),
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("100px"),},
+				ColumnSpec.decode("90px"),},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("45px"),
@@ -70,6 +70,7 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(lblNom, "2, 2, right, center");
 		
 		txtNom = new JTextField(parent.getTable().getValueAt(parent.getTable().getSelectedRow(), 0).toString());
+		txtNom.setToolTipText("<html>Modifier le nom du stagiaire.</html>");
 		getContentPane().add(txtNom, "4, 2, fill, default");
 		txtNom.setColumns(10);
 		
@@ -78,6 +79,7 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(lblAnne, "2, 4, right, default");
 		
 		txtPrenom = new JTextField(parent.getTable().getValueAt(parent.getTable().getSelectedRow(), 1).toString());
+		txtPrenom.setToolTipText("<html>Modifier le prénom du stagiaire.</html>");
 		txtPrenom.setColumns(10);
 		getContentPane().add(txtPrenom, "4, 4, fill, default");
 		
@@ -86,6 +88,7 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(lblPromotion, "2, 6, right, default");
 		
 		cBPromotion = new JComboBox();
+		cBPromotion.setToolTipText("<html>Selectionner une promotion dans la liste déroulante.<br/>Choisir \"autres\" pour créer une nouvelle promotion.</html>");
 		cBPromotion.setMinimumSize(new Dimension(12, 26));
 		getContentPane().add(cBPromotion, "4, 6");
 		
@@ -97,6 +100,7 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		cBPromotion.setSelectedItem(parent.getTable().getValueAt(parent.getTable().getSelectedRow(),2).toString());
 		
 		textPromotion = new JTextField();
+		textPromotion.setToolTipText("<html>Renseigner une nouvelle année de promotion.</html>");
 		textPromotion.setVisible(false);
 		getContentPane().add(textPromotion, "6, 6");
 		textPromotion.setColumns(10);
@@ -107,10 +111,12 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(lblPrnom, "2, 8, right, default");
 		
 		txtAnnee = new JTextField(parent.getTable().getValueAt(parent.getTable().getSelectedRow(), 3).toString());
+		txtAnnee.setToolTipText("<html>Modifier l'année de promotion du stagiaire.</html>");
 		getContentPane().add(txtAnnee, "4, 8, left, default");
 		txtAnnee.setColumns(10);
 		
 		btnValider = new JButton("Valider");
+		btnValider.setToolTipText("<html>Valider votre édition.</html>");
 		getContentPane().add(btnValider, "6, 8");
 		
 		btnValider.addActionListener(this);
@@ -120,10 +126,12 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(lblAnne_1, "2, 10, right, default");
 		
 		txtDepartement = new JTextField(parent.getTable().getValueAt(parent.getTable().getSelectedRow(), 4).toString());
+		txtDepartement.setToolTipText("<html>Modifier le code département du stagiaire.</html>");
 		getContentPane().add(txtDepartement, "4, 10, left, default");
 		txtDepartement.setColumns(10);
 		
 		btnAnnuler = new JButton("Annuler");
+		btnAnnuler.setToolTipText("<html>Annuler votre édition.</html>");
 		getContentPane().add(btnAnnuler, "6, 10");
 		btnAnnuler.addActionListener(this);
 		cBPromotion.addActionListener(this);
