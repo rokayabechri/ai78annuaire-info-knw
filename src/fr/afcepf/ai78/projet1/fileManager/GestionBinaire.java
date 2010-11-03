@@ -1,31 +1,40 @@
 package fr.afcepf.ai78.projet1.fileManager;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.LineNumberReader;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.JOptionPane;
-
+import javax.swing.SwingWorker;
 import fr.afcepf.ai78.projet1.constante.AnnuaireConstante;
+import fr.afcepf.ai78.projet1.interfaces.FenetrePrincipale;
 import fr.afcepf.ai78.projet1.objets.Noeud;
 import fr.afcepf.ai78.projet1.objets.Stagiaire;
 
-public class GestionBinaire {
+public class GestionBinaire extends SwingWorker<Boolean, String>{
 
 	private RandomAccessFile fichier ;
 	private List<Integer> fantome = new ArrayList<Integer>();
 	private List<String> promo = new ArrayList<String>();
+	private String fichierSource = "";
+	private String fichierSortie = "";
+	private FenetrePrincipale interfaceAnnuaire;
 
 
 	public GestionBinaire(){
 	}
 
-	public GestionBinaire(String fichierSource, String FichierSortie) {
-		creationArbreBinaire(fichierSource, FichierSortie);
+	public GestionBinaire(FenetrePrincipale interfaceAnnuaire, String fichierSource, String fichierSortie) {
+		this.fichierSource = fichierSource;
+		this.fichierSortie = fichierSortie;
+		this.interfaceAnnuaire = interfaceAnnuaire;
 	}
 
 	public List<Stagiaire> rechercheRec(int posArbre, String nom , String prenom , String promotion , int annee , String departement , List<Stagiaire> liste) {
@@ -86,15 +95,20 @@ public class GestionBinaire {
 		return liste;
 	}
 	
-	public boolean creationArbreBinaire(String fichierSource, String FichierSortie) {
+	private boolean creationArbreBinaire(String fichierSource, String FichierSortie, double progressStart, double progressEnd) {
 		try {
-			FileReader fr = new FileReader(fichierSource);
-			BufferedReader br  = new BufferedReader(fr);
+			File f = new File(fichierSource);
+			BufferedReader br  = new BufferedReader(new FileReader(f));
+			LineNumberReader lnr = new LineNumberReader(new FileReader(f));
+			
+			lnr.skip(f.length());
 			setFichier(new RandomAccessFile(FichierSortie, "rw"));
 
 			String ligne = "";
 			int indiceTableau = 0;
 			String []elements = new String [5];
+			
+			double step = (progressEnd - progressStart) / (lnr.getLineNumber()/AnnuaireConstante.NB_LIGNE_STAGIAIRE);
 
 			while((ligne=br.readLine())!=null){
 
@@ -115,6 +129,9 @@ public class GestionBinaire {
 						}
 
 					}
+					progressStart += step;
+					publish(unNoeud.toString());
+					setProgress((int) progressStart);
 				}
 			}
 
@@ -132,17 +149,8 @@ public class GestionBinaire {
 		}
 	}
 
+
 	public boolean ajoutElementArbreBinaire(Noeud stagiaire, int posParent, int posArbre, Boolean existeDeja,int positionAjout) {
-		//		
-		//		boolean booleanFantome = true;
-		//		
-		//		while(booleanFantome){
-		//			
-		//			booleanFantome=(fantome.lastIndexOf(posArbre)!=-1);
-		//			if (booleanFantome) {
-		//				posArbre++;
-		//			}
-		//		}
 
 		if(!PromoExist(stagiaire.getPromotion())){
 
@@ -511,6 +519,24 @@ public class GestionBinaire {
 
 	public List<String> getPromo() {
 		return promo;
+	}
+	
+	
+
+	@Override
+	public Boolean doInBackground() throws Exception {
+		return creationArbreBinaire(fichierSource, fichierSortie, 0, 100);
+	}
+
+	@Override
+	protected void done() {
+		try {
+			interfaceAnnuaire.appelAffichage(get());
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
