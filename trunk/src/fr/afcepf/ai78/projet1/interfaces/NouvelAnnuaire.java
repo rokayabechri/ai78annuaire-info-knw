@@ -116,23 +116,14 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 					String nomFichier = txtAnnuaire.getText().toString();
 
 					if(!nomFichier.equals("")){
-
-						try {
-							
-							this.dispose();
-							frame.setPopUp(null);
-							String FichierSortie =  "c:/"+nomFichier+".bin";
-							frame.getAnnuaireCourant().setFichier(new RandomAccessFile(FichierSortie, "rw"));
-							frame.getContentPane().remove(frame.getContentPane().getComponent(0));
-							frame.getContentPane().add(new AffichageAnnuaire(frame),BorderLayout.CENTER);
-							frame.getContentPane().revalidate();
-							frame.setEnabled(true);
-							frame.toFront();
-						} catch (FileNotFoundException e1) {
-							frame.setEnabled(true);
-							frame.toFront();
-							e1.printStackTrace();
-						}
+						
+						frame.setAnnuaireCourant(new GestionBinaire(frame,"", "c:/binaries/"+nomFichier+".bin"));
+						
+						frame.appelAffichage(true);
+						
+						frame.setPopUp(null);
+						frame.toFront();
+						this.dispose();
 					}else{
 						JOptionPane.showMessageDialog(this, "Saisir un nom");
 					}
