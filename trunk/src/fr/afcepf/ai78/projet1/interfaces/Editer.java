@@ -20,6 +20,7 @@ import com.jgoodies.forms.factories.FormFactory;
 import fr.afcepf.ai78.projet1.objets.Noeud;
 
 import javax.swing.JComboBox;
+import javax.swing.plaf.basic.ComboPopup;
 
 public class Editer extends JDialog implements ActionListener,WindowListener{
 	private JButton btnAnnuler;
@@ -36,6 +37,7 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 	private JButton btnValider;
 	private AffichageAnnuaire parent;
 	private Noeud unNoeudAModifier;
+	private JTextField textPromotion;
 
 	/**
 	 * Create the panel.
@@ -45,24 +47,24 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		this.unNoeudAModifier = unNoeudAModifier;
 		getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("95px"),
+				ColumnSpec.decode("85px"),
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(82dlu;pref)"),
+				ColumnSpec.decode("max(80dlu;pref)"),
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(35dlu;default)"),
+				ColumnSpec.decode("max(80dlu;default)"),
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("100px"),},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("50px"),
+				RowSpec.decode("45px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("50px"),
+				RowSpec.decode("45px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("50px"),
+				RowSpec.decode("45px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("50px"),
+				RowSpec.decode("45px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("50px"),}));
+				RowSpec.decode("45px"),}));
 		
 		lblNom = new JLabel("Nom :");
 		getContentPane().add(lblNom, "2, 2, right, center");
@@ -87,10 +89,19 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		cBPromotion.setMinimumSize(new Dimension(12, 26));
 		getContentPane().add(cBPromotion, "4, 6");
 		
+		cBPromotion.addItem("");
 		for (String string : parent.getFrame().getAnnuaireCourant().getPromo()) {	
 			cBPromotion.addItem(string);
 		}
+		cBPromotion.addItem("autre");
 		cBPromotion.setSelectedItem(parent.getTable().getValueAt(parent.getTable().getSelectedRow(),2).toString());
+		
+		textPromotion = new JTextField();
+		textPromotion.setVisible(false);
+		getContentPane().add(textPromotion, "6, 6");
+		textPromotion.setColumns(10);
+		
+		
 		
 		lblPrnom = new JLabel("Année :");
 		getContentPane().add(lblPrnom, "2, 8, right, default");
@@ -100,7 +111,9 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		txtAnnee.setColumns(10);
 		
 		btnValider = new JButton("Valider");
-		getContentPane().add(btnValider, "8, 8");
+		getContentPane().add(btnValider, "6, 8");
+		
+		btnValider.addActionListener(this);
 		
 		lblAnne_1 = new JLabel("Département :");
 		lblAnne_1.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -111,10 +124,9 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		txtDepartement.setColumns(10);
 		
 		btnAnnuler = new JButton("Annuler");
-		getContentPane().add(btnAnnuler, "8, 10");
-		
-		btnValider.addActionListener(this);
+		getContentPane().add(btnAnnuler, "6, 10");
 		btnAnnuler.addActionListener(this);
+		cBPromotion.addActionListener(this);
 		addWindowListener(this);
 
 	}
@@ -126,19 +138,23 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 
 			String nom = txtNom.getText();
 			String prenom = txtPrenom.getText();
-			String promotion = cBPromotion.getSelectedItem().toString();
+			String promotion;
+			if(cBPromotion.getSelectedItem().toString().equals("autre")){
+				promotion = textPromotion.getText();
+			}else{
+				textPromotion.setText(cBPromotion.getSelectedItem().toString());
+				promotion = textPromotion.getText();
+			}
 			String departement = txtDepartement.getText();
 			String annee = txtAnnee.getText();
 
-			if(!nom.equals("")&&!prenom.equals("")&&!promotion.equals("")&&!departement.equals("")&&!annee.equals("")){
+			if((!nom.equals("")&&!prenom.equals("")&&!promotion.equals("")&&!annee.equals(""))){
 				try {	
 					Noeud unNoeud = new Noeud(nom,prenom,departement,promotion,Integer.parseInt(annee));
 					parent.getFrame().getAnnuaireCourant().supprimer(unNoeudAModifier, 0);
 					parent.getFrame().getAnnuaireCourant().ajoutElementArbreBinaire(unNoeud,-1,0,false,parent.getFrame().getAnnuaireCourant().getPositionAjout());
-
-
-
 					parent.getFrame().getAnnuaireCourant().ecrireNoeud(parent.getFrame().getAnnuaireCourant().getPositionAjout(),unNoeud);
+					parent.getFrame().getAnnuaireCourant().getFantome().remove(parent.getFrame().getAnnuaireCourant().getFantome().size()-1);
 					this.dispose();
 					parent.getFrame().setPopUp(null);
 				} catch (IOException e1) {
@@ -151,8 +167,16 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 			this.dispose();
 			parent.getFrame().setPopUp(null);
 		}
-
 		
+		if(e.getSource()==cBPromotion){
+
+			if(cBPromotion.getSelectedItem().toString().equals("autre")){
+				textPromotion.setText("");
+				textPromotion.setVisible(true);
+			}else {
+				textPromotion.setVisible(false);
+			}
+		}	
 	}
 
 	@Override
@@ -195,6 +219,12 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 	public void windowOpened(WindowEvent arg0) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	
+	
+	public Noeud getUnNoeudAModifier() {
+		return unNoeudAModifier;
 	}
 
 			
