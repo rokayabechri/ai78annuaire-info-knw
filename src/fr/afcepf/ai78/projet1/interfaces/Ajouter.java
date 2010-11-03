@@ -178,8 +178,11 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 				try {
 					Noeud unNoeud = new Noeud(nom,prenom,departement,promotion,Integer.parseInt(annee));
 					frame.getAnnuaireCourant().ajoutElementArbreBinaire(unNoeud,-1,0,false,frame.getAnnuaireCourant().getPositionAjout());
-
 					frame.getAnnuaireCourant().ecrireNoeud(frame.getAnnuaireCourant().getPositionAjout(),unNoeud);
+					if (!frame.getAnnuaireCourant().getFantome().isEmpty()) {
+						frame.getAnnuaireCourant().getFantome().remove(frame.getAnnuaireCourant().getFantome().get(frame.getAnnuaireCourant().getFantome().size()-1));
+					}
+					
 					this.dispose();
 					frame.setPopUp(null);	
 				} catch (IOException e1) {

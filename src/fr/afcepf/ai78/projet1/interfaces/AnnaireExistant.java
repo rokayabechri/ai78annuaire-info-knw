@@ -18,6 +18,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
+import fr.afcepf.ai78.projet1.fileManager.GestionBinaire;
+
 public class AnnaireExistant extends JDialog implements ActionListener,WindowListener{
 	private JComboBox comboBox;
 	private JLabel lblSelectionnerUnFichier;
@@ -51,8 +53,8 @@ public class AnnaireExistant extends JDialog implements ActionListener,WindowLis
 		getContentPane().add(comboBox);
 
 		for (String string : listefichiers) {
-			
-			comboBox.addItem(string); 
+					
+			comboBox.addItem(string.substring(0,string.lastIndexOf("."))); 
 		}
 
 		lblSelectionnerUnFichier = new JLabel("Selectionner un fichier");
@@ -62,6 +64,7 @@ public class AnnaireExistant extends JDialog implements ActionListener,WindowLis
 		comboBox.addActionListener(this);
 		btnValider.addActionListener(this);
 		btnAnnuler.addActionListener(this);
+		this.addWindowListener(this);
 		
 
 	}
@@ -71,30 +74,22 @@ public class AnnaireExistant extends JDialog implements ActionListener,WindowLis
 	public void actionPerformed(ActionEvent e) {
 
 		if(e.getSource()==btnValider){
-			try {
-				if(!comboBox.getSelectedItem().toString().equals("")){
+			if(!comboBox.getSelectedItem().toString().equals("")){
 
-					String nomFichier = comboBox.getSelectedItem().toString();
+				String nomFichier = comboBox.getSelectedItem().toString();
 
-					String nomFichierSortie = "c:/"+nomFichier;
-
-					this.dispose();
-					frame.setPopUp(null);
-					frame.getAnnuaireCourant().setFichier(new RandomAccessFile(nomFichierSortie, "rw"));
-					frame.getContentPane().remove(frame.getPanelLancement());
-					frame.getContentPane().add(new AffichageAnnuaire(frame),BorderLayout.CENTER);
-					frame.getContentPane().revalidate();
-					frame.setEnabled(true);
-					frame.toFront();
-
-
-				}else{
-					JOptionPane.showMessageDialog(this, "Selectionner un ficher");
-				}
-			} catch (FileNotFoundException e1) {
-				e1.printStackTrace();
+				this.dispose();
+				frame.setPopUp(null);
+				frame.setAnnuaireCourant(new GestionBinaire(frame,"", "c:/binaries/"+nomFichier+".bin"));
+				frame.getContentPane().remove(frame.getContentPane().getComponent(0));
+				frame.getContentPane().add(new AffichageAnnuaire(frame),BorderLayout.CENTER);
+				frame.getContentPane().revalidate();
 				frame.setEnabled(true);
 				frame.toFront();
+
+
+			}else{
+				JOptionPane.showMessageDialog(this, "Selectionner un ficher");
 			}
 
 		}
@@ -123,7 +118,8 @@ public class AnnaireExistant extends JDialog implements ActionListener,WindowLis
 	@Override
 	public void windowClosing(WindowEvent arg0) {
 		frame.setPopUp(null);
-		
+		frame.setEnabled(true);
+		frame.toFront();
 	}
 
 	@Override

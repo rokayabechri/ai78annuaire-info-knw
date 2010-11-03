@@ -179,6 +179,7 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 					parent.getFrame().getAnnuaireCourant().ajoutElementArbreBinaire(unNoeud,-1,0,false,parent.getFrame().getAnnuaireCourant().getPositionAjout());
 					parent.getFrame().getAnnuaireCourant().ecrireNoeud(parent.getFrame().getAnnuaireCourant().getPositionAjout(),unNoeud);
 					parent.getFrame().getAnnuaireCourant().getFantome().remove(parent.getFrame().getAnnuaireCourant().getFantome().size()-1);
+				
 					this.dispose();
 					parent.getFrame().setPopUp(null);
 				} catch (IOException e1) {

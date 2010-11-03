@@ -43,6 +43,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	private JDialog popUp;
 	private JProgressBar progressBar;
 	private GestionBinaire annuaireCourant;
+	private JMenuItem mntmQuitter;
 	
 	
 
@@ -101,6 +102,9 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		mntmImprimer = new JMenuItem("Imprimer");
 		mnFichier.add(mntmImprimer);
 		
+		mntmQuitter = new JMenuItem("Quitter");
+		mnFichier.add(mntmQuitter);
+		
 		mnEdition = new JMenu("Edition");
 		menuBar.add(mnEdition);
 		
@@ -146,6 +150,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		mntmAjout.addActionListener(this);
 		mntmSuppression.addActionListener(this);
 		mntmEdition.addActionListener(this);
+		mntmQuitter.addActionListener(this);
 		menuAide.addActionListener(this);
 		mntmImprimer.addActionListener(this);
 		
@@ -206,6 +211,13 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 
 				}
 			}
+			
+			
+
+		}
+		if(e.getSource() == mntmQuitter){
+			
+			System.exit(0);	
 		}
 
 		//		if (e.getSource() == menuAide) {
@@ -255,6 +267,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	public void appelAffichage(boolean liste){
 		if(liste){
 			contentPane.remove(contentPane.getComponent(0));
+			contentPane.remove(progressBar);
 			contentPane.add(new AffichageAnnuaire(this),BorderLayout.CENTER);
 			setEnabled(true);
 			contentPane.revalidate();
@@ -262,6 +275,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 			JOptionPane.showMessageDialog(this, "Fichier incorrect");
 			setEnabled(true);
 		}
+		
+		
 	}
 	
 	public JPanel getContentPane() {
