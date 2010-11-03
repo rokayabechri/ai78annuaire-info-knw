@@ -126,9 +126,11 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		FlowLayout flowLayout = (FlowLayout) panelOption.getLayout();
 		panelOption.setPreferredSize(new Dimension(100, 10));
 		add(panelOption, BorderLayout.WEST);
+		btnAjouter.setToolTipText("Ajouter un stagiaire.");
 
 		btnAjouter.setPreferredSize(new Dimension(95, 30));
 		panelOption.add(btnAjouter);
+		btnSupprimer.setToolTipText("<html>Supprimer un stagiaire.</html>");
 		btnSupprimer.setEnabled(false);
 
 
@@ -144,6 +146,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		fl_panelRecherche.setAlignment(FlowLayout.RIGHT);
 		panelRecherche.setPreferredSize(new Dimension(10, 35));
 		add(panelRecherche, BorderLayout.NORTH);
+		btnAfficherTout.setToolTipText("Afficher la totalité des stagiaires.");
 
 		panelRecherche.add(btnAfficherTout);
 
@@ -153,6 +156,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		panelRecherche.add(separator);
 
 		panelRecherche.add(btnLister);
+		btnRechercher.setToolTipText("<html>Effectuer une recherche multicritère:<br>- Sur le nom:<br>- Sur le prénom:<br>- Sur la promotion:<br>- Sur l'année de promotion:<br>- Sur le département:</html>");
 
 		panelRecherche.add(btnRechercher);
 
