@@ -76,16 +76,12 @@ public class AnnaireExistant extends JDialog implements ActionListener,WindowLis
 		if(e.getSource()==btnValider){
 			if(!comboBox.getSelectedItem().toString().equals("")){
 
-				String nomFichier = comboBox.getSelectedItem().toString();
-
-				this.dispose();
-				frame.setPopUp(null);
+				String nomFichier = comboBox.getSelectedItem().toString();			
+				
 				frame.setAnnuaireCourant(new GestionBinaire(frame,"", "c:/binaries/"+nomFichier+".bin"));
-				frame.getContentPane().remove(frame.getContentPane().getComponent(0));
-				frame.getContentPane().add(new AffichageAnnuaire(frame),BorderLayout.CENTER);
-				frame.getContentPane().revalidate();
-				frame.setEnabled(true);
-				frame.toFront();
+				frame.appelAffichage(true);
+				frame.setPopUp(null);
+				this.dispose();
 
 
 			}else{

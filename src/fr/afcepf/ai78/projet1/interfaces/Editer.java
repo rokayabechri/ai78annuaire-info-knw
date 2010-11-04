@@ -102,20 +102,9 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		cBPromotion.setMinimumSize(new Dimension(12, 26));
 		getContentPane().add(cBPromotion, "4, 6");
 		cBPromotion.addItem("");
-		for (int i = 0; i < parent.getTable().getRowCount(); i++) {
-			boolean unBoolean = true;
-
-			for( int j = 0; j<cBPromotion.getItemCount();j++){
-
-				if(cBPromotion.getItemAt(j).equals(parent.getTable().getValueAt(i, 2))){
-					unBoolean = false;
-					j=cBPromotion.getItemCount();
-				}
-
-			}
-			if(unBoolean){
-				cBPromotion.addItem(parent.getTable().getValueAt(i, 2));
-			}
+		for (String string : parent.getPromo()) {
+			
+			cBPromotion.addItem(string);
 		}
 		
 		cBPromotion.addItem("autre");
@@ -197,6 +186,7 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 					parent.getFrame().getAnnuaireCourant().supprimer(unNoeudAModifier, 0);
 					parent.getFrame().getAnnuaireCourant().ajoutElementArbreBinaire(unNoeud,-1,0,false,parent.getFrame().getAnnuaireCourant().getPositionAjout());
 					parent.getFrame().getAnnuaireCourant().ecrireNoeud(parent.getFrame().getAnnuaireCourant().getPositionAjout(),unNoeud);
+					parent.getTable().setModel(new ModeleStagiaire(parent.getFrame().getAnnuaireCourant().afficherTout()));
 					parent.getFrame().getAnnuaireCourant().getFantome().remove(parent.getFrame().getAnnuaireCourant().getFantome().size()-1);
 				
 					this.dispose();

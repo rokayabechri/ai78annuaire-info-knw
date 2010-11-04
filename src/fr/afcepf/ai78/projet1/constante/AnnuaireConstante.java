@@ -68,5 +68,9 @@ public class AnnuaireConstante {
 	 * The number of line used by a trainee in the source file.
 	 */
 	public static final int NB_LIGNE_STAGIAIRE = 6;
+	/**
+	 * The path to the binaries directory.
+	 */
+	public static final String BIN_PATH = "c:/binaries";
 	
 }
