@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -476,6 +477,7 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 	}
 		
 	public List<String> getPromo() {
+		Collections.sort(promo);
 		return promo;
 	}
 
