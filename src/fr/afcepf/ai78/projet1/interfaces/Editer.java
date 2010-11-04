@@ -193,19 +193,15 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 			String annee = txtAnnee.getText();
 
 			if((!nom.equals("")&&!prenom.equals("")&&!promotion.equals("")&&!annee.equals(""))){
-				try {	
-					Noeud unNoeud = new Noeud(nom,prenom,departement,promotion,Integer.parseInt(annee));
-					parent.getFrame().getAnnuaireCourant().supprimer(unNoeudAModifier, 0);
-					parent.getFrame().getAnnuaireCourant().ajoutElementArbreBinaire(unNoeud,-1,0,false,parent.getFrame().getAnnuaireCourant().getPositionAjout());
-					parent.getFrame().getAnnuaireCourant().ecrireNoeud(parent.getFrame().getAnnuaireCourant().getPositionAjout(),unNoeud);
-					parent.getTable().setModel(new ModeleStagiaire(parent.getFrame().getAnnuaireCourant().afficherTout()));
-					parent.getFrame().getAnnuaireCourant().getFantome().remove(parent.getFrame().getAnnuaireCourant().getFantome().size()-1);
-				
-					this.dispose();
-					parent.getFrame().setPopUp(null);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				Noeud unNoeud = new Noeud(nom,prenom,departement,promotion,Integer.parseInt(annee));
+				parent.getFrame().getAnnuaireCourant().supprimer(unNoeudAModifier, 0);
+				parent.getFrame().getAnnuaireCourant().ajoutElementArbreBinaire(unNoeud,-1,0,false,parent.getFrame().getAnnuaireCourant().getPositionAjout());
+				parent.getFrame().getAnnuaireCourant().ecrireNoeud(parent.getFrame().getAnnuaireCourant().getPositionAjout(),unNoeud);
+				parent.getTable().setModel(new ModeleStagiaire(parent.getFrame().getAnnuaireCourant().afficherTout()));
+				parent.getFrame().getAnnuaireCourant().getFantome().remove(parent.getFrame().getAnnuaireCourant().getFantome().size()-1);
+
+				this.dispose();
+				parent.getFrame().setPopUp(null);
 			}
 		}
 

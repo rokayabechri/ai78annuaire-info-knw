@@ -195,21 +195,17 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 			String annee = textAnnee.getText();
 
 			if((!nom.equals("")&&!prenom.equals("")&&!promotion.equals("")&&!annee.equals(""))){
-				try {
-					Noeud unNoeud = new Noeud(nom,prenom,departement,promotion,Integer.parseInt(annee));
-					frame.getAnnuaireCourant().ajoutElementArbreBinaire(unNoeud,-1,0,false,frame.getAnnuaireCourant().getPositionAjout());
-					frame.getAnnuaireCourant().ecrireNoeud(frame.getAnnuaireCourant().getPositionAjout(),unNoeud);
-					AffichageAnnuaire affichage = (AffichageAnnuaire)frame.getContentPane().getComponent(0);
-					affichage.getTable().setModel(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout()));
-					if (!frame.getAnnuaireCourant().getFantome().isEmpty()) {
-						frame.getAnnuaireCourant().getFantome().remove(frame.getAnnuaireCourant().getFantome().get(frame.getAnnuaireCourant().getFantome().size()-1));
-					}
-					
-					this.dispose();
-					frame.setPopUp(null);	
-				} catch (IOException e1) {
-					e1.printStackTrace();
+				Noeud unNoeud = new Noeud(nom,prenom,departement,promotion,Integer.parseInt(annee));
+				frame.getAnnuaireCourant().ajoutElementArbreBinaire(unNoeud,-1,0,false,frame.getAnnuaireCourant().getPositionAjout());
+				frame.getAnnuaireCourant().ecrireNoeud(frame.getAnnuaireCourant().getPositionAjout(),unNoeud);
+				AffichageAnnuaire affichage = (AffichageAnnuaire)frame.getContentPane().getComponent(0);
+				affichage.getTable().setModel(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout()));
+				if (!frame.getAnnuaireCourant().getFantome().isEmpty()) {
+					frame.getAnnuaireCourant().getFantome().remove(frame.getAnnuaireCourant().getFantome().get(frame.getAnnuaireCourant().getFantome().size()-1));
 				}
+				
+				this.dispose();
+				frame.setPopUp(null);
 			}
 			
 			
