@@ -94,16 +94,15 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 	}
 	
 	private boolean creationArbreBinaire(double progressStart, double progressEnd) {
+		RandomAccessFile fichier = null;
 		try {
 			File f = new File(fichierSource);
 			BufferedReader br  = new BufferedReader(new FileReader(f));
 			LineNumberReader lnr = new LineNumberReader(new FileReader(f));
 			
-			System.out.println(f.length()*2);
-			System.out.println(lnr.skip(f.length()));
-			System.out.println(lnr.getLineNumber());
+			lnr.skip(f.length()*2);
 			
-			RandomAccessFile fichier = new RandomAccessFile(fichierSortie, "rw");
+			fichier = new RandomAccessFile(fichierSortie, "rw");
 			String ligne = "";
 			int indiceTableau = 0;
 			String []elements = new String [5];
@@ -147,6 +146,13 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		}catch(Exception e) {
 			//e.printStackTrace();
 			return false;
+		} finally {
+			try {
+				fichier.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("RAF OUVERT !");
+			}
 		}
 		
 		
