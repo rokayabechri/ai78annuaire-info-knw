@@ -1,20 +1,12 @@
 package fr.afcepf.ai78.projet1.interfaces;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.RandomAccessFile;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
@@ -101,8 +93,9 @@ public class AnnaireExistant extends JDialog implements ActionListener,WindowLis
 		}
 
 		if(e.getSource()==btnAnnuler){
-			frame.toFront();
+			frame.setPopUp(null);
 			frame.setEnabled(true);
+			frame.toFront();
 			this.dispose();
 
 		}

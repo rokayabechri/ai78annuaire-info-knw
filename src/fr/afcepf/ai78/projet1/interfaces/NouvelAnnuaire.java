@@ -201,8 +201,9 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 		}
 
 		if(e.getSource()==btnAnnuler){
-			frame.toFront();
+			frame.setPopUp(null);
 			frame.setEnabled(true);
+			frame.toFront();
 			this.dispose();
 		}
 		if(e.getSource()==rdbtnAPartirDun){
