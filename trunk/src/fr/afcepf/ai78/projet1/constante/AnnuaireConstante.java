@@ -71,6 +71,6 @@ public class AnnuaireConstante {
 	/**
 	 * The path to the binaries directory.
 	 */
-	public static final String BIN_PATH = "c:/binaries";
+	public static final String BIN_PATH = "c:/binaries/";
 	
 }
