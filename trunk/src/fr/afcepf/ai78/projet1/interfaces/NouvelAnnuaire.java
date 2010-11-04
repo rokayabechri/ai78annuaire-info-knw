@@ -1,7 +1,5 @@
 package fr.afcepf.ai78.projet1.interfaces;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -9,27 +7,22 @@ import java.awt.event.WindowListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.RandomAccessFile;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-
 import fr.afcepf.ai78.projet1.constante.AnnuaireConstante;
 import fr.afcepf.ai78.projet1.fileManager.GestionBinaire;
+import java.awt.Toolkit;
 
 public class NouvelAnnuaire extends JDialog implements ActionListener,WindowListener{
 	private JTextField txtAnnuaire;
 	private JRadioButton rdbtnNouveauFichier;
 	private JRadioButton rdbtnAPartirDun;
-	private JButton btnCréer;
+	private JButton btnCreer;
 	private JButton btnAnnuler;
 	private FenetrePrincipale frame;
 
@@ -38,16 +31,22 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 	 * Create the dialog.
 	 */
 	public  NouvelAnnuaire(FenetrePrincipale frame) {
-
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(NouvelAnnuaire.class.getResource("/fr/afcepf/ai78/projet1/images/menu_nouveau.png")));
+		setResizable(false);
+		
 		this.frame = frame;
-		setBounds(100, 100, 300, 230);
+		setSize(300, 230);
+		
+		setTitle("Créer annuaire");
 		getContentPane().setLayout(null);
 
 		rdbtnNouveauFichier = new JRadioButton("Nouveau fichier");
-		rdbtnNouveauFichier.setBounds(41, 93, 109, 23);
+		rdbtnNouveauFichier.setSelected(true);
+		rdbtnNouveauFichier.setBounds(41, 93, 175, 23);
 		getContentPane().add(rdbtnNouveauFichier);
 
-		rdbtnAPartirDun = new JRadioButton("A partir d'un ficheir de données");
+		rdbtnAPartirDun = new JRadioButton("Importer fichier");
 		rdbtnAPartirDun.setBounds(41, 123, 175, 23);
 		getContentPane().add(rdbtnAPartirDun);
 
@@ -56,34 +55,30 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 		getContentPane().add(txtAnnuaire);
 		txtAnnuaire.setColumns(10);
 
-		JLabel lblSaisirNomDu = new JLabel("Saisir nom du nouvel annuaire: ");
-		lblSaisirNomDu.setBounds(41, 21, 186, 14);
+		JLabel lblSaisirNomDu = new JLabel("Saisir le nom du nouvel annuaire : ");
+		lblSaisirNomDu.setBounds(37, 14, 212, 23);
 		getContentPane().add(lblSaisirNomDu);
 
-		btnCréer = new JButton("Créer");
-		btnCréer.setBounds(25, 169, 102, 23);
-		getContentPane().add(btnCréer);
+		btnCreer = new JButton("Créer");
+		btnCreer.setBounds(158, 156, 102, 23);
+		getContentPane().add(btnCreer);
 
 		btnAnnuler = new JButton("Annuler");
-		btnAnnuler.setBounds(167, 169, 102, 23);
+		btnAnnuler.setBounds(28, 156, 102, 23);
 		getContentPane().add(btnAnnuler);
 
 		btnAnnuler.addActionListener(this);
-		btnCréer.addActionListener(this);
+		btnCreer.addActionListener(this);
 		rdbtnAPartirDun.addActionListener(this);
 		rdbtnNouveauFichier.addActionListener(this);
 		this.addWindowListener(this);
-
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-
-
-
-		if(e.getSource()==btnCréer){
+		if(e.getSource()==btnCreer){
 
 			File f = new File(AnnuaireConstante.BIN_PATH);
 			if(!f.exists()){
@@ -94,11 +89,7 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 
 				String nomFichier = txtAnnuaire.getText().toString();
 
-
-
 				if(!nomFichier.equals("")){
-
-
 
 					boolean unBoolean = false;
 					for (String chemin : f.list()) {
@@ -159,8 +150,6 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 								frame.toFront();
 								this.dispose();
 
-
-
 							}
 						}
 
@@ -168,9 +157,6 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 				}}else{
 
 					if(rdbtnNouveauFichier.isSelected()){
-
-
-
 						String nomFichier = txtAnnuaire.getText().toString();
 
 						if(!nomFichier.equals("")){
@@ -212,9 +198,6 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 			frame.setEnabled(true);
 			this.dispose();
 		}
-
-
-
 		if(e.getSource()==rdbtnAPartirDun){
 
 			if(rdbtnNouveauFichier.isSelected()){
@@ -227,10 +210,7 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 				rdbtnAPartirDun.setSelected(false);
 			}
 		}
-
-
 	}
-
 
 	@Override
 	public void windowActivated(WindowEvent arg0) {
