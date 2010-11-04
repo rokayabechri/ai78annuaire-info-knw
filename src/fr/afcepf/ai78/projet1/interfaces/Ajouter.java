@@ -24,6 +24,7 @@ import fr.afcepf.ai78.projet1.objets.Noeud;
 
 import javax.swing.JComboBox;
 import javax.swing.text.MaskFormatter;
+import javax.swing.ImageIcon;
 
 public class Ajouter extends JDialog implements ActionListener,WindowListener{
 	
@@ -41,13 +42,16 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 	private JTextField textAnnee;
 	private JComboBox comboBox;
 	private FenetrePrincipale frame;
+	private JLabel label;
 	
 
 	/**
 	 * Create the panel.
 	 */
 	public Ajouter(FenetrePrincipale frame) {
-		setResizable(false);	
+		setTitle("Ajouter un stagiaire");
+		setResizable(false);
+		setSize(405, 300);
 		this.frame = frame;
 		getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
@@ -80,6 +84,10 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(textNom, "4, 2, fill, default");
 		textNom.setColumns(10);
 		textNom.setDocument(new LimiteTexte(30));
+		
+		label = new JLabel("");
+		label.setIcon(new ImageIcon(Ajouter.class.getResource("/fr/afcepf/ai78/projet1/images/ajout_icon.png")));
+		getContentPane().add(label, "6, 1, 2, 5, center, default");
 
 
 		lblPrenom = new JLabel("Prénom :");

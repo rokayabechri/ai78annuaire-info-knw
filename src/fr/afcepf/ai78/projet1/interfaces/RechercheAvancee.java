@@ -45,8 +45,8 @@ public class RechercheAvancee extends JDialog implements ActionListener,WindowLi
 	public RechercheAvancee(AffichageAnnuaire parent) {
 		setTitle("Recherche avancée");
 		setResizable(false);
+		setSize(410, 300);
 		
-		setBounds(100, 100, 409, 299);
 		this.parent = parent;
 		getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
