@@ -154,40 +154,33 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 
 	public boolean ajoutElementArbreBinaire(Noeud stagiaire, int posParent, int posArbre, Boolean existeDeja,int positionAjout) {
 
-		try{
-			Noeud parent = lireNoeud(posParent);
-			Noeud arbre = lireNoeud(posArbre);			
-			if(arbre == null){
-				stagiaire.setParent(posParent);
-				existeDeja = false;
+		Noeud parent = lireNoeud(posParent);
+		Noeud arbre = lireNoeud(posArbre);			
+		if(arbre == null){
+			stagiaire.setParent(posParent);
+			existeDeja = false;
 
-				if(parent != null){
-					if(parent.compareTo(stagiaire)<0){
-						ecrireInt((stagiaire.getParent()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE+AnnuaireConstante.TAILLE_PARENT+AnnuaireConstante.TAILLE_FILSG,positionAjout);
-					}else{
-						ecrireInt((stagiaire.getParent()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE+AnnuaireConstante.TAILLE_PARENT,positionAjout);						
-					}
-				}
-
-			}else{
-				if(stagiaire.compareTo(arbre)<0){
-					existeDeja = ajoutElementArbreBinaire(stagiaire, posArbre, arbre.getFilsG(), existeDeja,positionAjout);
-
+			if(parent != null){
+				if(parent.compareTo(stagiaire)<0){
+					ecrireInt((stagiaire.getParent()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE+AnnuaireConstante.TAILLE_PARENT+AnnuaireConstante.TAILLE_FILSG,positionAjout);
 				}else{
-					if(stagiaire.compareTo(arbre)>0){
-						existeDeja =  ajoutElementArbreBinaire(stagiaire, posArbre, arbre.getFilsD(), existeDeja,positionAjout);
-					}else{
-						existeDeja =  true;
-					}
+					ecrireInt((stagiaire.getParent()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE+AnnuaireConstante.TAILLE_PARENT,positionAjout);						
 				}
 			}
-			return existeDeja;
 
-		}catch (FileNotFoundException e) {
-			return false;
-		} catch (IOException e) {
-			return false;
+		}else{
+			if(stagiaire.compareTo(arbre)<0){
+				existeDeja = ajoutElementArbreBinaire(stagiaire, posArbre, arbre.getFilsG(), existeDeja,positionAjout);
+
+			}else{
+				if(stagiaire.compareTo(arbre)>0){
+					existeDeja =  ajoutElementArbreBinaire(stagiaire, posArbre, arbre.getFilsD(), existeDeja,positionAjout);
+				}else{
+					existeDeja =  true;
+				}
+			}
 		}
+		return existeDeja;
 	}
 
 	public List<Stagiaire> afficherTout(){
@@ -274,67 +267,63 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 	public void supprimer(Noeud unNoeud, int posArbre){
 
 		Noeud arbre = lireNoeud(posArbre);
-		try{
-			if (arbre == null) {
-				JOptionPane.showMessageDialog(null, "suppression impossible");
+		if (arbre == null) {
+			JOptionPane.showMessageDialog(null, "suppression impossible");
+		} else {
+			if (unNoeud.compareTo(arbre) < 0 ) {
+				supprimer(unNoeud , arbre.getFilsG());
 			} else {
-				if (unNoeud.compareTo(arbre) < 0 ) {
-					supprimer(unNoeud , arbre.getFilsG());
+				if (unNoeud.compareTo(arbre) > 0 ) {
+					supprimer(unNoeud , arbre.getFilsD());
 				} else {
-					if (unNoeud.compareTo(arbre) > 0 ) {
-						supprimer(unNoeud , arbre.getFilsD());
-					} else {
 
-						if (!arbre.hasFilsD()) {
+					if (!arbre.hasFilsD()) {
 
 
-							if(arbre.hasFilsG()){
+						if(arbre.hasFilsG()){
 
-								Noeud sousArbreGauche = lireNoeud(arbre.getFilsG());
+							Noeud sousArbreGauche = lireNoeud(arbre.getFilsG());
 
-								if(sousArbreGauche.hasFilsG()){
-									ecrireInt((sousArbreGauche.getFilsG()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE, posArbre);
-								}
-								if(sousArbreGauche.hasFilsD()){
-									ecrireInt((sousArbreGauche.getFilsD()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE, posArbre);
-								}
-								sousArbreGauche.setParent(arbre.getParent());
-								ecrireNoeud(posArbre,sousArbreGauche);
-								fantome.add(arbre.getFilsG());
-							}else{
-								if(!arbre.isRacine()){
-									ecrireInt((arbre.getParent()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE+AnnuaireConstante.TAILLE_PARENT, arbre.getFilsG());
-
-								}
-								fantome.add(posArbre);
+							if(sousArbreGauche.hasFilsG()){
+								ecrireInt((sousArbreGauche.getFilsG()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE, posArbre);
+							}
+							if(sousArbreGauche.hasFilsD()){
+								ecrireInt((sousArbreGauche.getFilsD()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE, posArbre);
+							}
+							sousArbreGauche.setParent(arbre.getParent());
+							ecrireNoeud(posArbre,sousArbreGauche);
+							fantome.add(arbre.getFilsG());
+						}else{
+							if(!arbre.isRacine()){
+								ecrireInt((arbre.getParent()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE+AnnuaireConstante.TAILLE_PARENT, arbre.getFilsG());
 
 							}
+							fantome.add(posArbre);
+
+						}
+
+					} else {
+						if (!arbre.hasFilsG()) {	
+							Noeud sousArbreDroit = lireNoeud(arbre.getFilsD());
+
+							if(sousArbreDroit.hasFilsG()){
+								ecrireInt((sousArbreDroit.getFilsG()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE, posArbre);
+							}
+							if(sousArbreDroit.hasFilsD()){
+								ecrireInt((sousArbreDroit.getFilsD()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE, posArbre);
+							}			
+							sousArbreDroit.setParent(arbre.getParent());
+							ecrireNoeud(posArbre,sousArbreDroit);
+							fantome.add(arbre.getFilsD());
+
 
 						} else {
-							if (!arbre.hasFilsG()) {	
-								Noeud sousArbreDroit = lireNoeud(arbre.getFilsD());
+							remonter(arbre.getFilsG(), posArbre, false) ;
 
-								if(sousArbreDroit.hasFilsG()){
-									ecrireInt((sousArbreDroit.getFilsG()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE, posArbre);
-								}
-								if(sousArbreDroit.hasFilsD()){
-									ecrireInt((sousArbreDroit.getFilsD()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE, posArbre);
-								}			
-								sousArbreDroit.setParent(arbre.getParent());
-								ecrireNoeud(posArbre,sousArbreDroit);
-								fantome.add(arbre.getFilsD());
-
-
-							} else {
-								remonter(arbre.getFilsG(), posArbre, false) ;
-
-							}
 						}
 					}
 				}
 			}
-		}catch(IOException e){
-			e.printStackTrace();
 		}
 	}
 
@@ -344,31 +333,26 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		Noeud arbre = lireNoeud(posArbre);
 
 		if (!sousArbre.hasFilsD()) {
-			try {
-				if(!unBoolean){
+			if(!unBoolean){
 
-					if(sousArbre.hasFilsG()){
-						ecrireInt((sousArbre.getFilsG()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE, posArbre);
-					}
-					sousArbre.setParent(arbre.getParent());
-					sousArbre.setFilsD(arbre.getFilsD());
-					ecrireNoeud(posArbre,sousArbre);
-					fantome.add(posFils);
-				}else{
-
-					if(sousArbre.hasFilsG()){
-						ecrireInt((sousArbre.getFilsG()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE, sousArbre.getParent());
-					}					
-					ecrireInt((sousArbre.getParent()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE+4+4, sousArbre.getFilsG());
-					sousArbre.setParent(arbre.getParent());
-					sousArbre.setFilsG(arbre.getFilsG());
-					sousArbre.setFilsD(arbre.getFilsD());
-					ecrireNoeud(posArbre,sousArbre);
-					fantome.add(posFils);
+				if(sousArbre.hasFilsG()){
+					ecrireInt((sousArbre.getFilsG()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE, posArbre);
 				}
+				sousArbre.setParent(arbre.getParent());
+				sousArbre.setFilsD(arbre.getFilsD());
+				ecrireNoeud(posArbre,sousArbre);
+				fantome.add(posFils);
+			}else{
 
-			} catch (IOException e) {
-				e.printStackTrace();
+				if(sousArbre.hasFilsG()){
+					ecrireInt((sousArbre.getFilsG()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE, sousArbre.getParent());
+				}					
+				ecrireInt((sousArbre.getParent()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE+4+4, sousArbre.getFilsG());
+				sousArbre.setParent(arbre.getParent());
+				sousArbre.setFilsG(arbre.getFilsG());
+				sousArbre.setFilsD(arbre.getFilsD());
+				ecrireNoeud(posArbre,sousArbre);
+				fantome.add(posFils);
 			}
 
 		} else {
@@ -376,42 +360,73 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		}
 	}
 
-	public int getPositionAjout() throws IOException{
+	public int getPositionAjout(){
 		
-		RandomAccessFile fichier = new RandomAccessFile(fichierSortie, "rw");
-		int position;
-		if(fantome.isEmpty()){
-			position = ((int)(fichier.length()/AnnuaireConstante.TAILLE_NOEUD));
-		}else{
-			position = fantome.get(fantome.size()-1);
+		RandomAccessFile fichier = null;
+		int position = 0;
+		
+		try {
+			fichier = new RandomAccessFile(fichierSortie, "rw");
+			
+			if(fantome.isEmpty()){
+				position = ((int)(fichier.length()/AnnuaireConstante.TAILLE_NOEUD));
+			}else{
+				position = fantome.get(fantome.size()-1);
+			}
+						
+		} catch (FileNotFoundException e) {
+			//e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("ERREUR DE LENGTH");
+		}finally {
+			try {
+				fichier.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("RAF OUVERT !");
+			}
 		}
-		fichier.close();
 		return position;
 	}
 
-	public void ecrireNoeud(int indice, Noeud ajout) throws IOException {
+	public void ecrireNoeud(int indice, Noeud ajout)  {
 		
-		RandomAccessFile fichier = new RandomAccessFile(fichierSortie, "rw");
-		fichier.seek(indice*AnnuaireConstante.TAILLE_NOEUD);
-
-		fichier.writeChars(formater(AnnuaireConstante.TAILLE_NOM,ajout.getNom()));
-		fichier.writeChars(formater(AnnuaireConstante.TAILLE_PRENOM,ajout.getPrenom()));
-		fichier.writeChars(formater(AnnuaireConstante.TAILLE_PROMOTION,ajout.getPromotion()));
-		fichier.writeChars(formater(AnnuaireConstante.TAILLE_DEPARTEMENT,ajout.getDepartement()));
-		fichier.writeInt(ajout.getAnnee());
-		fichier.writeInt(ajout.getParent());
-		fichier.writeInt(ajout.getFilsG());
-		fichier.writeInt(ajout.getFilsD());
-		
-		fichier.close();
+		RandomAccessFile fichier = null;
+		try {
+			fichier = new RandomAccessFile(fichierSortie, "rw");
+			
+			fichier.seek(indice*AnnuaireConstante.TAILLE_NOEUD);
+	
+			fichier.writeChars(formater(AnnuaireConstante.TAILLE_NOM,ajout.getNom()));
+			fichier.writeChars(formater(AnnuaireConstante.TAILLE_PRENOM,ajout.getPrenom()));
+			fichier.writeChars(formater(AnnuaireConstante.TAILLE_PROMOTION,ajout.getPromotion()));
+			fichier.writeChars(formater(AnnuaireConstante.TAILLE_DEPARTEMENT,ajout.getDepartement()));
+			fichier.writeInt(ajout.getAnnee());
+			fichier.writeInt(ajout.getParent());
+			fichier.writeInt(ajout.getFilsG());
+			fichier.writeInt(ajout.getFilsD());
+		} catch (FileNotFoundException e) {
+			//e.printStackTrace();
+		} catch (IOException e) {
+			//e.printStackTrace();
+		} finally {
+			try {
+				fichier.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("RAF OUVERT !");
+			}
+		}
 	}
 
 	private Noeud lireNoeud(int indice) {
 		
 		Noeud unNoeud = new Noeud();
+		RandomAccessFile fichier = null;
 		try {
 			
-			RandomAccessFile fichier = new RandomAccessFile(fichierSortie, "rw");
+			fichier = new RandomAccessFile(fichierSortie, "rw");
 			fichier.seek(indice*AnnuaireConstante.TAILLE_NOEUD);
 
 			unNoeud.setNom(lireChaine(AnnuaireConstante.TAILLE_NOM,fichier));
@@ -423,24 +438,41 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 			unNoeud.setFilsG(fichier.readInt());
 			unNoeud.setFilsD(fichier.readInt());
 			
-			fichier.close();
-
 		} catch (IOException e) {
-			e.printStackTrace();
 			return null;
 		} catch (Exception e){
-			e.printStackTrace();
 			return null;
+		} finally {
+			try {
+				fichier.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("RAF OUVERT !");
+			}
 		}
 		return unNoeud;
 	}
 
-	private void ecrireInt(int position, int element) throws IOException{
+	private void ecrireInt(int position, int element){
 		
-		RandomAccessFile fichier = new RandomAccessFile(fichierSortie, "rw");
-		fichier.seek(position);
-		fichier.writeInt(element);
-		fichier.close();
+		RandomAccessFile fichier = null;
+		try {
+			fichier = new RandomAccessFile(fichierSortie, "rw");
+			fichier.seek(position);
+			fichier.writeInt(element);
+		} catch (FileNotFoundException e) {
+			//e.printStackTrace();
+		} catch (IOException e) {
+			//e.printStackTrace();
+		} finally{
+			try {
+				fichier.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("RAF OUVERT !");
+			}
+		}
+		
 	}
 
 	private String formater (int taille ,String chaine){
