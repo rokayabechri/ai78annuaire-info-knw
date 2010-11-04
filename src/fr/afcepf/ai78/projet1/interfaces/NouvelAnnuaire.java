@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import fr.afcepf.ai78.projet1.constante.AnnuaireConstante;
 import fr.afcepf.ai78.projet1.fileManager.GestionBinaire;
 import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
 public class NouvelAnnuaire extends JDialog implements ActionListener,WindowListener{
 	private JTextField txtAnnuaire;
@@ -25,6 +26,7 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 	private JButton btnCreer;
 	private JButton btnAnnuler;
 	private FenetrePrincipale frame;
+	private JLabel label;
 
 
 	/**
@@ -43,29 +45,34 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 
 		rdbtnNouveauFichier = new JRadioButton("Nouveau fichier");
 		rdbtnNouveauFichier.setSelected(true);
-		rdbtnNouveauFichier.setBounds(41, 93, 175, 23);
+		rdbtnNouveauFichier.setBounds(94, 93, 140, 23);
 		getContentPane().add(rdbtnNouveauFichier);
 
 		rdbtnAPartirDun = new JRadioButton("Importer fichier");
-		rdbtnAPartirDun.setBounds(41, 123, 175, 23);
+		rdbtnAPartirDun.setBounds(94, 123, 140, 23);
 		getContentPane().add(rdbtnAPartirDun);
 
 		txtAnnuaire = new JTextField();
-		txtAnnuaire.setBounds(41, 46, 186, 30);
+		txtAnnuaire.setBounds(94, 49, 152, 30);
 		getContentPane().add(txtAnnuaire);
 		txtAnnuaire.setColumns(10);
 
 		JLabel lblSaisirNomDu = new JLabel("Saisir le nom du nouvel annuaire : ");
-		lblSaisirNomDu.setBounds(37, 14, 212, 23);
+		lblSaisirNomDu.setBounds(53, 12, 212, 23);
 		getContentPane().add(lblSaisirNomDu);
 
 		btnCreer = new JButton("Créer");
-		btnCreer.setBounds(158, 156, 102, 23);
+		btnCreer.setBounds(43, 153, 80, 23);
 		getContentPane().add(btnCreer);
 
 		btnAnnuler = new JButton("Annuler");
-		btnAnnuler.setBounds(28, 156, 102, 23);
+		btnAnnuler.setBounds(166, 153, 80, 23);
 		getContentPane().add(btnAnnuler);
+		
+		label = new JLabel("");
+		label.setIcon(new ImageIcon(NouvelAnnuaire.class.getResource("/fr/afcepf/ai78/projet1/images/folder_create.png")));
+		label.setBounds(12, 55, 70, 70);
+		getContentPane().add(label);
 
 		btnAnnuler.addActionListener(this);
 		btnCreer.addActionListener(this);
