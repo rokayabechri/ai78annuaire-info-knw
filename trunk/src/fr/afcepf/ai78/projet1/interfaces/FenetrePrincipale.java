@@ -71,7 +71,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	 */
 	public FenetrePrincipale() {
 		try {
-			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+			UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (InstantiationException e) {
