@@ -93,7 +93,7 @@ public class RechercheAvancee extends JDialog implements ActionListener,WindowLi
 		getContentPane().add(comboBox, "4, 6");
 		comboBox.removeAllItems();
 		comboBox.addItem("");
-		for (String string : parent.getPromo()) {
+		for (String string : parent.getFrame().getAnnuaireCourant().getPromo()) {
 			
 			comboBox.addItem(string);
 		}

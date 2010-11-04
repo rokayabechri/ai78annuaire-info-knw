@@ -115,10 +115,12 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		comboBox.addItem("");
 		
 		AffichageAnnuaire affichage = (AffichageAnnuaire) frame.getContentPane().getComponent(0);
-		for (String string : affichage.getPromo()) {
+		
+		for (String string : frame.getAnnuaireCourant().getPromo()) {
 			
 			comboBox.addItem(string);
 		}
+		comboBox.addItem("autre");
 		comboBox.addItem("autre");
 		
 		

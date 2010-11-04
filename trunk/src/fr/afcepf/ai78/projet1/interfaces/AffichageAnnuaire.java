@@ -41,7 +41,6 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	private JButton btnAfficherTout = new JButton("Afficher Tout");
 	private JButton btnRechercher = new JButton("Rechercher avancée");
 	private JScrollPane scrollPane = new JScrollPane();
-	private List<String> promo = new ArrayList<String>();
 	private FenetrePrincipale frame;
 
 
@@ -112,9 +111,6 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		txtEntree.addKeyListener(this);
 		table.addFocusListener(this);
 		
-		listerPromo();
-		
-
 	}
 
 	public AffichageAnnuaire() {
@@ -194,8 +190,6 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 			}
 		});
 		
-		listerPromo();
-
 	}
 
 	@Override
@@ -333,33 +327,6 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 
 	}
 	
-	
-	private boolean promoExist(String promotion)
-	{
-		boolean unBoolean = false;
-
-		for (String string : promo) {
-
-			if(string.equals(promotion)){
-				unBoolean = true;
-			}
-
-		}
-		return unBoolean;
-	}
-	
-	public void listerPromo(){
-
-		for (int i = 0; i < table.getRowCount(); i++) {
-
-			if(!promoExist(table.getValueAt(i, 2).toString())){
-
-				promo.add(table.getValueAt(i, 2).toString());
-			}
-			
-		}
-	}
-	
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if(e.getKeyCode()==10){
@@ -403,10 +370,6 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	@Override
 	public void focusLost(FocusEvent arg0) {
 	
-	}
-
-	public List<String> getPromo() {
-		return promo;
 	}
 
 }
