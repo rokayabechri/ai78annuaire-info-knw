@@ -199,12 +199,13 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 
 		Noeud arbre = lireNoeud(posArbre);
 		
-		if(!promoExist(arbre.getPromotion())){
 
-			promo.add(arbre.getPromotion());
-		}
 		if(arbre != null){
+			
+			if(!promoExist(arbre.getPromotion())){
 
+				promo.add(arbre.getPromotion());
+			}
 			if(arbre.hasFilsG()){
 				listeNoeud = afficherTout(arbre.getFilsG(),listeNoeud);	
 			}
