@@ -51,31 +51,24 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		setOpaque(false);
 		setLayout(new BorderLayout(0, 0));
 
-
-		FlowLayout flowLayout = (FlowLayout) panelOption.getLayout();
 		panelOption.setPreferredSize(new Dimension(100, 10));
 		add(panelOption, BorderLayout.WEST);
 
-
 		btnAjouter.setPreferredSize(new Dimension(95, 30));
 		panelOption.add(btnAjouter);
-
 
 		btnSupprimer.setPreferredSize(new Dimension(95, 30));
 		btnSupprimer.setEnabled(false);
 		panelOption.add(btnSupprimer);
 
-
 		btnEditer.setPreferredSize(new Dimension(95, 30));
 		btnEditer.setEnabled(false);
 		panelOption.add(btnEditer);
-
 
 		FlowLayout fl_panelRecherche = (FlowLayout) panelRecherche.getLayout();
 		fl_panelRecherche.setAlignment(FlowLayout.RIGHT);
 		panelRecherche.setPreferredSize(new Dimension(10, 35));
 		add(panelRecherche, BorderLayout.NORTH);
-
 
 		panelRecherche.add(btnAfficherTout);
 
@@ -93,7 +86,6 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		txtEntree.setPreferredSize(new Dimension(150, 25));
 		panelRecherche.add(txtEntree);
 		txtEntree.setColumns(10);
-
 
 		add(scrollPane, BorderLayout.CENTER);
 
@@ -130,9 +122,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 					frame.getPopUp().setLocationRelativeTo(frame);
 					frame.getPopUp().setVisible(true);
 				}
-
 			}
-			
 		}
 
 		if (e.getSource() == btnAfficherTout) {
@@ -142,7 +132,6 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		}
 
 		if (e.getSource() == btnAjouter) {
-
 
 			if(frame.getPopUp()==null){
 				frame.setPopUp(new Ajouter(frame));
@@ -178,7 +167,6 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		if (e.getSource() == btnEditer) {
 			int indice = table.getSelectedRow();
 			Noeud  unNoeud = new Noeud(table.getValueAt(indice, 0).toString(),table.getValueAt(indice, 1).toString(),table.getValueAt(indice, 4).toString(),table.getValueAt(indice, 2).toString(),Integer.parseInt(table.getValueAt(indice, 3).toString()));
-			
 
 			if(frame.getPopUp()==null){
 
@@ -191,9 +179,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 				frame.setPopUp(new Editer(this,unNoeud));
 				frame.getPopUp().setLocationRelativeTo(frame);
 				frame.getPopUp().setVisible(true);
-
 			}
-
 		}			
 	}
 
@@ -208,38 +194,23 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mouseEntered(MouseEvent arg0) {}
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mouseExited(MouseEvent arg0) {}
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mousePressed(MouseEvent arg0) {}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mouseReleased(MouseEvent arg0) {}
 
 	public JTable getTable() {
 		return table;
 	}
 	
 	@Override
-	public void keyPressed(KeyEvent e) {
-		
-
-	}
+	public void keyPressed(KeyEvent e) {}
 	
 	@Override
 	public void keyReleased(KeyEvent e) {
@@ -270,21 +241,13 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	}
 		
 	@Override	
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-	}
-
+	public void keyTyped(KeyEvent e) {}
 	
 	@Override
-	public void focusGained(FocusEvent arg0) {
+	public void focusGained(FocusEvent arg0) {}
 
-	}
-
-	
 	@Override
-	public void focusLost(FocusEvent arg0) {
-	
-	}
+	public void focusLost(FocusEvent arg0) {}
 
 }
 
