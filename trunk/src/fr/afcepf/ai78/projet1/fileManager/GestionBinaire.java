@@ -98,14 +98,16 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 			BufferedReader br  = new BufferedReader(new FileReader(f));
 			LineNumberReader lnr = new LineNumberReader(new FileReader(f));
 			
-			lnr.skip(f.length());
+			System.out.println(f.length()*2);
+			System.out.println(lnr.skip(f.length()));
+			System.out.println(lnr.getLineNumber());
+			
 			RandomAccessFile fichier = new RandomAccessFile(fichierSortie, "rw");
-
 			String ligne = "";
 			int indiceTableau = 0;
 			String []elements = new String [5];
 			
-			double step = (progressEnd - progressStart) / (lnr.getLineNumber()/AnnuaireConstante.NB_LIGNE_STAGIAIRE);
+			double step = (progressEnd - progressStart) / ((lnr.getLineNumber()+1)/AnnuaireConstante.NB_LIGNE_STAGIAIRE);
 
 			while((ligne=br.readLine())!=null){
 
@@ -136,13 +138,13 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 			return true;
 
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return false;
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return false;
 		}catch(Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return false;
 		}
 		
