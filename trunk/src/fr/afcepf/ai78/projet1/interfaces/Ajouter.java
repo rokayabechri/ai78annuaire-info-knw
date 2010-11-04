@@ -34,11 +34,11 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 	private JLabel lblAnnee;
 	private JLabel lblDepartement;
 	private JLabel lblPromotion;
-	private JFormattedTextField textNom;
-	private JFormattedTextField textPrenom;
-	private JFormattedTextField textDepartement;
+	private JTextField textNom;
+	private JTextField textPrenom;
+	private JTextField textDepartement;
 	private JTextField textPromotion;
-	private JFormattedTextField textAnnee;
+	private JTextField textAnnee;
 	private JComboBox comboBox;
 	private FenetrePrincipale frame;
 	
@@ -74,16 +74,12 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(lblNom, "2, 2, right, center");
 		
 		
-		try {
-			textNom = new JFormattedTextField(new MaskFormatter("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUU"));
-		} catch (ParseException e) {
-			textNom = new JFormattedTextField();
-			e.printStackTrace();
-		}
+
+		textNom = new JTextField();
 		textNom.setToolTipText("<html>Renseigner le nom du nouveau stagiaire.</html>");
 		getContentPane().add(textNom, "4, 2, fill, default");
 		textNom.setColumns(10);
-
+		textNom.setDocument(new LimiteTexte(30));
 
 
 		lblPrenom = new JLabel("Prénom :");
@@ -91,15 +87,12 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(lblPrenom, "2, 4, right, default");
 		
 		
-		try {
-			textPrenom = new JFormattedTextField(new MaskFormatter("ULLLLLLLLLLLLLLLLLLLLLLLLLLLLL"));
-		} catch (ParseException e) {
-			textPrenom = new JFormattedTextField();
-			e.printStackTrace();
-		}
+
+		textPrenom = new JTextField();
 		textPrenom.setToolTipText("<html>Renseigner le prénom du nouveau stagiaire.</html>");
 		textPrenom.setColumns(10);
 		getContentPane().add(textPrenom, "4, 4, fill, default");
+		textPrenom.setDocument(new LimiteTexte(30));
 		
 		
 		lblPromotion = new JLabel("Promotion :");
@@ -113,9 +106,7 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(comboBox, "4, 6");
 		comboBox.removeAllItems();
 		comboBox.addItem("");
-		
-		AffichageAnnuaire affichage = (AffichageAnnuaire) frame.getContentPane().getComponent(0);
-		
+				
 		for (String string : frame.getAnnuaireCourant().getPromo()) {
 			
 			comboBox.addItem(string);
@@ -136,15 +127,12 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(lblAnnee, "2, 8, right, default");
 		
 		
-		try {
-			textAnnee = new JFormattedTextField(new MaskFormatter("####"));
-		} catch (ParseException e) {
-			textAnnee = new JFormattedTextField();
-			e.printStackTrace();
-		}
+
+		textAnnee = new JTextField();
 		textAnnee.setToolTipText("<html>Renseigner l'année de promotion du nouveau stagiaire.</html>");
 		getContentPane().add(textAnnee, "4, 8, left, default");
 		textAnnee.setColumns(10);
+		textAnnee.setDocument(new LimiteTexte(4));
 
 		
 		
@@ -161,15 +149,12 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(lblDepartement, "2, 10, right, default");
 		
 		
-		try {
-			textDepartement = new JFormattedTextField(new MaskFormatter("##"));
-		} catch (ParseException e) {
-			textDepartement = new JFormattedTextField();
-			e.printStackTrace();
-		}
+
+		textDepartement = new JTextField();
 		textDepartement.setToolTipText("<html>Renseigner le code département du nouveau stagiaire.</html>");
 		getContentPane().add(textDepartement, "4, 10, left, default");
 		textDepartement.setColumns(10);
+		textDepartement.setDocument(new LimiteTexte(2));
 		
 		
 		btnAnnuler = new JButton("Annuler");
@@ -188,8 +173,11 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 
 		if(e.getSource()==btnSauvegarder){
 			
-			String nom = textNom.getText();
-			String prenom = textPrenom.getText();
+			String nom = textNom.getText().toUpperCase();
+			String chaine = textPrenom.getText();
+			String p = chaine.substring(0,1).toUpperCase();
+			String renom = chaine.substring(1).toLowerCase();
+			String  prenom = p+renom;
 			String promotion;
 			if(comboBox.getSelectedItem().toString().equals("autre")){
 				promotion = textPromotion.getText();
