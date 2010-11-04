@@ -44,6 +44,7 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 	public Editer(AffichageAnnuaire parent,Noeud unNoeudAModifier) {
 		setTitle("Éditer un stagiaire");
 		setResizable(false);
+		setSize(425, 295);
 		this.parent = parent;
 		this.unNoeudAModifier = unNoeudAModifier;
 		getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
