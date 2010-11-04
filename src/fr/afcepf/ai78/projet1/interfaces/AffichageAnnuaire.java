@@ -117,7 +117,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		if (e.getSource() == btnRechercher) {
 			if(frame.getPopUp()==null){
 				frame.setPopUp(new RechercheAvancee(this));
-				frame.getPopUp().setSize(450, 350);
+
 				frame.getPopUp().setLocationRelativeTo(frame);
 				frame.getPopUp().setVisible(true);
 
@@ -127,7 +127,6 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 				}else{
 					frame.getPopUp().dispose();
 					frame.setPopUp(new RechercheAvancee(this));
-					frame.getPopUp().setSize(450, 350);
 					frame.getPopUp().setLocationRelativeTo(frame);
 					frame.getPopUp().setVisible(true);
 				}
@@ -147,7 +146,6 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 
 			if(frame.getPopUp()==null){
 				frame.setPopUp(new Ajouter(frame));
-				frame.getPopUp().setSize(450, 350);
 				frame.getPopUp().setLocationRelativeTo(frame);
 				frame.getPopUp().setVisible(true);
 			}else{
@@ -156,7 +154,6 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 				}else{
 					frame.getPopUp().dispose();
 					frame.setPopUp(new Ajouter(frame));
-					frame.getPopUp().setSize(450, 350);
 					frame.getPopUp().setLocationRelativeTo(frame);
 					frame.getPopUp().setVisible(true);
 				}
@@ -186,14 +183,12 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 			if(frame.getPopUp()==null){
 
 				frame.setPopUp(new Editer(this,unNoeud));
-				frame.getPopUp().setSize(450, 350);
 				frame.getPopUp().setLocationRelativeTo(frame);
 				frame.getPopUp().setVisible(true);
 
 			}else{
 				frame.getPopUp().dispose();
 				frame.setPopUp(new Editer(this,unNoeud));
-				frame.getPopUp().setSize(450, 350);
 				frame.getPopUp().setLocationRelativeTo(frame);
 				frame.getPopUp().setVisible(true);
 
