@@ -114,7 +114,7 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		cBPromotion.setMinimumSize(new Dimension(12, 26));
 		getContentPane().add(cBPromotion, "4, 6");
 		cBPromotion.addItem("");
-		for (String string : parent.getPromo()) {
+		for (String string : parent.getFrame().getAnnuaireCourant().getPromo()) {
 			
 			cBPromotion.addItem(string);
 		}
