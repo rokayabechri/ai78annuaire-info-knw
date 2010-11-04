@@ -1,6 +1,7 @@
 package fr.afcepf.ai78.projet1.fileManager;
 
 import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -130,6 +131,7 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 					setProgress((int) progressStart);
 				}
 			}
+			br.close();
 			fichier.close();
 			return true;
 
@@ -421,8 +423,10 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 			fichier.close();
 
 		} catch (IOException e) {
+			e.printStackTrace();
 			return null;
 		} catch (Exception e){
+			e.printStackTrace();
 			return null;
 		}
 		return unNoeud;
@@ -433,7 +437,6 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		RandomAccessFile fichier = new RandomAccessFile(fichierSortie, "rw");
 		fichier.seek(position);
 		fichier.writeInt(element);
-		
 		fichier.close();
 	}
 
@@ -453,7 +456,6 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		byte [] tableauOctet = new byte [taille];
 		fichier.read(tableauOctet);
 		chaine = new String(tableauOctet,"UTF-16").trim();
-
 		return chaine;
 	}
 		
