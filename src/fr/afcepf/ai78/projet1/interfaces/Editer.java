@@ -34,10 +34,10 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 	private JLabel lblAnnee;
 	private JLabel lblDepartement;
 	private JLabel lblPromotion;
-	private JFormattedTextField txtNom;
-	private JFormattedTextField txtPrenom;
-	private JFormattedTextField txtDepartement;
-	private JFormattedTextField txtAnnee;
+	private JTextField txtNom;
+	private JTextField txtPrenom;
+	private JTextField txtDepartement;
+	private JTextField txtAnnee;
 	private JComboBox cBPromotion;
 	private AffichageAnnuaire parent;
 	private Noeud unNoeudAModifier;
@@ -75,15 +75,12 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(lblNom, "2, 2, right, center");
 		
 		
-		try {
-			txtNom = new JFormattedTextField(new MaskFormatter("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUU"));
-		} catch (ParseException e) {
-			txtNom = new JFormattedTextField();
-			e.printStackTrace();
-		}
+
+		txtNom = new JTextField();
 		txtNom.setToolTipText("<html>Modifier le nom du stagiaire.</html>");
 		getContentPane().add(txtNom, "4, 2, fill, default");
 		txtNom.setColumns(10);
+		txtNom.setDocument(new LimiteTexte(30));
 		txtNom.setText(unNoeudAModifier.getNom());
 		
 		
@@ -92,14 +89,10 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(lblPrenom, "2, 4, right, default");
 		
 		
-		try {
-			txtPrenom = new JFormattedTextField(new MaskFormatter("ULLLLLLLLLLLLLLLLLLLLLLLLLLLLL"));
-		} catch (ParseException e) {
-			txtPrenom = new JFormattedTextField();
-			e.printStackTrace();
-		}
+		txtPrenom = new JTextField();
 		txtPrenom.setToolTipText("<html>Modifier le prénom du stagiaire.</html>");
 		txtPrenom.setColumns(10);
+		txtPrenom.setDocument(new LimiteTexte(30));
 		getContentPane().add(txtPrenom, "4, 4, fill, default");
 		txtPrenom.setText(unNoeudAModifier.getPrenom());
 		
@@ -136,15 +129,12 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(lblAnnee, "2, 8, right, default");
 		
 		
-		try {
-			txtAnnee = new JFormattedTextField(new MaskFormatter("####"));
-		} catch (ParseException e) {
-			txtAnnee = new JFormattedTextField();
-			e.printStackTrace();
-		}
+		txtAnnee = new JTextField();;
+
 		txtAnnee.setToolTipText("<html>Modifier l'année de promotion du stagiaire.</html>");
 		getContentPane().add(txtAnnee, "4, 8, left, default");
-		txtAnnee.setColumns(10);
+		txtAnnee.setColumns(4);
+		txtAnnee.setDocument(new LimiteTexte(30));
 		txtAnnee.setText(unNoeudAModifier.getAnnee()+"");
 	
 		
@@ -162,15 +152,12 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(lblDepartement, "2, 10, right, default");
 		
 		
-		try {
-			txtDepartement = new JFormattedTextField(new MaskFormatter("##"));
-		} catch (ParseException e) {
-			txtDepartement = new JFormattedTextField();
-			e.printStackTrace();
-		}
+
+		txtDepartement = new JTextField();;
 		txtDepartement.setToolTipText("<html>Modifier le code département du stagiaire.</html>");
 		getContentPane().add(txtDepartement, "4, 10, left, default");
 		txtDepartement.setColumns(10);
+		txtDepartement.setDocument(new LimiteTexte(2));
 		txtDepartement.setText(unNoeudAModifier.getDepartement());
 		
 		
@@ -188,8 +175,11 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		
 		if(e.getSource()==btnValider){
 
-			String nom = txtNom.getText();
-			String prenom = txtPrenom.getText();
+			String nom = txtNom.getText().toUpperCase();
+			String chaine = txtPrenom.getText();
+			String p = chaine.substring(0,1).toUpperCase();
+			String renom = chaine.substring(1).toLowerCase();
+			String  prenom = p+renom;
 			String promotion;
 			if(cBPromotion.getSelectedItem().toString().equals("autre")){
 				promotion = textPromotion.getText();
