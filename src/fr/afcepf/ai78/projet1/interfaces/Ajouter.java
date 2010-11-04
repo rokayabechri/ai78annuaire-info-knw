@@ -9,8 +9,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
+import java.text.ParseException;
+
 import javax.swing.JDialog;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.SwingConstants;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -20,6 +23,7 @@ import com.jgoodies.forms.factories.FormFactory;
 import fr.afcepf.ai78.projet1.objets.Noeud;
 
 import javax.swing.JComboBox;
+import javax.swing.text.MaskFormatter;
 
 public class Ajouter extends JDialog implements ActionListener,WindowListener{
 	
@@ -30,13 +34,13 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 	private JLabel lblAnnee;
 	private JLabel lblDepartement;
 	private JLabel lblPromotion;
-	private JTextField textNom;
-	private JTextField textPrenom;
-	private JTextField textDepartement;
-	private JComboBox comboBox;
-	private JTextField textAnnee;
-	private FenetrePrincipale frame;
+	private JFormattedTextField textNom;
+	private JFormattedTextField textPrenom;
+	private JFormattedTextField textDepartement;
 	private JTextField textPromotion;
+	private JFormattedTextField textAnnee;
+	private JComboBox comboBox;
+	private FenetrePrincipale frame;
 	
 
 	/**
@@ -70,11 +74,16 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(lblNom, "2, 2, right, center");
 		
 		
-		textNom = new JTextField();
+		try {
+			textNom = new JFormattedTextField(new MaskFormatter("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUU"));
+		} catch (ParseException e) {
+			textNom = new JFormattedTextField();
+			e.printStackTrace();
+		}
 		textNom.setToolTipText("<html>Renseigner le nom du nouveau stagiaire.</html>");
 		getContentPane().add(textNom, "4, 2, fill, default");
 		textNom.setColumns(10);
-		textNom.setDocument(new LimiteTexte(30));
+
 
 
 		lblPrenom = new JLabel("Prénom :");
@@ -82,11 +91,15 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(lblPrenom, "2, 4, right, default");
 		
 		
-		textPrenom = new JTextField();
+		try {
+			textPrenom = new JFormattedTextField(new MaskFormatter("ULLLLLLLLLLLLLLLLLLLLLLLLLLLLL"));
+		} catch (ParseException e) {
+			textPrenom = new JFormattedTextField();
+			e.printStackTrace();
+		}
 		textPrenom.setToolTipText("<html>Renseigner le prénom du nouveau stagiaire.</html>");
 		textPrenom.setColumns(10);
 		getContentPane().add(textPrenom, "4, 4, fill, default");
-		textPrenom.setDocument(new LimiteTexte(30));
 		
 		
 		lblPromotion = new JLabel("Promotion :");
@@ -121,11 +134,16 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(lblAnnee, "2, 8, right, default");
 		
 		
-		textAnnee = new JTextField();
+		try {
+			textAnnee = new JFormattedTextField(new MaskFormatter("####"));
+		} catch (ParseException e) {
+			textAnnee = new JFormattedTextField();
+			e.printStackTrace();
+		}
 		textAnnee.setToolTipText("<html>Renseigner l'année de promotion du nouveau stagiaire.</html>");
 		getContentPane().add(textAnnee, "4, 8, left, default");
 		textAnnee.setColumns(10);
-		textAnnee.setDocument(new LimiteTexte(4));
+
 		
 		
 		btnSauvegarder = new JButton("Sauvegarder");
@@ -141,11 +159,15 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(lblDepartement, "2, 10, right, default");
 		
 		
-		textDepartement = new JTextField();
+		try {
+			textDepartement = new JFormattedTextField(new MaskFormatter("##"));
+		} catch (ParseException e) {
+			textDepartement = new JFormattedTextField();
+			e.printStackTrace();
+		}
 		textDepartement.setToolTipText("<html>Renseigner le code département du nouveau stagiaire.</html>");
 		getContentPane().add(textDepartement, "4, 10, left, default");
 		textDepartement.setColumns(10);
-		textDepartement.setDocument(new LimiteTexte(2));
 		
 		
 		btnAnnuler = new JButton("Annuler");
