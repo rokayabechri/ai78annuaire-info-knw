@@ -9,22 +9,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
-import java.text.ParseException;
-
 import javax.swing.JDialog;
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.SwingConstants;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
-
 import fr.afcepf.ai78.projet1.objets.Noeud;
-
 import javax.swing.JComboBox;
-import javax.swing.plaf.basic.ComboPopup;
-import javax.swing.text.MaskFormatter;
+import javax.swing.ImageIcon;
 
 public class Editer extends JDialog implements ActionListener,WindowListener{
 	private JButton btnAnnuler;
@@ -42,11 +36,14 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 	private AffichageAnnuaire parent;
 	private Noeud unNoeudAModifier;
 	private JTextField textPromotion;
+	private JLabel label;
 
 	/**
 	 * Create the panel.
 	 */
 	public Editer(AffichageAnnuaire parent,Noeud unNoeudAModifier) {
+		setTitle("Éditer un stagiaire");
+		setResizable(false);
 		this.parent = parent;
 		this.unNoeudAModifier = unNoeudAModifier;
 		getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
@@ -55,9 +52,9 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("140px"),
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("140px"),
+				ColumnSpec.decode("11px"),
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("90px"),},
+				ColumnSpec.decode("140px"),},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("45px"),
@@ -82,6 +79,10 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		txtNom.setColumns(10);
 		txtNom.setDocument(new LimiteTexte(30));
 		txtNom.setText(unNoeudAModifier.getNom());
+		
+		label = new JLabel("");
+		label.setIcon(new ImageIcon(Editer.class.getResource("/fr/afcepf/ai78/projet1/images/edit_icon.png")));
+		getContentPane().add(label, "8, 1, 1, 5");
 		
 		
 		lblPrenom = new JLabel("Prénom :");
@@ -119,7 +120,7 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		textPromotion = new JTextField();
 		textPromotion.setToolTipText("<html>Renseigner une nouvelle année de promotion.</html>");
 		textPromotion.setVisible(false);
-		getContentPane().add(textPromotion, "6, 6");
+		getContentPane().add(textPromotion, "8, 6");
 		textPromotion.setColumns(10);
 		textPromotion.setDocument(new LimiteTexte(10));
 		textPromotion.setText(unNoeudAModifier.getPromotion());
@@ -141,7 +142,7 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		
 		btnValider = new JButton("Valider");
 		btnValider.setToolTipText("<html>Valider votre édition.</html>");
-		getContentPane().add(btnValider, "6, 8");
+		getContentPane().add(btnValider, "8, 8");
 		
 		
 		btnValider.addActionListener(this);
@@ -163,7 +164,7 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		
 		btnAnnuler = new JButton("Annuler");
 		btnAnnuler.setToolTipText("<html>Annuler votre édition.</html>");
-		getContentPane().add(btnAnnuler, "6, 10");
+		getContentPane().add(btnAnnuler, "8, 10");
 		btnAnnuler.addActionListener(this);
 		cBPromotion.addActionListener(this);
 		addWindowListener(this);
