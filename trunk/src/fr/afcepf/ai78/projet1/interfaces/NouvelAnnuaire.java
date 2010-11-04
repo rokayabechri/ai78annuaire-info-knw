@@ -36,10 +36,10 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(NouvelAnnuaire.class.getResource("/fr/afcepf/ai78/projet1/images/menu_nouveau.png")));
 		setResizable(false);
-		
+
 		this.frame = frame;
 		setSize(300, 230);
-		
+
 		setTitle("Créer annuaire");
 		getContentPane().setLayout(null);
 
@@ -68,7 +68,7 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 		btnAnnuler = new JButton("Annuler");
 		btnAnnuler.setBounds(166, 153, 80, 23);
 		getContentPane().add(btnAnnuler);
-		
+
 		label = new JLabel("");
 		label.setIcon(new ImageIcon(NouvelAnnuaire.class.getResource("/fr/afcepf/ai78/projet1/images/folder_create.png")));
 		label.setBounds(12, 55, 70, 70);
@@ -89,9 +89,9 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 
 			File f = new File(AnnuaireConstante.BIN_PATH);
 			if(!f.exists()){
-
 				f.mkdirs();
 			}
+
 			if(rdbtnAPartirDun.isSelected()){
 
 				String nomFichier = txtAnnuaire.getText().toString();
@@ -113,7 +113,7 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 						if(returnVal == JFileChooser.APPROVE_OPTION) {
 							String chemin = fc.getSelectedFile().toString();
 
-							GestionBinaire gb = new GestionBinaire(frame, chemin, "c:/binaries/"+nomFichier+".bin");
+							GestionBinaire gb = new GestionBinaire(frame, chemin, AnnuaireConstante.BIN_PATH+nomFichier+".bin");
 							gb.addPropertyChangeListener(new PropertyChangeListener() {
 
 								public  void propertyChange(PropertyChangeEvent evt) {
@@ -135,13 +135,14 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 
 						int val = JOptionPane.showConfirmDialog(this, "Cet annuaire existe dèja, Voulez-vous le supprimer","",JOptionPane.OK_CANCEL_OPTION);
 						if(val==0){
-
 							JFileChooser fc = new JFileChooser("C:/");
 							int returnVal = fc.showOpenDialog(this);
 							if(returnVal == JFileChooser.APPROVE_OPTION) {
+								File erase = new File(AnnuaireConstante.BIN_PATH+nomFichier+".bin");
+								erase.delete();
 								String chemin = fc.getSelectedFile().toString();
 
-								GestionBinaire gb = new GestionBinaire(frame, chemin, "c:/binaries/"+nomFichier+".bin");
+								GestionBinaire gb = new GestionBinaire(frame, chemin, AnnuaireConstante.BIN_PATH+nomFichier+".bin");
 								gb.addPropertyChangeListener(new PropertyChangeListener() {
 
 									public  void propertyChange(PropertyChangeEvent evt) {
@@ -161,43 +162,46 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 						}
 
 					}
-				}}else{
+				}
+			}else{
 
-					if(rdbtnNouveauFichier.isSelected()){
-						String nomFichier = txtAnnuaire.getText().toString();
+				if(rdbtnNouveauFichier.isSelected()){
+					String nomFichier = txtAnnuaire.getText().toString();
 
-						if(!nomFichier.equals("")){
+					if(!nomFichier.equals("")){
 
-							boolean unBoolean = false;
-							for (String chemin : f.list()) {
+						boolean unBoolean = false;
+						for (String chemin : f.list()) {
 
-								if(chemin.equals(nomFichier+".bin")) {
-									unBoolean = true;
-								}
+							if(chemin.equals(nomFichier+".bin")) {
+								unBoolean = true;
 							}
-							if(!unBoolean){
-								frame.setAnnuaireCourant(new GestionBinaire(frame,"", "c:/binaries/"+nomFichier+".bin"));						
+						}
+						if(!unBoolean){
+							frame.setAnnuaireCourant(new GestionBinaire(frame,"", AnnuaireConstante.BIN_PATH+nomFichier+".bin"));						
+							frame.appelAffichage(true);						
+							frame.setPopUp(null);
+							frame.toFront();
+							this.dispose();
+						}else{
+							int val = JOptionPane.showConfirmDialog(this, "Cet annuaire existe dèja, Voulez-vous le supprimer","",JOptionPane.OK_CANCEL_OPTION);
+							if(val==0){
+								File erase = new File(AnnuaireConstante.BIN_PATH+nomFichier+".bin");
+								erase.delete();
+								frame.setAnnuaireCourant(new GestionBinaire(frame,"", AnnuaireConstante.BIN_PATH+nomFichier+".bin"));						
 								frame.appelAffichage(true);						
 								frame.setPopUp(null);
 								frame.toFront();
 								this.dispose();
-							}else{
-								int val = JOptionPane.showConfirmDialog(this, "Cet annuaire existe dèja, Voulez-vous le supprimer","",JOptionPane.OK_CANCEL_OPTION);
-								if(val==0){
-									frame.setAnnuaireCourant(new GestionBinaire(frame,"", "c:/binaries/"+nomFichier+".bin"));						
-									frame.appelAffichage(true);						
-									frame.setPopUp(null);
-									frame.toFront();
-									this.dispose();
-								}
 							}
-
-						}else{
-							JOptionPane.showMessageDialog(this, "Saisir un nom");
 						}
 
+					}else{
+						JOptionPane.showMessageDialog(this, "Saisir un nom");
 					}
+
 				}
+			}
 		}
 
 		if(e.getSource()==btnAnnuler){
