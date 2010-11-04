@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import javax.swing.ImageIcon;
 import fr.afcepf.ai78.projet1.fileManager.GestionBinaire;
+import java.awt.Toolkit;
 
 
 public class FenetrePrincipale extends JFrame implements ActionListener{
@@ -52,6 +53,9 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 			public void run() {
 
 				try {
+					//UIManager.setLookAndFeel("com.jtattoo.plaf.aero.AeroLookAndFeel");
+					//UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
+					UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
 					FenetrePrincipale frame = new FenetrePrincipale();
 					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
@@ -66,17 +70,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	 * Create the frame.
 	 */
 	public FenetrePrincipale() {
-		try {
-			UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
-		}
+		setIconImage(Toolkit.getDefaultToolkit().getImage(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/frame_icon.png")));
 		
 		setTitle("Gestion d'annuaire");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,16 +83,20 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		menuBar.add(mnFichier);
 		
 		mntmNouveau = new JMenuItem("Nouveau");
+		mntmNouveau.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/menu_nouveau.png")));
 		mntmNouveau.setHorizontalAlignment(SwingConstants.LEFT);
 		mnFichier.add(mntmNouveau);
 		
 		mntmOuvrir = new JMenuItem("Ouvrir");
+		mntmOuvrir.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/menu_ouvrir.png")));
 		mnFichier.add(mntmOuvrir);
 		
 		mntmImprimer = new JMenuItem("Imprimer");
+		mntmImprimer.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/menu_impression.png")));
 		mnFichier.add(mntmImprimer);
 		
 		mntmQuitter = new JMenuItem("Quitter");
+		mntmQuitter.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/menu_quitter.png")));
 		mnFichier.add(mntmQuitter);
 		
 		menuAide = new JMenu("?");
@@ -113,14 +111,14 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		panelLancement.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		btnNouvelAnnuaire = new JButton("Nouvel Annuaire");
-		btnNouvelAnnuaire.setSelectedIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/btn_nouveau_over.png")));
-		btnNouvelAnnuaire.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/btn_nouveau.png")));
+		//btnNouvelAnnuaire.setSelectedIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/btn_nouveau_over.png")));
+		btnNouvelAnnuaire.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/btn_nouveau_over.png")));
 		btnNouvelAnnuaire.setPreferredSize(new Dimension(250, 300));
 		panelLancement.add(btnNouvelAnnuaire);
 		
 		btnOuvrirAnnuaire = new JButton("Ouvrir Annuaire");
-		btnOuvrirAnnuaire.setSelectedIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/btn_ouvrir_over.png")));
-		btnOuvrirAnnuaire.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/btn_ouvrir.png")));
+		//btnOuvrirAnnuaire.setSelectedIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/btn_ouvrir_over.png")));
+		btnOuvrirAnnuaire.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/btn_ouvrir_over.png")));
 		btnOuvrirAnnuaire.setPreferredSize(new Dimension(250, 300));
 		panelLancement.add(btnOuvrirAnnuaire);
 		

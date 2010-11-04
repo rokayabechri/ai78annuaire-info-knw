@@ -31,16 +31,16 @@ import fr.afcepf.ai78.projet1.objets.Stagiaire;
 public class AffichageAnnuaire extends JPanel implements ActionListener,MouseListener,KeyListener, FocusListener{
 
 	private JTable table;
+	private JScrollPane scrollPane = new JScrollPane();
 	private JTextField txtEntree = new JTextField();
 	private JLabel lblEntree= new JLabel("");
 	private JPanel panelOption = new JPanel();
+	private JPanel panelRecherche = new JPanel();
+	private JButton btnAfficherTout = new JButton("Afficher Tout");
+	private JButton btnRechercher = new JButton("Recherche avancée");
 	private JButton btnAjouter = new JButton("Ajouter");
 	private JButton btnSupprimer = new JButton("Supprimer");
 	private JButton btnEditer = new JButton("Editer");
-	private JPanel panelRecherche = new JPanel();
-	private JButton btnAfficherTout = new JButton("Afficher Tout");
-	private JButton btnRechercher = new JButton("Rechercher avancée");
-	private JScrollPane scrollPane = new JScrollPane();
 	private FenetrePrincipale frame;
 
 
@@ -88,7 +88,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 
 		panelRecherche.add(btnRechercher);
 
-		lblEntree.setIcon(new ImageIcon(AffichageAnnuaire.class.getResource("/fr/afcepf/ai78/projet1/images/search_16.png")));
+		lblEntree.setIcon(new ImageIcon(AffichageAnnuaire.class.getResource("/fr/afcepf/ai78/projet1/images/search_icon.png")));
 		panelRecherche.add(lblEntree);
 
 		txtEntree.setName("Recherche");
@@ -110,85 +110,6 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		btnSupprimer.addActionListener(this);
 		txtEntree.addKeyListener(this);
 		table.addFocusListener(this);
-		
-	}
-
-	public AffichageAnnuaire() {
-		setOpaque(false);
-		setLayout(new BorderLayout(0, 0));
-
-		FlowLayout flowLayout = (FlowLayout) panelOption.getLayout();
-		panelOption.setPreferredSize(new Dimension(100, 10));
-		add(panelOption, BorderLayout.WEST);
-		btnAjouter.setToolTipText("Ajouter un stagiaire.");
-
-		btnAjouter.setPreferredSize(new Dimension(95, 30));
-		panelOption.add(btnAjouter);
-		btnSupprimer.setToolTipText("<html>Supprimer un stagiaire.</html>");
-		btnSupprimer.setEnabled(false);
-
-
-
-		btnSupprimer.setPreferredSize(new Dimension(95, 30));
-		panelOption.add(btnSupprimer);
-		btnEditer.setEnabled(false);
-
-		btnEditer.setPreferredSize(new Dimension(95, 30));
-		panelOption.add(btnEditer);
-
-		FlowLayout fl_panelRecherche = (FlowLayout) panelRecherche.getLayout();
-		fl_panelRecherche.setAlignment(FlowLayout.RIGHT);
-		panelRecherche.setPreferredSize(new Dimension(10, 35));
-		add(panelRecherche, BorderLayout.NORTH);
-		btnAfficherTout.setToolTipText("Afficher la totalité des stagiaires.");
-
-		panelRecherche.add(btnAfficherTout);
-
-		JSeparator separator = new JSeparator();
-		separator.setPreferredSize(new Dimension(2, 30));
-		separator.setOrientation(SwingConstants.VERTICAL);
-		panelRecherche.add(separator);
-		btnRechercher.setToolTipText("<html>Effectuer une recherche multicritère:<br>- Sur le nom:<br>- Sur le prénom:<br>- Sur la promotion:<br>- Sur l'année de promotion:<br>- Sur le département:</html>");
-
-		panelRecherche.add(btnRechercher);
-
-		lblEntree.setIcon(new ImageIcon(AffichageAnnuaire.class.getResource("/fr/afcepf/ai78/projet1/images/search_16.png")));
-		panelRecherche.add(lblEntree);
-
-		txtEntree.setName("Recherche");
-		txtEntree.setPreferredSize(new Dimension(150, 25));
-		panelRecherche.add(txtEntree);
-		txtEntree.setColumns(10);
-
-		add(scrollPane, BorderLayout.CENTER);
-
-		table = new JTable(new ModeleStagiaire());
-		scrollPane.setViewportView(table);
-
-		btnRechercher.addActionListener(this);
-		btnAjouter.addActionListener(this);
-		btnAfficherTout.addActionListener(this);
-		btnSupprimer.addActionListener(this);
-		btnEditer.addActionListener(this);
-		
-		txtEntree.addKeyListener(new KeyListener() {
-			
-			@Override
-			public void keyTyped(KeyEvent e) {
-				System.out.println(e.getSource());
-				
-			}
-			
-			@Override
-			public void keyReleased(KeyEvent e) {
-				System.out.println(e.getSource());				
-			}
-			
-			@Override
-			public void keyPressed(KeyEvent e) {
-				System.out.println(e.getSource());				
-			}
-		});
 		
 	}
 
