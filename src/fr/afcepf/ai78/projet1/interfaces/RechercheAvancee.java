@@ -19,6 +19,7 @@ import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import fr.afcepf.ai78.projet1.objets.Stagiaire;
 import javax.swing.JComboBox;
+import javax.swing.ImageIcon;
 
 public class RechercheAvancee extends JDialog implements ActionListener,WindowListener{
 	
@@ -36,14 +37,16 @@ public class RechercheAvancee extends JDialog implements ActionListener,WindowLi
 	private JTextField textAnnee;
 	private JTextField textPromotion;
 	private AffichageAnnuaire parent;
+	private JLabel label;
 
 	/**
 	 * Create the panel.
 	 */
 	public RechercheAvancee(AffichageAnnuaire parent) {
+		setTitle("Recherche avancée");
 		setResizable(false);
-//		setPreferredSize(new Dimension(480, 310));	
-		setBounds(100, 100, 450, 300);
+		
+		setBounds(100, 100, 409, 299);
 		this.parent = parent;
 		getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
@@ -73,6 +76,10 @@ public class RechercheAvancee extends JDialog implements ActionListener,WindowLi
 		textNom.setToolTipText("<html>Effectuer une recherche sur le nom du stagiaire.</html>");
 		getContentPane().add(textNom, "4, 2, fill, default");
 		textNom.setColumns(10);
+		
+		label = new JLabel("");
+		label.setIcon(new ImageIcon(RechercheAvancee.class.getResource("/fr/afcepf/ai78/projet1/images/search_icon_big.png")));
+		getContentPane().add(label, "6, 1, 1, 5");
 		
 		lblAnne = new JLabel("Prénom :");
 		lblAnne.setHorizontalAlignment(SwingConstants.RIGHT);
