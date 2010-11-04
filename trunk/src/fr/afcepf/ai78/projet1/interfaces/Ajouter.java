@@ -37,6 +37,7 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 	private JTextField textAnnee;
 	private FenetrePrincipale frame;
 	private JTextField textPromotion;
+	
 
 	/**
 	 * Create the panel.
@@ -99,7 +100,9 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(comboBox, "4, 6");
 		comboBox.removeAllItems();
 		comboBox.addItem("");
-		for (String string : frame.getAnnuaireCourant().getPromo()) {
+		
+		AffichageAnnuaire affichage = (AffichageAnnuaire) frame.getContentPane().getComponent(0);
+		for (String string : affichage.getPromo()) {
 			
 			comboBox.addItem(string);
 		}
@@ -179,6 +182,8 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 					Noeud unNoeud = new Noeud(nom,prenom,departement,promotion,Integer.parseInt(annee));
 					frame.getAnnuaireCourant().ajoutElementArbreBinaire(unNoeud,-1,0,false,frame.getAnnuaireCourant().getPositionAjout());
 					frame.getAnnuaireCourant().ecrireNoeud(frame.getAnnuaireCourant().getPositionAjout(),unNoeud);
+					AffichageAnnuaire affichage = (AffichageAnnuaire)frame.getContentPane().getComponent(0);
+					affichage.getTable().setModel(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout()));
 					if (!frame.getAnnuaireCourant().getFantome().isEmpty()) {
 						frame.getAnnuaireCourant().getFantome().remove(frame.getAnnuaireCourant().getFantome().get(frame.getAnnuaireCourant().getFantome().size()-1));
 					}

@@ -30,13 +30,9 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	private JPanel panelLancement;
 	private JMenu mnFichier;
 	private JMenu menuAide;
-	private JMenu mnEdition;
 	private JMenuItem mntmNouveau;
 	private JMenuItem mntmOuvrir;
-	private JMenuItem mntmSuppression;
-	private JMenuItem mntmEdition;
 	private JMenuItem mntmImprimer;
-	private JMenuItem mntmAjout;
 	private JMenuBar menuBar;
 	private JButton btnOuvrirAnnuaire;
 	private JButton btnNouvelAnnuaire;
@@ -105,18 +101,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		mntmQuitter = new JMenuItem("Quitter");
 		mnFichier.add(mntmQuitter);
 		
-		mnEdition = new JMenu("Edition");
-		menuBar.add(mnEdition);
-		
-		mntmAjout = new JMenuItem("Ajouter");
-		mnEdition.add(mntmAjout);
-		
-		mntmSuppression = new JMenuItem("Supprimer");
-		mnEdition.add(mntmSuppression);
-		
-		mntmEdition = new JMenuItem("Modifier");
-		mnEdition.add(mntmEdition);
-		
 		menuAide = new JMenu("?");
 		menuBar.add(menuAide);
 		contentPane = new JPanel();
@@ -147,9 +131,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		btnNouvelAnnuaire.addActionListener(this);
 		mntmNouveau.addActionListener(this);
 		mntmOuvrir.addActionListener(this);
-		mntmAjout.addActionListener(this);
-		mntmSuppression.addActionListener(this);
-		mntmEdition.addActionListener(this);
 		mntmQuitter.addActionListener(this);
 		menuAide.addActionListener(this);
 		mntmImprimer.addActionListener(this);

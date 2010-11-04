@@ -17,6 +17,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
@@ -37,9 +39,9 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	private JButton btnEditer = new JButton("Editer");
 	private JPanel panelRecherche = new JPanel();
 	private JButton btnAfficherTout = new JButton("Afficher Tout");
-	private JButton btnLister = new JButton("Lister");
-	private JButton btnRechercher = new JButton("Rechercher");
+	private JButton btnRechercher = new JButton("Rechercher avancée");
 	private JScrollPane scrollPane = new JScrollPane();
+	private List<String> promo = new ArrayList<String>();
 	private FenetrePrincipale frame;
 
 
@@ -85,8 +87,6 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		separator.setOrientation(SwingConstants.VERTICAL);
 		panelRecherche.add(separator);
 
-		panelRecherche.add(btnLister);
-
 		panelRecherche.add(btnRechercher);
 
 		lblEntree.setIcon(new ImageIcon(AffichageAnnuaire.class.getResource("/fr/afcepf/ai78/projet1/images/search_16.png")));
@@ -111,6 +111,9 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		btnSupprimer.addActionListener(this);
 		txtEntree.addKeyListener(this);
 		table.addFocusListener(this);
+		
+		listerPromo();
+		
 
 	}
 
@@ -149,8 +152,6 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		separator.setPreferredSize(new Dimension(2, 30));
 		separator.setOrientation(SwingConstants.VERTICAL);
 		panelRecherche.add(separator);
-
-		panelRecherche.add(btnLister);
 		btnRechercher.setToolTipText("<html>Effectuer une recherche multicritère:<br>- Sur le nom:<br>- Sur le prénom:<br>- Sur la promotion:<br>- Sur l'année de promotion:<br>- Sur le département:</html>");
 
 		panelRecherche.add(btnRechercher);
@@ -192,6 +193,8 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 				System.out.println(e.getSource());				
 			}
 		});
+		
+		listerPromo();
 
 	}
 
@@ -244,7 +247,6 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 					frame.getPopUp().setLocationRelativeTo(frame);
 					frame.getPopUp().setVisible(true);
 				}
-
 			}
 		}
 
@@ -331,6 +333,33 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 
 	}
 	
+	
+	private boolean promoExist(String promotion)
+	{
+		boolean unBoolean = false;
+
+		for (String string : promo) {
+
+			if(string.equals(promotion)){
+				unBoolean = true;
+			}
+
+		}
+		return unBoolean;
+	}
+	
+	public void listerPromo(){
+
+		for (int i = 0; i < table.getRowCount(); i++) {
+
+			if(!promoExist(table.getValueAt(i, 2).toString())){
+
+				promo.add(table.getValueAt(i, 2).toString());
+			}
+			
+		}
+	}
+	
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if(e.getKeyCode()==10){
@@ -374,6 +403,10 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	@Override
 	public void focusLost(FocusEvent arg0) {
 	
+	}
+
+	public List<String> getPromo() {
+		return promo;
 	}
 
 }

@@ -21,7 +21,6 @@ import fr.afcepf.ai78.projet1.objets.Stagiaire;
 public class GestionBinaire extends SwingWorker<Boolean, String>{
 
 	private List<Integer> fantome = new ArrayList<Integer>();
-	private List<String> promo = new ArrayList<String>();
 	private String fichierSource = "";
 	private String fichierSortie = "";
 	private FenetrePrincipale interfaceAnnuaire;
@@ -149,10 +148,6 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 
 	public boolean ajoutElementArbreBinaire(Noeud stagiaire, int posParent, int posArbre, Boolean existeDeja,int positionAjout) {
 
-		if(!promoExist(stagiaire.getPromotion())){
-
-			promo.add(stagiaire.getPromotion());
-		}
 		try{
 			Noeud parent = lireNoeud(posParent);
 			Noeud arbre = lireNoeud(posArbre);			
@@ -459,25 +454,6 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 
 	public List<Integer> getFantome() {
 		return fantome;
-	}
-
-
-	private boolean promoExist(String promotion)
-	{
-		boolean unBoolean = false;
-
-		for (String string : promo) {
-
-			if(string.equals(promotion)){
-				unBoolean = true;
-			}
-
-		}
-		return unBoolean;
-	}
-
-	public List<String> getPromo() {
-		return promo;
 	}
 	
 	@Override
