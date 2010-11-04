@@ -111,10 +111,7 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 			
 			comboBox.addItem(string);
 		}
-		comboBox.addItem("autre");
-		comboBox.addItem("autre");
-		
-		
+		comboBox.addItem("autre");	
 		textPromotion = new JTextField();
 		textPromotion.setToolTipText("<html>Renseigner une nouvelle année de promotion.</html>");
 		textPromotion.setVisible(false);
