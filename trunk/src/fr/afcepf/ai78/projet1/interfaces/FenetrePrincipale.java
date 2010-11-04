@@ -150,7 +150,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 
 			if(this.getPopUp()==null){
 				this.setPopUp(new AnnaireExistant(this,listefichiers));
-				this.getPopUp().setSize(450, 350);
 				this.getPopUp().setLocationRelativeTo(this);
 				this.getPopUp().setVisible(true);
 
@@ -158,12 +157,10 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 				if(this.getPopUp().getClass().equals("fr.afcepf.ai78.projet1.interfaces.FenetrePrincipale")){
 					this.getPopUp().toFront();
 				}else{
-					this.getPopUp().dispose();
 					this.setPopUp(new AnnaireExistant(this,listefichiers));
-					this.getPopUp().setSize(450, 350);
 					this.getPopUp().setLocationRelativeTo(this);
 					this.getPopUp().setVisible(true);
-
+					this.getPopUp().dispose();
 				}
 			}
 		}
@@ -199,7 +196,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		//		if (e.getSource() == menuAide) {
 		//			if(this.getPopUp()==null){
 		//				this.setPopUp(new JDialog(this,"programme realiser par W.Lepante, K.Augerau, N.Chouaib"));
-		//				this.getPopUp().setSize(450, 350);
 		//				this.getPopUp().setLocationRelativeTo(this);
 		//				this.getPopUp().setVisible(true);
 		//
@@ -209,7 +205,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		//				}else{
 		//					this.getPopUp().dispose();
 		//					this.setPopUp(new NouvelAnnuaire(this));
-		//					this.getPopUp().setSize(450, 350);
 		//					this.getPopUp().setLocationRelativeTo(this);
 		//					this.getPopUp().setVisible(true);
 		//
