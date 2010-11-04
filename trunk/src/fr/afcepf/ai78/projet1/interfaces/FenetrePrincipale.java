@@ -174,7 +174,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 
 			if(this.getPopUp()==null){
 				this.setPopUp(new NouvelAnnuaire(this));
-				this.getPopUp().setSize(450, 350);
 				this.getPopUp().setLocationRelativeTo(this);
 				this.getPopUp().setVisible(true);
 
@@ -182,12 +181,10 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 				if(this.getPopUp().getClass().equals("fr.afcepf.ai78.projet1.interfaces.FenetrePrincipale")){
 					this.getPopUp().toFront();
 				}else{
-					this.getPopUp().dispose();
 					this.setPopUp(new NouvelAnnuaire(this));
-					this.getPopUp().setSize(450, 350);
 					this.getPopUp().setLocationRelativeTo(this);
 					this.getPopUp().setVisible(true);
-
+					this.getPopUp().dispose();
 				}
 			}
 			
@@ -245,8 +242,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	
 	public void appelAffichage(boolean liste){
 		if(liste){
-			contentPane.remove(contentPane.getComponent(0));
 			contentPane.remove(progressBar);
+			contentPane.remove(contentPane.getComponent(0));
 			contentPane.add(new AffichageAnnuaire(this),BorderLayout.CENTER);
 			setEnabled(true);
 			contentPane.revalidate();
