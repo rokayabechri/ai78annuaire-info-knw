@@ -84,6 +84,8 @@ private JButton btnAnnuler;
 					frame.setEnabled(true);
 					frame.toFront();
 					this.dispose();					
+				}else{
+					JOptionPane.showMessageDialog(this, "Password incorrecte");					
 				}
 			}else{
 				JOptionPane.showMessageDialog(this, "Saisir Password");
