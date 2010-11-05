@@ -104,7 +104,6 @@ public class RechercheAvancee extends JDialog implements ActionListener,WindowLi
 			
 			comboBox.addItem(string);
 		}
-		comboBox.addItem("autre");
 		
 		textPromotion = new JTextField();
 		textPromotion.setToolTipText("<html>Renseigner une nouvelle année de promotion.</html>");
@@ -182,17 +181,6 @@ public class RechercheAvancee extends JDialog implements ActionListener,WindowLi
 			this.dispose();
 			parent.getFrame().setPopUp(null);
 		}
-		
-		if(e.getSource()==comboBox){
-
-			if(comboBox.getSelectedItem().toString().equals("autre")){
-				textPromotion.setText("");
-				textPromotion.setVisible(true);
-			}else {
-				textPromotion.setVisible(false);
-			}
-		}
-
 	}
 
 	@Override
