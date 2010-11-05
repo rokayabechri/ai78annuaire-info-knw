@@ -40,8 +40,6 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	private JButton btnSupprimer = new JButton("Supprimer");
 	private JButton btnEditer = new JButton("Editer");
 	private FenetrePrincipale frame;
-	private int ligne=0;
-
 
 	/**
 	 * Create the panel.
@@ -54,6 +52,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 
 		panelOption.setPreferredSize(new Dimension(100, 10));
 		add(panelOption, BorderLayout.WEST);
+		panelOption.setVisible(frame.isConnected());
 
 		btnAjouter.setPreferredSize(new Dimension(95, 30));
 		panelOption.add(btnAjouter);
@@ -270,6 +269,22 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	@Override
 	public void focusLost(FocusEvent arg0) {
 
+	}
+
+	public JButton getBtnAjouter() {
+		return btnAjouter;
+	}
+
+	public JButton getBtnSupprimer() {
+		return btnSupprimer;
+	}
+
+	public JButton getBtnEditer() {
+		return btnEditer;
+	}
+
+	public JPanel getPanelOption() {
+		return panelOption;
 	}
 	
 }
