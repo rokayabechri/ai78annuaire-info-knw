@@ -20,7 +20,8 @@ import fr.afcepf.ai78.projet1.objets.Noeud;
 import fr.afcepf.ai78.projet1.objets.Stagiaire;
 
 /**
- * GestionBinaire is the FileManager layout, using a RandomAccessFile to read and write in the file.
+ * GestionBinaire is the FileManager layout, using a RandomAccessFile to read and write in the file,
+ * it extends SwingWorker in order to build the binary file in a different thread.
  * 
  * @author Augereau, Chouaib, Lepante
  * @version 1.1
@@ -68,13 +69,13 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 	 * it will retrun a new List of Stagiaire containing all the trainee corresponding to the search test.
 	 * 
 	 * @param posArbre The position (index) of the current node in the file.
-	 * @param nom The searched name, can be an empty String 
-	 * @param prenom The searched firstname
-	 * @param promotion
-	 * @param annee
-	 * @param departement
-	 * @param liste
-	 * @return
+	 * @param nom The searched name, can be an empty String if the user doesn't test the name. 
+	 * @param prenom The searched firstname, can be an empty String if the user doesn't test the name. 
+	 * @param promotion The searched class, can be an empty String if the user doesn't test the name.
+	 * @param annee The searched year, can be -1 if the user doesn't test the name.
+	 * @param departement The searched zip code, can be an empty String if the user doesn't test the name.
+	 * @param liste The list of trainee corresponding to the search.
+	 * @return A List of trainee corresponding to the search.
 	 */
 	public List<Stagiaire> rechercheRec(int posArbre, String nom , String prenom , String promotion , int annee , String departement , List<Stagiaire> liste) {
 		Noeud arbre = lireNoeud(posArbre);
@@ -109,8 +110,15 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		return liste;
 	}
 
+	/**
+	 * The method used for dynamic search, test only if the name of the trainee begin with the provided String.
+	 *  
+	 * @param nom The String searched.
+	 * @param posArbre The position (index) of the current node in the file.
+	 * @param liste The list of trainee corresponding to the search.
+	 * @return A List of trainee corresponding to the search.
+	 */
 	public List<Stagiaire> rechercherDynamique(String nom, int posArbre, List<Stagiaire> liste){
-
 		
 		Noeud arbre = lireNoeud(posArbre);
 		if (arbre == null) {
@@ -134,6 +142,15 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		return liste;
 	}
 	
+	/**
+	 * A private method called in background when GestionBinaire is executed,
+	 * it creates the binary file from a source file and update the JProgressBar of interfaceAnnuaire,
+	 * return <code>true</code> if the file is successfuly created.
+	 * 
+	 * @param progressStart The starting value of the JProgressBar.
+	 * @param progressEnd The ending value of the JProgressBar.
+	 * @return <code>true</code> or <code>false</code> depending of the successfull creation of the binary file.
+	 */
 	private boolean creationArbreBinaire(double progressStart, double progressEnd) {
 		interfaceAnnuaire.getContentPane().add(interfaceAnnuaire.getProgressBar(),BorderLayout.SOUTH);
 		interfaceAnnuaire.getContentPane().revalidate();
@@ -201,6 +218,17 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		
 	}
 
+	/**
+	 * The method used to add a node to the binary tree (not to add a node in the binary file),
+	 * return <code>true</code> if the trainee is already in the tree.
+	 * 
+	 * @param stagiaire The trainee data.
+	 * @param posParent The position (index) of the ancestor node in the file.
+	 * @param posArbre The position (index) of the current node in the file.
+	 * @param existeDeja The boolean to check if the trainee already exist.
+	 * @param positionAjout The position (index) where the node will be add in the binary file.
+	 * @return <code>true</code> or <code>false</code> depending of the successfull creation of the binary file.
+	 */
 	public boolean ajoutElementArbreBinaire(Noeud stagiaire, int posParent, int posArbre, Boolean existeDeja,int positionAjout) {
 
 		Noeud parent = lireNoeud(posParent);
@@ -232,6 +260,12 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		return existeDeja;
 	}
 
+	/**
+	 * The method used to get the whole list of trainee,
+	 * return a List of Stagiaire.
+	 * 
+	 * @return A List containing all the trainee in the file.
+	 */
 	public List<Stagiaire> afficherTout(){
 		List<Stagiaire> liste = new ArrayList<Stagiaire>();
 		if(fantome.indexOf(0)==-1){
@@ -241,6 +275,12 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		return liste;
 	}
 	
+	/**
+	 * 
+	 * @param posArbre
+	 * @param listeNoeud
+	 * @return
+	 */
 	private List<Stagiaire> afficherTout(int posArbre, List<Stagiaire> listeNoeud)
 	{
 
