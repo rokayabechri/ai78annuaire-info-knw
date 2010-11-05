@@ -281,7 +281,6 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 				if (unNoeud.compareTo(arbre) > 0 ) {
 					supprimer(unNoeud , arbre.getFilsD());
 				} else {
-					System.out.println("arbre: "+arbre);
 					if (!arbre.hasFilsD()) {
 
 						if(arbre.hasFilsG()){
@@ -326,8 +325,6 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 
 
 						} else {
-							System.out.println("arbre: "+arbre);
-							System.out.println("SAF: "+arbre.getFilsG());
 							remonter(arbre.getFilsG(), posArbre, false) ;
 
 						}
