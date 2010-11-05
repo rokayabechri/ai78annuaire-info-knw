@@ -72,5 +72,9 @@ public class AnnuaireConstante {
 	 * The path to the binaries directory.
 	 */
 	public static final String BIN_PATH = "c:/binaries/";
+	/**
+	 * The admin password.
+	 */
+	public static final String PASSWORD = "admin";
 	
 }
