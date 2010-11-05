@@ -40,7 +40,7 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 		this.frame = frame;
 		setSize(300, 230);
 
-		setTitle("Créer annuaire");
+		setTitle("Cr�er annuaire");
 		getContentPane().setLayout(null);
 
 		rdbtnNouveauFichier = new JRadioButton("Nouveau fichier");
@@ -61,7 +61,7 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 		lblSaisirNomDu.setBounds(53, 12, 212, 23);
 		getContentPane().add(lblSaisirNomDu);
 
-		btnCreer = new JButton("Créer");
+		btnCreer = new JButton("Cr\u00E9er");
 		btnCreer.setBounds(43, 153, 80, 23);
 		getContentPane().add(btnCreer);
 
