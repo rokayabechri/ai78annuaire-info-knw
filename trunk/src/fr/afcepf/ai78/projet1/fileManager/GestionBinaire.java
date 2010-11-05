@@ -116,7 +116,6 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 					elements[indiceTableau] = ligne;
 					indiceTableau++;
 
-
 				}else{
 					Noeud unNoeud = new Noeud(elements[0], elements[1], elements[2], elements[3], Integer.parseInt(elements[4]));
 					indiceTableau = 0;
@@ -282,9 +281,8 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 				if (unNoeud.compareTo(arbre) > 0 ) {
 					supprimer(unNoeud , arbre.getFilsD());
 				} else {
-
+					System.out.println("arbre: "+arbre);
 					if (!arbre.hasFilsD()) {
-
 
 						if(arbre.hasFilsG()){
 
@@ -301,11 +299,15 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 							fantome.add(arbre.getFilsG());
 						}else{
 							if(!arbre.isRacine()){
-								ecrireInt((arbre.getParent()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE+AnnuaireConstante.TAILLE_PARENT, arbre.getFilsG());
-
+								Noeud noeudParent = lireNoeud(arbre.getParent());
+								
+								if(noeudParent.getFilsD()== posArbre){
+									ecrireInt((arbre.getParent()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE+AnnuaireConstante.TAILLE_PARENT+AnnuaireConstante.TAILLE_FILSG, arbre.getFilsD());
+								}else{
+									ecrireInt((arbre.getParent()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE+AnnuaireConstante.TAILLE_PARENT, arbre.getFilsG());
+								}
 							}
 							fantome.add(posArbre);
-
 						}
 
 					} else {
@@ -324,6 +326,8 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 
 
 						} else {
+							System.out.println("arbre: "+arbre);
+							System.out.println("SAF: "+arbre.getFilsG());
 							remonter(arbre.getFilsG(), posArbre, false) ;
 
 						}

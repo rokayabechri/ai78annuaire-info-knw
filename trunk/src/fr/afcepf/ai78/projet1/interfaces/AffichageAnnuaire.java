@@ -40,6 +40,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	private JButton btnSupprimer = new JButton("Supprimer");
 	private JButton btnEditer = new JButton("Editer");
 	private FenetrePrincipale frame;
+	private int ligne=0;
 
 
 	/**
@@ -100,6 +101,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		btnSupprimer.addActionListener(this);
 		txtEntree.addKeyListener(this);
 		table.addFocusListener(this);
+		table.addKeyListener(this);
 		
 	}
 
@@ -210,7 +212,22 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	}
 	
 	@Override
-	public void keyPressed(KeyEvent e) {}
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode()==127){
+			
+			int indice = table.getSelectedRow();
+			int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer "+table.getValueAt(indice, 0), "confirmaion",JOptionPane.OK_CANCEL_OPTION);
+			if(val==0){
+
+				Noeud  unNoeud = new Noeud(table.getValueAt(indice, 0).toString(),table.getValueAt(indice, 1).toString(),table.getValueAt(indice, 4).toString(),table.getValueAt(indice, 2).toString(),Integer.parseInt(table.getValueAt(indice, 3).toString()));
+				frame.getAnnuaireCourant().supprimer(unNoeud, 0);
+
+			}
+			AffichageAnnuaire affichage = (AffichageAnnuaire)frame.getContentPane().getComponent(0);
+			affichage.getTable().setModel(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout()));
+		}
+		
+	}
 	
 	@Override
 	public void keyReleased(KeyEvent e) {
@@ -237,7 +254,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 				btnSupprimer.setEnabled(false);
 				btnEditer.setEnabled(false);
 			}
-		}
+		}	
 	}
 		
 	@Override	
@@ -247,8 +264,10 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	public void focusGained(FocusEvent arg0) {}
 
 	@Override
-	public void focusLost(FocusEvent arg0) {}
+	public void focusLost(FocusEvent arg0) {
 
+	}
+	
 }
 
 
