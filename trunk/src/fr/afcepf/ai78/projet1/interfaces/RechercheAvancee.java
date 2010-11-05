@@ -35,7 +35,6 @@ public class RechercheAvancee extends JDialog implements ActionListener,WindowLi
 	private JTextField textDepartement;
 	private JComboBox comboBox;
 	private JTextField textAnnee;
-	private JTextField textPromotion;
 	private AffichageAnnuaire parent;
 	private JLabel label;
 
@@ -104,12 +103,6 @@ public class RechercheAvancee extends JDialog implements ActionListener,WindowLi
 			
 			comboBox.addItem(string);
 		}
-		
-		textPromotion = new JTextField();
-		textPromotion.setToolTipText("<html>Renseigner une nouvelle année de promotion.</html>");
-		textPromotion.setVisible(false);
-		getContentPane().add(textPromotion, "6, 6");
-		textPromotion.setColumns(10);
 	
 		
 		lblPrnom = new JLabel("Année :");
@@ -154,13 +147,7 @@ public class RechercheAvancee extends JDialog implements ActionListener,WindowLi
 			
 			String nom = textNom.getText();
 			String prenom = textPrenom.getText();
-			String promotion;
-			if(comboBox.getSelectedItem().toString().equals("autre")){
-				promotion = textPromotion.getText();
-			}else{
-				textPromotion.setText(comboBox.getSelectedItem().toString());
-				promotion = textPromotion.getText();
-			}
+			String promotion =comboBox.getSelectedItem().toString();
 			String departement = textDepartement.getText();
 			int annee = -1;
 			try {
@@ -185,7 +172,7 @@ public class RechercheAvancee extends JDialog implements ActionListener,WindowLi
 
 	@Override
 	public void windowActivated(WindowEvent arg0) {
-		textPromotion.setText(comboBox.getSelectedItem().toString());
+
 		
 	}
 
