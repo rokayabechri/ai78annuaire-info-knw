@@ -78,7 +78,7 @@ public class RechercheAvancee extends JDialog implements ActionListener,WindowLi
 		
 		label = new JLabel("");
 		label.setIcon(new ImageIcon(RechercheAvancee.class.getResource("/fr/afcepf/ai78/projet1/images/search_icon_big.png")));
-		getContentPane().add(label, "6, 1, 1, 5");
+		getContentPane().add(label, "6, 1, 1, 7");
 		
 		lblAnne = new JLabel("Prénom :");
 		lblAnne.setHorizontalAlignment(SwingConstants.RIGHT);
