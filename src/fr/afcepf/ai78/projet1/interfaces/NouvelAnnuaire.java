@@ -133,7 +133,7 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 					}
 					else{
 
-						int val = JOptionPane.showConfirmDialog(this, "Cet annuaire existe dÃ¨ja, Voulez-vous le supprimer","",JOptionPane.OK_CANCEL_OPTION);
+						int val = JOptionPane.showConfirmDialog(this, "Cet annuaire existe déja, Voulez-vous le supprimer ?","",JOptionPane.OK_CANCEL_OPTION);
 						if(val==0){
 							JFileChooser fc = new JFileChooser("C:/");
 							int returnVal = fc.showOpenDialog(this);
@@ -184,7 +184,7 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 							frame.toFront();
 							this.dispose();
 						}else{
-							int val = JOptionPane.showConfirmDialog(this, "Cet annuaire existe dÃ¨ja, Voulez-vous le supprimer","",JOptionPane.OK_CANCEL_OPTION);
+							int val = JOptionPane.showConfirmDialog(this, "Cet annuaire existe déja, Voulez-vous le supprimer ?","",JOptionPane.OK_CANCEL_OPTION);
 							if(val==0){
 								File erase = new File(AnnuaireConstante.BIN_PATH+nomFichier+".bin");
 								erase.delete();
@@ -225,16 +225,10 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 	}
 
 	@Override
-	public void windowActivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void windowActivated(WindowEvent arg0) {}
 
 	@Override
-	public void windowClosed(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void windowClosed(WindowEvent arg0) {}
 
 	@Override
 	public void windowClosing(WindowEvent arg0) {
@@ -244,26 +238,14 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 	}
 
 	@Override
-	public void windowDeactivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void windowDeactivated(WindowEvent arg0) {}
 
 	@Override
-	public void windowDeiconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void windowDeiconified(WindowEvent arg0) {}
 
 	@Override
-	public void windowIconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void windowIconified(WindowEvent arg0) {}
 
 	@Override
-	public void windowOpened(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void windowOpened(WindowEvent arg0) {}
 }
