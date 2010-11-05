@@ -212,7 +212,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode()==127){
+		if(e.getKeyCode()==127 && frame.isConnected()){
 			
 			int indice = table.getSelectedRow();
 			int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer "+table.getValueAt(indice, 0), "Confirmation",JOptionPane.OK_CANCEL_OPTION);
