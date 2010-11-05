@@ -11,6 +11,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 
 import fr.afcepf.ai78.projet1.constante.AnnuaireConstante;
+import javax.swing.ImageIcon;
 
 public class Password extends JDialog implements ActionListener,WindowListener {
 	
@@ -27,24 +28,29 @@ public class Password extends JDialog implements ActionListener,WindowListener {
 		
 		this.frame = frame;
 		setTitle("Password");
-		setBounds(100, 100, 267, 174);
+		setBounds(100, 100, 239, 154);
 		getContentPane().setLayout(null);
 		
 		btnValider = new JButton("Valider");
-		btnValider.setBounds(28, 113, 91, 23);
+		btnValider.setBounds(12, 86, 91, 23);
 		getContentPane().add(btnValider);
 		
 		btnAnnuler = new JButton("Annuler");
-		btnAnnuler.setBounds(144, 113, 91, 23);
+		btnAnnuler.setBounds(128, 86, 91, 23);
 		getContentPane().add(btnAnnuler);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(66, 49, 126, 28);
+		passwordField.setBounds(91, 33, 126, 28);
 		getContentPane().add(passwordField);
 		
 		JLabel lblEntrerPassword = new JLabel("Password :");
-		lblEntrerPassword.setBounds(70, 31, 98, 16);
+		lblEntrerPassword.setBounds(94, 14, 98, 16);
 		getContentPane().add(lblEntrerPassword);
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon(Password.class.getResource("/fr/afcepf/ai78/projet1/images/password_icon.png")));
+		label.setBounds(12, 13, 68, 59);
+		getContentPane().add(label);
 		
 		
 		btnValider.addActionListener(this);
@@ -124,5 +130,4 @@ public class Password extends JDialog implements ActionListener,WindowListener {
 	
 	@Override
 	public void windowOpened(WindowEvent e) {}
-
 }
