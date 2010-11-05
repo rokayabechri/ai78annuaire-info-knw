@@ -35,7 +35,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	private JPanel panelOption = new JPanel();
 	private JPanel panelRecherche = new JPanel();
 	private JButton btnAfficherTout = new JButton("Afficher Tout");
-	private JButton btnRechercher = new JButton("Recherche avancÃ©e");
+	private JButton btnRechercher = new JButton("Recherche avancée");
 	private JButton btnAjouter = new JButton("Ajouter");
 	private JButton btnSupprimer = new JButton("Supprimer");
 	private JButton btnEditer = new JButton("Editer");
