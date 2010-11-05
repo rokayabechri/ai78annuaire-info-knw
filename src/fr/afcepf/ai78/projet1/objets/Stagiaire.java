@@ -30,12 +30,10 @@ public class Stagiaire {
 	 */
 	protected int annee;
 	
-	
 	/**
 	 * The default constructor, Build an empty Stagiaire.
 	 */
-	public Stagiaire() {
-	}
+	public Stagiaire() {}
 
 	/**
 	 * Build a Stagiaire with the provided data.
