@@ -14,6 +14,7 @@ import java.text.ParseException;
 import javax.swing.JDialog;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -196,13 +197,17 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 
 			if((!nom.equals("")&&!prenom.equals("")&&!promotion.equals("")&&!annee.equals(""))){
 				Noeud unNoeud = new Noeud(nom,prenom,departement,promotion,Integer.parseInt(annee));
-				frame.getAnnuaireCourant().ajoutElementArbreBinaire(unNoeud,-1,0,false,frame.getAnnuaireCourant().getPositionAjout());
-				frame.getAnnuaireCourant().ecrireNoeud(frame.getAnnuaireCourant().getPositionAjout(),unNoeud);
-				AffichageAnnuaire affichage = (AffichageAnnuaire)frame.getContentPane().getComponent(0);
-				affichage.getTable().setModel(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout()));
-				if (!frame.getAnnuaireCourant().getFantome().isEmpty()) {
-					frame.getAnnuaireCourant().getFantome().remove(frame.getAnnuaireCourant().getFantome().get(frame.getAnnuaireCourant().getFantome().size()-1));
+				if(!frame.getAnnuaireCourant().ajoutElementArbreBinaire(unNoeud,-1,0,false,frame.getAnnuaireCourant().getPositionAjout())){
+					frame.getAnnuaireCourant().ecrireNoeud(frame.getAnnuaireCourant().getPositionAjout(),unNoeud);
+					AffichageAnnuaire affichage = (AffichageAnnuaire)frame.getContentPane().getComponent(0);
+					affichage.getTable().setModel(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout()));
+					if (!frame.getAnnuaireCourant().getFantome().isEmpty()) {
+						frame.getAnnuaireCourant().getFantome().remove(frame.getAnnuaireCourant().getFantome().get(frame.getAnnuaireCourant().getFantome().size()-1));
+					}
+				}else{
+					JOptionPane.showMessageDialog(this, "ce nom existe deja");
 				}
+
 				
 				this.dispose();
 				frame.setPopUp(null);

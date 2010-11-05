@@ -2,6 +2,9 @@ package fr.afcepf.ai78.projet1.interfaces;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Graphics;
+import java.awt.PrintJob;
+
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -20,6 +23,8 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Properties;
+
 import javax.swing.ImageIcon;
 import fr.afcepf.ai78.projet1.fileManager.GestionBinaire;
 import java.awt.Toolkit;
@@ -215,24 +220,25 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		//
 		//		}
 		//
-		//		if (e.getSource() == mntmImprimer) {
-		//			Properties props = new Properties();
-		//
-		//			props.put("awt.print.paperSize", "a4");
-		//			props.put("awt.print.destination", "printer");
-		//
-		//
-		//			PrintJob pJob = getToolkit().getPrintJob(this,
-		//					"titre de la page pdf", props);
-		//			if (pJob != null)
-		//			{
-		//				Graphics pg = pJob.getGraphics();
-		//				contentPane.getComponent(0).printAll(pg);
-		//				pg.dispose();
-		//				pJob.end();
-		//			}
-		//
-		//		}
+				if (e.getSource() == mntmImprimer) {
+					Properties props = new Properties();
+		
+					props.put("awt.print.paperSize", "a4");
+					props.put("awt.print.destination", "printer");
+		
+		
+					PrintJob pJob = getToolkit().getPrintJob(this,
+							"titre de la page pdf", props);
+					if (pJob != null)
+					{
+						Graphics pg = pJob.getGraphics();
+						contentPane.getComponent(1
+								).print(pg);
+						pg.dispose();
+						pJob.end();
+					}
+		
+				}
 	}
 	
 	public void appelAffichage(boolean liste){
