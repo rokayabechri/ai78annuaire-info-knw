@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -22,19 +21,13 @@ import javax.swing.JButton;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PrinterException;
 import java.io.File;
 import java.util.Properties;
-
 import javax.swing.ImageIcon;
 import fr.afcepf.ai78.projet1.fileManager.GestionBinaire;
 import java.awt.Toolkit;
 import javax.swing.JLabel;
-import java.awt.ComponentOrientation;
-import java.awt.Component;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
-import javax.swing.JComboBox;
 
 
 public class FenetrePrincipale extends JFrame implements ActionListener{
@@ -238,44 +231,40 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 			System.exit(0);	
 		}
 
-		//		if (e.getSource() == menuAide) {
-		//			if(this.getPopUp()==null){
-		//				this.setPopUp(new JDialog(this,"programme realiser par W.Lepante, K.Augerau, N.Chouaib"));
-		//				this.getPopUp().setLocationRelativeTo(this);
-		//				this.getPopUp().setVisible(true);
-		//
-		//			}else{
-		//				if(this.getPopUp().getClass().equals("fr.afcepf.ai78.projet1.interfaces.FenetrePrincipale")){
-		//					this.getPopUp().toFront();
-		//				}else{
-		//					this.getPopUp().dispose();
-		//					this.setPopUp(new NouvelAnnuaire(this));
-		//					this.getPopUp().setLocationRelativeTo(this);
-		//					this.getPopUp().setVisible(true);
-		//
-		//				}
-		//
-		//			}
-		//
-		//
-		//		}
-		//
+//		if (e.getSource() == menuAide) {
+//			if(this.getPopUp()==null){
+//				this.setPopUp(new JDialog(this,"programme realiser par W.Lepante, K.Augerau, N.Chouaib"));
+//				this.getPopUp().setLocationRelativeTo(this);
+//				this.getPopUp().setVisible(true);
+//
+//			}else{
+//				if(this.getPopUp().getClass().equals("fr.afcepf.ai78.projet1.interfaces.FenetrePrincipale")){
+//					this.getPopUp().toFront();
+//				}else{
+//					this.getPopUp().dispose();
+//					this.setPopUp(new NouvelAnnuaire(this));
+//					this.getPopUp().setLocationRelativeTo(this);
+//					this.getPopUp().setVisible(true);
+//
+//				}
+//
+//			}
+//
+//
+//		}
+		
 		if (e.getSource() == mntmImprimer) {
-			Properties props = new Properties();
-
-			props.put("awt.print.paperSize", "a4");
-			props.put("awt.print.destination", "printer");
 
 
-			PrintJob pJob = getToolkit().getPrintJob(this,
-					"titre de la page pdf", props);
-			if (pJob != null)
-			{
-				Graphics pg = pJob.getGraphics();
-				contentPane.getComponent(1
-				).print(pg);
-				pg.dispose();
-				pJob.end();
+			if(getContentPane().getComponent(0) != getPanelLancement()){
+				try {
+					AffichageAnnuaire aa = (AffichageAnnuaire) getContentPane().getComponent(0);
+					aa.getTable().print();
+				} catch (PrinterException e1) {
+					e1.printStackTrace();
+				}
+
+
 			}
 
 		}
