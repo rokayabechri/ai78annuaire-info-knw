@@ -1,7 +1,7 @@
 package fr.afcepf.ai78.projet1.fileManager;
 
+import java.awt.BorderLayout;
 import java.io.BufferedReader;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import fr.afcepf.ai78.projet1.constante.AnnuaireConstante;
@@ -42,19 +41,19 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		if (arbre.hasFilsG()) {
 			liste = rechercheRec(arbre.getFilsG(), nom, prenom, promotion, annee, departement, liste);
 		}
-		if (ajout && !nom.equalsIgnoreCase("") &&  !arbre.getNom().equalsIgnoreCase(nom)) {
+		if (ajout && !nom.equalsIgnoreCase("") && !arbre.getNom().equalsIgnoreCase(nom)) {
 			ajout = false ;
 		}
-		if (ajout && !prenom.equalsIgnoreCase("") &&  !arbre.getPrenom().equalsIgnoreCase(prenom)) {
+		if (ajout && !prenom.equalsIgnoreCase("") && !arbre.getPrenom().equalsIgnoreCase(prenom)) {
 			ajout = false ;
 		}
-		if (ajout && !promotion.equalsIgnoreCase("") &&  !arbre.getPromotion().equalsIgnoreCase(promotion)) {
+		if (ajout && !promotion.equalsIgnoreCase("") && !arbre.getPromotion().equalsIgnoreCase(promotion)) {
 			ajout = false ;
 		}
 		if (ajout && annee != -1 &&  arbre.getAnnee()!= annee) {
 			ajout = false ;
 		}
-		if (ajout && !departement.equalsIgnoreCase("") &&  !arbre.getDepartement().equalsIgnoreCase(departement)) {
+		if (ajout && !departement.equalsIgnoreCase("") && !arbre.getDepartement().equalsIgnoreCase(departement)) {
 			ajout = false ;
 		}
 		
@@ -94,6 +93,9 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 	}
 	
 	private boolean creationArbreBinaire(double progressStart, double progressEnd) {
+		interfaceAnnuaire.getContentPane().add(interfaceAnnuaire.getProgressBar(),BorderLayout.SOUTH);
+		interfaceAnnuaire.getContentPane().revalidate();
+		
 		RandomAccessFile fichier = null;
 		try {
 			File f = new File(fichierSource);
