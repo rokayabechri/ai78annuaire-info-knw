@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
+import fr.afcepf.ai78.projet1.constante.AnnuaireConstante;
 import fr.afcepf.ai78.projet1.fileManager.GestionBinaire;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
@@ -80,7 +81,7 @@ public class AnnaireExistant extends JDialog implements ActionListener,WindowLis
 
 				String nomFichier = comboBox.getSelectedItem().toString();			
 				
-				frame.setAnnuaireCourant(new GestionBinaire(frame,"", "c:/binaries/"+nomFichier+".bin"));
+				frame.setAnnuaireCourant(new GestionBinaire(frame,"", AnnuaireConstante.BIN_PATH+nomFichier+".bin"));
 				frame.appelAffichage(true);
 				frame.setPopUp(null);
 				this.dispose();
@@ -103,16 +104,10 @@ public class AnnaireExistant extends JDialog implements ActionListener,WindowLis
 
 
 	@Override
-	public void windowActivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowActivated(WindowEvent arg0) {}
 
 	@Override
-	public void windowClosed(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowClosed(WindowEvent arg0) {}
 
 	@Override
 	public void windowClosing(WindowEvent arg0) {
@@ -122,26 +117,14 @@ public class AnnaireExistant extends JDialog implements ActionListener,WindowLis
 	}
 
 	@Override
-	public void windowDeactivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowDeactivated(WindowEvent arg0) {}
 
 	@Override
-	public void windowDeiconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowDeiconified(WindowEvent arg0) {}
 
 	@Override
-	public void windowIconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowIconified(WindowEvent arg0) {}
 
 	@Override
-	public void windowOpened(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowOpened(WindowEvent arg0) {}
 }

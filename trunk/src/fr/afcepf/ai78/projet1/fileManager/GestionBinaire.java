@@ -69,7 +69,7 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 	 * 
 	 * @param posArbre The position (index) of the current node in the file.
 	 * @param nom The searched name, can be an empty String 
-	 * @param prenom
+	 * @param prenom The searched firstname
 	 * @param promotion
 	 * @param annee
 	 * @param departement

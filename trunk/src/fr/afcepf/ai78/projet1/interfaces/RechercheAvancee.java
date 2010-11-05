@@ -43,7 +43,7 @@ public class RechercheAvancee extends JDialog implements ActionListener,WindowLi
 	 * Create the panel.
 	 */
 	public RechercheAvancee(AffichageAnnuaire parent) {
-		setTitle("Recherche avancÃ©e");
+		setTitle("Recherche avancée");
 		setResizable(false);
 		setSize(410, 300);
 		
@@ -81,12 +81,12 @@ public class RechercheAvancee extends JDialog implements ActionListener,WindowLi
 		label.setIcon(new ImageIcon(RechercheAvancee.class.getResource("/fr/afcepf/ai78/projet1/images/search_icon_big.png")));
 		getContentPane().add(label, "6, 1, 1, 5");
 		
-		lblAnne = new JLabel("PrÃ©nom :");
+		lblAnne = new JLabel("Prénom :");
 		lblAnne.setHorizontalAlignment(SwingConstants.RIGHT);
 		getContentPane().add(lblAnne, "2, 4, right, default");
 		
 		textPrenom = new JTextField();
-		textPrenom.setToolTipText("<html>Effectuer une recherche sur le prÃ©nom du stagiaire.</html>");
+		textPrenom.setToolTipText("<html>Effectuer une recherche sur le prénom du stagiaire.</html>");
 		textPrenom.setColumns(10);
 		getContentPane().add(textPrenom, "4, 4, fill, default");
 		
@@ -107,17 +107,17 @@ public class RechercheAvancee extends JDialog implements ActionListener,WindowLi
 		comboBox.addItem("autre");
 		
 		textPromotion = new JTextField();
-		textPromotion.setToolTipText("<html>Renseigner une nouvelle annÃ©e de promotion.</html>");
+		textPromotion.setToolTipText("<html>Renseigner une nouvelle année de promotion.</html>");
 		textPromotion.setVisible(false);
 		getContentPane().add(textPromotion, "6, 6");
 		textPromotion.setColumns(10);
 	
 		
-		lblPrnom = new JLabel("AnnÃ©e :");
+		lblPrnom = new JLabel("Année :");
 		getContentPane().add(lblPrnom, "2, 8, right, default");
 		
 		textAnnee = new JTextField();
-		textAnnee.setToolTipText("<html>Effectuer une recherche sur l'annÃ©e de promotion du stagiaire.</html>");
+		textAnnee.setToolTipText("<html>Effectuer une recherche sur l'année de promotion du stagiaire.</html>");
 		getContentPane().add(textAnnee, "4, 8, left, default");
 		textAnnee.setColumns(10);
 		
@@ -128,12 +128,12 @@ public class RechercheAvancee extends JDialog implements ActionListener,WindowLi
 		
 		btnRechercherAv.addActionListener(this);
 		
-		lblAnne_1 = new JLabel("DÃ©partement :");
+		lblAnne_1 = new JLabel("Département :");
 		lblAnne_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		getContentPane().add(lblAnne_1, "2, 10, right, default");
 		
 		textDepartement = new JTextField();
-		textDepartement.setToolTipText("<html>Effectuer une recherche sur le code dÃ©partement du stagiaire.</html>");
+		textDepartement.setToolTipText("<html>Effectuer une recherche sur le code département du stagiaire.</html>");
 		getContentPane().add(textDepartement, "4, 10, left, default");
 		textDepartement.setColumns(10);
 		

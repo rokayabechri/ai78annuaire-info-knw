@@ -154,7 +154,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 
 
 			int indice = table.getSelectedRow();
-			int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer "+table.getValueAt(indice, 0), "confirmaion",JOptionPane.OK_CANCEL_OPTION);
+			int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer "+table.getValueAt(indice, 0), "Confirmation",JOptionPane.OK_CANCEL_OPTION);
 			if(val==0){
 
 				Noeud  unNoeud = new Noeud(table.getValueAt(indice, 0).toString(),table.getValueAt(indice, 1).toString(),table.getValueAt(indice, 4).toString(),table.getValueAt(indice, 2).toString(),Integer.parseInt(table.getValueAt(indice, 3).toString()));
@@ -215,7 +215,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		if(e.getKeyCode()==127){
 			
 			int indice = table.getSelectedRow();
-			int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer "+table.getValueAt(indice, 0), "confirmaion",JOptionPane.OK_CANCEL_OPTION);
+			int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer "+table.getValueAt(indice, 0), "Confirmation",JOptionPane.OK_CANCEL_OPTION);
 			if(val==0){
 
 				Noeud  unNoeud = new Noeud(table.getValueAt(indice, 0).toString(),table.getValueAt(indice, 1).toString(),table.getValueAt(indice, 4).toString(),table.getValueAt(indice, 2).toString(),Integer.parseInt(table.getValueAt(indice, 3).toString()));
@@ -267,9 +267,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	public void focusGained(FocusEvent arg0) {}
 
 	@Override
-	public void focusLost(FocusEvent arg0) {
-
-	}
+	public void focusLost(FocusEvent arg0) {}
 
 	public JButton getBtnAjouter() {
 		return btnAjouter;

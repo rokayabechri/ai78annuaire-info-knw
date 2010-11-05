@@ -42,7 +42,7 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 	 * Create the panel.
 	 */
 	public Editer(AffichageAnnuaire parent,Noeud unNoeudAModifier) {
-		setTitle("Ã‰diter un stagiaire");
+		setTitle("Éditer un stagiaire");
 		setResizable(false);
 		setSize(425, 295);
 		this.parent = parent;
@@ -86,13 +86,13 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(label, "8, 1, 1, 5");
 		
 		
-		lblPrenom = new JLabel("PrÃ©nom :");
+		lblPrenom = new JLabel("Prénom :");
 		lblPrenom.setHorizontalAlignment(SwingConstants.RIGHT);
 		getContentPane().add(lblPrenom, "2, 4, right, default");
 		
 		
 		txtPrenom = new JTextField();
-		txtPrenom.setToolTipText("<html>Modifier le prÃ©nom du stagiaire.</html>");
+		txtPrenom.setToolTipText("<html>Modifier le prénom du stagiaire.</html>");
 		txtPrenom.setColumns(10);
 		txtPrenom.setDocument(new LimiteTexte(30));
 		getContentPane().add(txtPrenom, "4, 4, fill, default");
@@ -105,7 +105,7 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		
 		
 		cBPromotion = new JComboBox();
-		cBPromotion.setToolTipText("<html>Selectionner une promotion dans la liste dÃ©roulante.<br/>Choisir \"autres\" pour crÃ©er une nouvelle promotion.</html>");
+		cBPromotion.setToolTipText("<html>Selectionner une promotion dans la liste déroulante.<br/>Choisir \"autres\" pour créer une nouvelle promotion.</html>");
 		cBPromotion.setMinimumSize(new Dimension(12, 26));
 		getContentPane().add(cBPromotion, "4, 6");
 		cBPromotion.addItem("");
@@ -119,7 +119,7 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 
 			
 		textPromotion = new JTextField();
-		textPromotion.setToolTipText("<html>Renseigner une nouvelle annÃ©e de promotion.</html>");
+		textPromotion.setToolTipText("<html>Renseigner une nouvelle année de promotion.</html>");
 		textPromotion.setVisible(false);
 		getContentPane().add(textPromotion, "8, 6");
 		textPromotion.setColumns(10);
@@ -127,13 +127,13 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		textPromotion.setText(unNoeudAModifier.getPromotion());
 		
 		
-		lblAnnee = new JLabel("AnnÃ©e :");
+		lblAnnee = new JLabel("Année :");
 		getContentPane().add(lblAnnee, "2, 8, right, default");
 		
 		
 		txtAnnee = new JTextField();;
 
-		txtAnnee.setToolTipText("<html>Modifier l'annÃ©e de promotion du stagiaire.</html>");
+		txtAnnee.setToolTipText("<html>Modifier l'année de promotion du stagiaire.</html>");
 		getContentPane().add(txtAnnee, "4, 8, left, default");
 		txtAnnee.setColumns(4);
 		txtAnnee.setDocument(new LimiteTexte(30));
@@ -142,21 +142,21 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		
 		
 		btnValider = new JButton("Valider");
-		btnValider.setToolTipText("<html>Valider votre Ã©dition.</html>");
+		btnValider.setToolTipText("<html>Valider votre édition.</html>");
 		getContentPane().add(btnValider, "8, 8");
 		
 		
 		btnValider.addActionListener(this);
 		
 		
-		lblDepartement = new JLabel("DÃ©partement :");
+		lblDepartement = new JLabel("Département :");
 		lblDepartement.setHorizontalAlignment(SwingConstants.RIGHT);
 		getContentPane().add(lblDepartement, "2, 10, right, default");
 		
 		
 
 		txtDepartement = new JTextField();;
-		txtDepartement.setToolTipText("<html>Modifier le code dÃ©partement du stagiaire.</html>");
+		txtDepartement.setToolTipText("<html>Modifier le code département du stagiaire.</html>");
 		getContentPane().add(txtDepartement, "4, 10, left, default");
 		txtDepartement.setColumns(10);
 		txtDepartement.setDocument(new LimiteTexte(2));
@@ -164,7 +164,7 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		
 		
 		btnAnnuler = new JButton("Annuler");
-		btnAnnuler.setToolTipText("<html>Annuler votre Ã©dition.</html>");
+		btnAnnuler.setToolTipText("<html>Annuler votre édition.</html>");
 		getContentPane().add(btnAnnuler, "8, 10");
 		btnAnnuler.addActionListener(this);
 		cBPromotion.addActionListener(this);
@@ -222,46 +222,27 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 	}
 
 	@Override
-	public void windowActivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowActivated(WindowEvent arg0) {}
 
 	@Override
-	public void windowClosed(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowClosed(WindowEvent arg0) {}
 
 	@Override
 	public void windowClosing(WindowEvent arg0) {
 		parent.getFrame().setPopUp(null);
-		
 	}
 
 	@Override
-	public void windowDeactivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowDeactivated(WindowEvent arg0) {}
 
 	@Override
-	public void windowDeiconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowDeiconified(WindowEvent arg0) {}
 
 	@Override
-	public void windowIconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowIconified(WindowEvent arg0) {}
 
 	@Override
-	public void windowOpened(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowOpened(WindowEvent arg0) {}
 
 	
 	

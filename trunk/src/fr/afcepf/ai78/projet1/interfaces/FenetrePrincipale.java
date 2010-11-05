@@ -25,6 +25,8 @@ import java.awt.print.PrinterException;
 import java.io.File;
 import java.util.Properties;
 import javax.swing.ImageIcon;
+
+import fr.afcepf.ai78.projet1.constante.AnnuaireConstante;
 import fr.afcepf.ai78.projet1.fileManager.GestionBinaire;
 import java.awt.Toolkit;
 import javax.swing.JLabel;
@@ -181,7 +183,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 
 			this.setEnabled(false);
 
-			File repertoire = new File("c:/binaries");
+			File repertoire = new File(AnnuaireConstante.BIN_PATH);
 			String [] listefichiers;  
 			listefichiers  = repertoire.list();
 

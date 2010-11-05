@@ -1,17 +1,12 @@
 package fr.afcepf.ai78.projet1.interfaces;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 
@@ -85,7 +80,7 @@ private JButton btnAnnuler;
 					frame.toFront();
 					this.dispose();					
 				}else{
-					JOptionPane.showMessageDialog(this, "Password incorrecte");					
+					JOptionPane.showMessageDialog(this, "Password incorrec");					
 				}
 			}else{
 				JOptionPane.showMessageDialog(this, "Saisir Password");
