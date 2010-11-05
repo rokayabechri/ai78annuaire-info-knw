@@ -170,7 +170,9 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 			if(val==0){
 				for (int i : tabIndice) {
 					
-					Noeud  unNoeud = new Noeud(table.getValueAt(tabIndice[i], 0).toString(),table.getValueAt(tabIndice[i], 1).toString(),table.getValueAt(tabIndice[i], 4).toString(),table.getValueAt(tabIndice[i], 2).toString(),Integer.parseInt(table.getValueAt(tabIndice[i], 3).toString()));
+					System.out.println(i);
+					
+					Noeud  unNoeud = new Noeud(table.getValueAt(i, 0).toString(),table.getValueAt(i, 1).toString(),table.getValueAt(i, 4).toString(),table.getValueAt(i, 2).toString(),Integer.parseInt(table.getValueAt(i, 3).toString()));
 					frame.getAnnuaireCourant().supprimer(unNoeud, 0);
 				}
 
@@ -246,7 +248,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 				if(val==0){
 					for (int i : tabIndice) {
 						
-						Noeud  unNoeud = new Noeud(table.getValueAt(tabIndice[i], 0).toString(),table.getValueAt(tabIndice[i], 1).toString(),table.getValueAt(tabIndice[i], 4).toString(),table.getValueAt(tabIndice[i], 2).toString(),Integer.parseInt(table.getValueAt(tabIndice[i], 3).toString()));
+						Noeud  unNoeud = new Noeud(table.getValueAt(i, 0).toString(),table.getValueAt(i, 1).toString(),table.getValueAt(i, 4).toString(),table.getValueAt(i, 2).toString(),Integer.parseInt(table.getValueAt(i, 3).toString()));
 						frame.getAnnuaireCourant().supprimer(unNoeud, 0);
 					}
 
