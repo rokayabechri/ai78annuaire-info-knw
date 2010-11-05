@@ -19,21 +19,63 @@ import fr.afcepf.ai78.projet1.interfaces.FenetrePrincipale;
 import fr.afcepf.ai78.projet1.objets.Noeud;
 import fr.afcepf.ai78.projet1.objets.Stagiaire;
 
+/**
+ * GestionBinaire is the FileManager layout, using a RandomAccessFile to read and write in the file.
+ * 
+ * @author Augereau, Chouaib, Lepante
+ * @version 1.1
+ * @see SwingWorker
+ */
 public class GestionBinaire extends SwingWorker<Boolean, String>{
 
+	/**
+	 * The list of ghost data in our file.
+	 */
 	private List<Integer> fantome = new ArrayList<Integer>();
+	/**
+	 * The list of class in our directory.
+	 */
 	private List<String> promo = new ArrayList<String>();
+	/**
+	 * The path to the source file.
+	 */
 	private String fichierSource = "";
+	/**
+	 * The path to the binary file.
+	 */
 	private String fichierSortie = "";
+	/**
+	 * The UI for this directory.
+	 */
 	private FenetrePrincipale interfaceAnnuaire;
 
 
+	/**
+	 * Build a new GestionBinaire with the provided data.
+	 * 
+	 * @param interfaceAnnuaire The UI corresponding to the new GestionBinaire.
+	 * @param fichierSource The path to the source file, can be null if the directory is created from scratch.
+	 * @param fichierSortie The path to the binary file.
+	 */
 	public GestionBinaire(FenetrePrincipale interfaceAnnuaire, String fichierSource, String fichierSortie) {
 		this.fichierSource = fichierSource;
 		this.fichierSortie = fichierSortie;
 		this.interfaceAnnuaire = interfaceAnnuaire;
 	}
 
+	/**
+	 * The method used for the multi-test search, 
+	 * it will retrun a new List of Stagiaire containing all the trainee corresponding to the search test.
+	 * 
+	 * @param posArbre The position (index) of the current node in the file.
+	 * @param nom The searched name, can be an empty String 
+	 * @param prenom
+	 * @param promotion
+	 * @param annee
+	 * @param departement
+	 * @param liste
+	 * @return
+	 */
 	public List<Stagiaire> rechercheRec(int posArbre, String nom , String prenom , String promotion , int annee , String departement , List<Stagiaire> liste) {
 		Noeud arbre = lireNoeud(posArbre);
 		boolean ajout = true ;
