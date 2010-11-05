@@ -15,10 +15,11 @@ import fr.afcepf.ai78.projet1.constante.AnnuaireConstante;
 public class Password extends JDialog implements ActionListener,WindowListener {
 	
 	
-private FenetrePrincipale frame;
-private JPasswordField passwordField;
-private JButton btnValider;
-private JButton btnAnnuler;
+	private FenetrePrincipale frame;
+	private JPasswordField passwordField;
+	private JButton btnValider;
+	private JButton btnAnnuler;
+	
 	/**
 	 * Create the dialog.
 	 */
@@ -80,7 +81,7 @@ private JButton btnAnnuler;
 					frame.toFront();
 					this.dispose();					
 				}else{
-					JOptionPane.showMessageDialog(this, "Password incorrec");					
+					JOptionPane.showMessageDialog(this, "Password incorrect");					
 				}
 			}else{
 				JOptionPane.showMessageDialog(this, "Saisir Password");
@@ -99,15 +100,11 @@ private JButton btnAnnuler;
 	
 	
 	@Override
-	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowActivated(WindowEvent e) {}
+	
 	@Override
-	public void windowClosed(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowClosed(WindowEvent e) {}
+	
 	@Override
 	public void windowClosing(WindowEvent e) {
 		frame.setPopUp(null);
@@ -115,25 +112,17 @@ private JButton btnAnnuler;
 		frame.toFront();
 		
 	}
+	
 	@Override
-	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowDeactivated(WindowEvent e) {}
+	
 	@Override
-	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowDeiconified(WindowEvent e) {}
+	
 	@Override
-	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowIconified(WindowEvent e) {}
+	
 	@Override
-	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowOpened(WindowEvent e) {}
 
 }
