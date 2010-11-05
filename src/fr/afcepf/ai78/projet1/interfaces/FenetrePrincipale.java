@@ -28,6 +28,7 @@ import java.util.Properties;
 import javax.swing.ImageIcon;
 import fr.afcepf.ai78.projet1.fileManager.GestionBinaire;
 import java.awt.Toolkit;
+import javax.swing.JLabel;
 
 
 public class FenetrePrincipale extends JFrame implements ActionListener{
@@ -35,7 +36,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	private JPanel contentPane;
 	private JPanel panelLancement;
 	private JMenu mnFichier;
-	private JMenu menuAide;
 	private JMenuItem mntmNouveau;
 	private JMenuItem mntmOuvrir;
 	private JMenuItem mntmImprimer;
@@ -46,6 +46,10 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	private JProgressBar progressBar;
 	private GestionBinaire annuaireCourant;
 	private JMenuItem mntmQuitter;
+	private JMenuItem mntmConnexion;
+	private JMenuItem menuItem;
+	private JLabel label;
+	private JLabel label_1;
 	
 	
 
@@ -104,8 +108,20 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		mntmQuitter.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/menu_quitter.png")));
 		mnFichier.add(mntmQuitter);
 		
-		menuAide = new JMenu("?");
-		menuBar.add(menuAide);
+		mntmConnexion = new JMenuItem("Connexion");
+		mntmConnexion.setHorizontalTextPosition(SwingConstants.LEFT);
+		mntmConnexion.setHorizontalAlignment(SwingConstants.LEFT);
+		mntmConnexion.setPreferredSize(new Dimension(50, 19));
+		menuBar.add(mntmConnexion);
+		
+		menuItem = new JMenuItem("?");
+		menuBar.add(menuItem);
+		
+		label = new JLabel("");
+		menuBar.add(label);
+		
+		label_1 = new JLabel("");
+		menuBar.add(label_1);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -128,14 +144,12 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		panelLancement.add(btnOuvrirAnnuaire);
 		
 		progressBar = new JProgressBar();
-		contentPane.add(progressBar, BorderLayout.SOUTH);
 		
 		btnOuvrirAnnuaire.addActionListener(this);
 		btnNouvelAnnuaire.addActionListener(this);
 		mntmNouveau.addActionListener(this);
 		mntmOuvrir.addActionListener(this);
 		mntmQuitter.addActionListener(this);
-		menuAide.addActionListener(this);
 		mntmImprimer.addActionListener(this);
 		
 	}
