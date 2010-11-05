@@ -225,8 +225,8 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 			}
 			AffichageAnnuaire affichage = (AffichageAnnuaire)frame.getContentPane().getComponent(0);
 			affichage.getTable().setModel(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout()));
-		}
-		
+
+		}		
 	}
 	
 	@Override
@@ -249,12 +249,16 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 				table.setModel(new ModeleStagiaire(frame.getAnnuaireCourant().rechercherDynamique(recherche, 0, new ArrayList<Stagiaire>())));
 				btnSupprimer.setEnabled(false);
 				btnEditer.setEnabled(false);
-			} else{
-				table.setModel(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout()));
-				btnSupprimer.setEnabled(false);
-				btnEditer.setEnabled(false);
+			}else{
+				if(e.getKeyCode()==8){	
+					table.setModel(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout()));
+					btnSupprimer.setEnabled(false);
+					btnEditer.setEnabled(false);
+				}
+				
 			}
-		}	
+		}
+		
 	}
 		
 	@Override	
