@@ -91,14 +91,14 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		getContentPane().add(label, "6, 1, 2, 5, center, default");
 
 
-		lblPrenom = new JLabel("PrÃ©nom :");
+		lblPrenom = new JLabel("Prénom :");
 		lblPrenom.setHorizontalAlignment(SwingConstants.RIGHT);
 		getContentPane().add(lblPrenom, "2, 4, right, default");
 		
 		
 
 		textPrenom = new JTextField();
-		textPrenom.setToolTipText("<html>Renseigner le prÃ©nom du nouveau stagiaire.</html>");
+		textPrenom.setToolTipText("<html>Renseigner le prénom du nouveau stagiaire.</html>");
 		textPrenom.setColumns(10);
 		getContentPane().add(textPrenom, "4, 4, fill, default");
 		textPrenom.setDocument(new LimiteTexte(30));
@@ -110,7 +110,7 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		
 		
 		comboBox = new JComboBox();
-		comboBox.setToolTipText("<html>Selectionner une promotion dans la liste dÃ©roulante.<br/>Choisir \"autres\" pour crÃ©er une nouvelle promotion.</html>");
+		comboBox.setToolTipText("<html>Selectionner une promotion dans la liste déroulante.<br/>Choisir \"autres\" pour créer une nouvelle promotion.</html>");
 		comboBox.setMinimumSize(new Dimension(12, 26));
 		getContentPane().add(comboBox, "4, 6");
 		comboBox.removeAllItems();
@@ -122,20 +122,20 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		}
 		comboBox.addItem("autre");	
 		textPromotion = new JTextField();
-		textPromotion.setToolTipText("<html>Renseigner une nouvelle annÃ©e de promotion.</html>");
+		textPromotion.setToolTipText("<html>Renseigner une nouvelle année de promotion.</html>");
 		textPromotion.setVisible(false);
 		getContentPane().add(textPromotion, "6, 6");
 		textPromotion.setColumns(10);
 		textPromotion.setDocument(new LimiteTexte(10));
 	
 		
-		lblAnnee = new JLabel("AnnÃ©e :");
+		lblAnnee = new JLabel("Année :");
 		getContentPane().add(lblAnnee, "2, 8, right, default");
 		
 		
 
 		textAnnee = new JTextField();
-		textAnnee.setToolTipText("<html>Renseigner l'annÃ©e de promotion du nouveau stagiaire.</html>");
+		textAnnee.setToolTipText("<html>Renseigner l'année de promotion du nouveau stagiaire.</html>");
 		getContentPane().add(textAnnee, "4, 8, left, default");
 		textAnnee.setColumns(10);
 		textAnnee.setDocument(new LimiteTexte(4));
@@ -150,14 +150,14 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 		btnSauvegarder.addActionListener(this);
 		
 		
-		lblDepartement = new JLabel("DÃ©partement :");
+		lblDepartement = new JLabel("Département :");
 		lblDepartement.setHorizontalAlignment(SwingConstants.RIGHT);
 		getContentPane().add(lblDepartement, "2, 10, right, default");
 		
 		
 
 		textDepartement = new JTextField();
-		textDepartement.setToolTipText("<html>Renseigner le code dÃ©partement du nouveau stagiaire.</html>");
+		textDepartement.setToolTipText("<html>Renseigner le code département du nouveau stagiaire.</html>");
 		getContentPane().add(textDepartement, "4, 10, left, default");
 		textDepartement.setColumns(10);
 		textDepartement.setDocument(new LimiteTexte(2));
@@ -205,7 +205,7 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 						frame.getAnnuaireCourant().getFantome().remove(frame.getAnnuaireCourant().getFantome().get(frame.getAnnuaireCourant().getFantome().size()-1));
 					}
 				}else{
-					JOptionPane.showMessageDialog(this, "ce nom existe deja");
+					JOptionPane.showMessageDialog(this, "Ce nom existe deja");
 				}
 
 				
@@ -241,10 +241,8 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 	}
 
 	@Override
-	public void windowClosed(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-	}
-
+	public void windowClosed(WindowEvent arg0) {}
+	
 	@Override
 	public void windowClosing(WindowEvent arg0) {
 		frame.setPopUp(null);
@@ -252,28 +250,16 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 	}
 
 	@Override
-	public void windowDeactivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowDeactivated(WindowEvent arg0) {}
 
 	@Override
-	public void windowDeiconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowDeiconified(WindowEvent arg0) {}
 
 	@Override
-	public void windowIconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowIconified(WindowEvent arg0) {}
 
 	@Override
-	public void windowOpened(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowOpened(WindowEvent arg0) {}
 
 	public FenetrePrincipale getFrame() {
 		return frame;

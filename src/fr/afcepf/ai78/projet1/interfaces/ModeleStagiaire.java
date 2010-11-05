@@ -10,7 +10,7 @@ import fr.afcepf.ai78.projet1.objets.Stagiaire;
 public class ModeleStagiaire extends AbstractTableModel {
 
 
-	private String[] entete = {"Nom","PrÃ©nom","Promotion","AnnÃ©e","DÃ©partement"};
+	private String[] entete = {"Nom","Prénom","Promotion","Année","Département"};
 	private List<Stagiaire> donnees = new ArrayList<Stagiaire>();
 
 	public ModeleStagiaire(){
