@@ -92,6 +92,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		table = new JTable(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout()));
 		scrollPane.setViewportView(table);
 		table.addMouseListener(this);
+		table.getTableHeader().setReorderingAllowed(false);
 
 		btnRechercher.addActionListener(this);
 		btnAjouter.addActionListener(this);
@@ -101,6 +102,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		txtEntree.addKeyListener(this);
 		table.addFocusListener(this);
 		table.addKeyListener(this);
+		//table.t
 		
 	}
 
@@ -151,18 +153,33 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		}
 
 		if (e.getSource() == btnSupprimer) {
-
-
-			int indice = table.getSelectedRow();
-			int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer "+table.getValueAt(indice, 0), "Confirmation",JOptionPane.OK_CANCEL_OPTION);
+			
+			int [] tabIndice =  table.getSelectedRows();
+			
+		if(tabIndice.length==1)	{
+			int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer "+table.getValueAt(tabIndice[0], 0), "Confirmation",JOptionPane.OK_CANCEL_OPTION);
 			if(val==0){
 
-				Noeud  unNoeud = new Noeud(table.getValueAt(indice, 0).toString(),table.getValueAt(indice, 1).toString(),table.getValueAt(indice, 4).toString(),table.getValueAt(indice, 2).toString(),Integer.parseInt(table.getValueAt(indice, 3).toString()));
+				Noeud  unNoeud = new Noeud(table.getValueAt(tabIndice[0], 0).toString(),table.getValueAt(tabIndice[0], 1).toString(),table.getValueAt(tabIndice[0], 4).toString(),table.getValueAt(tabIndice[0], 2).toString(),Integer.parseInt(table.getValueAt(tabIndice[0], 3).toString()));
 				frame.getAnnuaireCourant().supprimer(unNoeud, 0);
+			}
+
+		}else{
+			
+			int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer la selection", "Confirmation",JOptionPane.OK_CANCEL_OPTION);
+			if(val==0){
+				for (int i : tabIndice) {
+					
+					Noeud  unNoeud = new Noeud(table.getValueAt(tabIndice[i], 0).toString(),table.getValueAt(tabIndice[i], 1).toString(),table.getValueAt(tabIndice[i], 4).toString(),table.getValueAt(tabIndice[i], 2).toString(),Integer.parseInt(table.getValueAt(tabIndice[i], 3).toString()));
+					frame.getAnnuaireCourant().supprimer(unNoeud, 0);
+				}
 
 			}
-			e.setSource(btnAfficherTout);
-			actionPerformed(e);
+			
+		}
+		e.setSource(btnAfficherTout);
+		actionPerformed(e);
+
 		}
 
 		if (e.getSource() == btnEditer) {
@@ -189,10 +206,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		btnSupprimer.setEnabled(true);
-		btnEditer.setEnabled(true);	
-	}
+	public void mouseClicked(MouseEvent arg0) {}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {}
@@ -201,7 +215,10 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	public void mouseExited(MouseEvent arg0) {}
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {}
+	public void mousePressed(MouseEvent arg0) {
+		btnSupprimer.setEnabled(true);
+		btnEditer.setEnabled(true);	
+	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {}
@@ -213,14 +230,28 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode()==127 && frame.isConnected()){
+			int [] tabIndice =  table.getSelectedRows();
 			
-			int indice = table.getSelectedRow();
-			int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer "+table.getValueAt(indice, 0), "Confirmation",JOptionPane.OK_CANCEL_OPTION);
-			if(val==0){
+			if(tabIndice.length==1)	{
+				int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer "+table.getValueAt(tabIndice[0], 0), "Confirmation",JOptionPane.OK_CANCEL_OPTION);
+				if(val==0){
 
-				Noeud  unNoeud = new Noeud(table.getValueAt(indice, 0).toString(),table.getValueAt(indice, 1).toString(),table.getValueAt(indice, 4).toString(),table.getValueAt(indice, 2).toString(),Integer.parseInt(table.getValueAt(indice, 3).toString()));
-				frame.getAnnuaireCourant().supprimer(unNoeud, 0);
+					Noeud  unNoeud = new Noeud(table.getValueAt(tabIndice[0], 0).toString(),table.getValueAt(tabIndice[0], 1).toString(),table.getValueAt(tabIndice[0], 4).toString(),table.getValueAt(tabIndice[0], 2).toString(),Integer.parseInt(table.getValueAt(tabIndice[0], 3).toString()));
+					frame.getAnnuaireCourant().supprimer(unNoeud, 0);
+				}
 
+			}else{
+				
+				int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer la selection", "Confirmation",JOptionPane.OK_CANCEL_OPTION);
+				if(val==0){
+					for (int i : tabIndice) {
+						
+						Noeud  unNoeud = new Noeud(table.getValueAt(tabIndice[i], 0).toString(),table.getValueAt(tabIndice[i], 1).toString(),table.getValueAt(tabIndice[i], 4).toString(),table.getValueAt(tabIndice[i], 2).toString(),Integer.parseInt(table.getValueAt(tabIndice[i], 3).toString()));
+						frame.getAnnuaireCourant().supprimer(unNoeud, 0);
+					}
+
+				}
+				
 			}
 			AffichageAnnuaire affichage = (AffichageAnnuaire)frame.getContentPane().getComponent(0);
 			affichage.getTable().setModel(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout()));
