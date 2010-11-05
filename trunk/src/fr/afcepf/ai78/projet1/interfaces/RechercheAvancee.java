@@ -167,7 +167,7 @@ public class RechercheAvancee extends JDialog implements ActionListener,WindowLi
 			try {
 				annee = Integer.parseInt(textAnnee.getText());
 			} catch (NumberFormatException e2) {
-				e2.printStackTrace();
+				//e2.printStackTrace();
 			}
 			List<Stagiaire> liste = new ArrayList<Stagiaire>() ;
 			liste = parent.getFrame().getAnnuaireCourant().rechercheRec(0, nom, prenom, promotion, annee, departement, liste);
