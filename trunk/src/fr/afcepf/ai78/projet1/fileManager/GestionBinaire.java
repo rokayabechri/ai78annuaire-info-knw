@@ -268,6 +268,7 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 	 */
 	public List<Stagiaire> afficherTout(){
 		List<Stagiaire> liste = new ArrayList<Stagiaire>();
+			
 		if(fantome.indexOf(0)==-1){
 			liste = afficherTout(0, new ArrayList<Stagiaire>());
 		}
@@ -286,7 +287,6 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 
 		Noeud arbre = lireNoeud(posArbre);
 		
-
 		if(arbre != null){
 			
 			if(!promoExist(arbre.getPromotion())){
@@ -301,7 +301,6 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 				listeNoeud = afficherTout(arbre.getFilsD(),listeNoeud);		
 			}		
 		}
-
 
 		return listeNoeud;	
 	}
@@ -624,4 +623,11 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		}
 	}
 
+	public void setFantome(List<Integer> fantome) {
+		this.fantome = fantome;
+	}
+
+	public String getFichierSortie() {
+		return fichierSortie;
+	}
 }
