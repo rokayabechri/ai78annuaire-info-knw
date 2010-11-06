@@ -20,7 +20,7 @@ import fr.afcepf.ai78.projet1.objets.Noeud;
 import fr.afcepf.ai78.projet1.objets.Stagiaire;
 
 /**
- * GestionBinaire is the FileManager layout, using a RandomAccessFile to read and write in the file,
+ * GestionBinaire is the FileManager layout of our directory, using a RandomAccessFile to read and write in the file,
  * it extends SwingWorker in order to build the binary file in a different thread.
  * 
  * @author Augereau, Chouaib, Lepante
