@@ -119,27 +119,31 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 	 * @return A List of trainee corresponding to the search.
 	 */
 	public List<Stagiaire> rechercherDynamique(String nom, int posArbre, List<Stagiaire> liste){
-		
-		Noeud arbre = lireNoeud(posArbre);
-		if (arbre == null) {
-			return liste ;
-		} else {
-			if (nom.compareToIgnoreCase(arbre.getNom().substring(0, nom.length())) < 0 ) {
-				liste = rechercherDynamique(nom , arbre.getFilsG() , liste);
-
+		try{
+			Noeud arbre = lireNoeud(posArbre);
+			if (arbre == null) {
+				return liste ;
 			} else {
-				if (nom.compareToIgnoreCase(arbre.getNom().substring(0, nom.length())) > 0 ) {
-					liste = rechercherDynamique(nom , arbre.getFilsD() , liste);
-
+				if (nom.compareToIgnoreCase(arbre.getNom().substring(0, nom.length())) < 0 ) {
+					liste = rechercherDynamique(nom , arbre.getFilsG() , liste);
+	
 				} else {
-
-					liste = rechercherDynamique ( nom , arbre.getFilsG() , liste);
-					liste.add(arbre);
-					liste = rechercherDynamique ( nom , arbre.getFilsD() , liste);
+					if (nom.compareToIgnoreCase(arbre.getNom().substring(0, nom.length())) > 0 ) {
+						liste = rechercherDynamique(nom , arbre.getFilsD() , liste);
+	
+					} else {
+	
+						liste = rechercherDynamique ( nom , arbre.getFilsG() , liste);
+						liste.add(arbre);
+						liste = rechercherDynamique ( nom , arbre.getFilsD() , liste);
+					}
 				}
 			}
+		}catch (Exception e) {
+			//e.printStackTrace();
 		}
 		return liste;
+		
 	}
 	
 	/**
@@ -277,10 +281,12 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 	}
 	
 	/**
+	 * The private method used to recursively browse the binary tree,
+	 * return a List of Stagiaire sorted by name.
 	 * 
-	 * @param posArbre
-	 * @param listeNoeud
-	 * @return
+	 * @param posArbre The position (index) of the current node in the file.
+	 * @param listeNoeud The List containing all the trainee.
+	 * @return A List containing all the trainee in the file.
 	 */
 	private List<Stagiaire> afficherTout(int posArbre, List<Stagiaire> listeNoeud)
 	{
@@ -305,53 +311,14 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		return listeNoeud;	
 	}
 
-	public List<Stagiaire> rechercher(String nom, int posArbre , List<Stagiaire> liste){
-
-		Noeud arbre = lireNoeud(posArbre);
-
-		if (arbre == null) {
-			return liste ;
-		} else {
-			if (nom.compareToIgnoreCase(arbre.getNom().trim()) < 0 ) {
-				liste = rechercher(nom , arbre.getFilsG() , liste);
-
-			} else {
-				if (nom.compareToIgnoreCase(arbre.getNom().trim()) > 0 ) {
-					liste = rechercher(nom , arbre.getFilsD() , liste);
-
-				} else {
-
-					liste = rechercher ( nom , arbre.getFilsG() , liste);
-					liste.add(arbre);
-					liste = rechercher ( nom , arbre.getFilsD() , liste);
-				}
-			}
-		}
-		return liste;
-	}
-
-	public int rechercher(Noeud unNoeud, int posArbre){
-
-		Noeud arbre = lireNoeud(posArbre);
-		int position=-1;
-		if (arbre == null) {
-			return -1 ;
-		} else {
-			if (unNoeud.compareTo(arbre) < 0 ) {
-				position = rechercher(unNoeud , arbre.getFilsG() );
-
-			} else {
-				if (unNoeud.compareTo(arbre) > 0 ) {
-					position = rechercher(unNoeud , arbre.getFilsD() );
-
-				} else {
-					position = posArbre;
-				}
-			}
-		}
-		return position;
-	}
-
+	/**
+	 * The method used to delete a node in the tree, the will be physically override by his placetaker,
+	 * and his placetaker will be recursively override during the ascension of the branch,
+	 * this method lets ghost entry in the file which are stored in the ghost data List.
+	 * 
+	 * @param unNoeud The node to be delete.
+	 * @param posArbre The position (index) of the current node in the file.
+	 */
 	public void supprimer(Noeud unNoeud, int posArbre){
 
 		Noeud arbre = lireNoeud(posArbre);
@@ -417,13 +384,20 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		}
 	}
 
-	private void remonter(int posFils ,int posArbre,boolean unBoolean){
+	/**
+	 * The private method used to ascend node in the binary tree during the deletion.
+	 * 
+	 * @param posFils The position (index) of the descendant node in the file.
+	 * @param posArbre The position (index) of the current node in the file.
+	 * @param rappel Used to know if this method has been called more than once.
+	 */
+	private void remonter(int posFils ,int posArbre,boolean rappel){
 
 		Noeud sousArbre = lireNoeud(posFils);
 		Noeud arbre = lireNoeud(posArbre);
 
 		if (!sousArbre.hasFilsD()) {
-			if(!unBoolean){
+			if(!rappel){
 
 				if(sousArbre.hasFilsG()){
 					ecrireInt((sousArbre.getFilsG()*AnnuaireConstante.TAILLE_NOEUD)+AnnuaireConstante.TAILLE_STAGIAIRE, posArbre);
@@ -450,6 +424,12 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		}
 	}
 
+	/**
+	 * The method used to know the appropriate position (index) to add a new node in the binary file,
+	 * return the last ghost data position if there is one, or the end of the file.
+	 * 
+	 * @return The position (index) where to write the node.
+	 */
 	public int getPositionAjout(){
 		
 		RandomAccessFile fichier = null;
@@ -480,6 +460,12 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		return position;
 	}
 
+	/**
+	 * Directly write a node at the given index.
+	 * 
+	 * @param indice The position (index) where to write the node.
+	 * @param ajout The node to be added.
+	 */
 	public void ecrireNoeud(int indice, Noeud ajout)  {
 		
 		RandomAccessFile fichier = null;
@@ -510,6 +496,13 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		}
 	}
 
+	/**
+	 * Directly read a node at the given index,
+	 * return null if it fails to read the node at the givent index.
+	 * 
+	 * @param indice The position (index) where to write the node.
+	 * @return The readed node or null if the reading has failed.
+	 */
 	private Noeud lireNoeud(int indice) {
 		
 		Noeud unNoeud = new Noeud();
@@ -543,6 +536,13 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		return unNoeud;
 	}
 
+	/**
+	 * Directly write an integer at the given position (byte),
+	 * used to modify the reference to the position of the ancestor ot the descendant.
+	 * 
+	 * @param position The position (byte) where to write the givent data.
+	 * @param element The data to write.
+	 */
 	private void ecrireInt(int position, int element){
 		
 		RandomAccessFile fichier = null;
@@ -565,6 +565,13 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		
 	}
 
+	/**
+	 * Format the given String into a new String with spaces to match the given size.
+	 * 
+	 * @param taille The size of the new String.
+	 * @param chaine The string to be format.
+	 * @return A new String formated with spaces to match the given size.
+	 */
 	private String formater (int taille ,String chaine){
 
 		for (int i = chaine.length(); i < taille/2; i++) {
@@ -574,6 +581,14 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		return chaine;
 	} 
 
+	/**
+	 * Read a given number of bytes in the file and return it into a String.
+	 * 
+	 * @param taille The number of bytes to read.
+	 * @param fichier The RandomAccessFile used to read the file.
+	 * @return A String created from the readed bytes.
+	 * @throws IOException Throws an exception if it fails to read the bytes.
+	 */
 	private String lireChaine(int taille,RandomAccessFile fichier) throws IOException{
 
 		String chaine="";
@@ -584,6 +599,13 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		return chaine;
 	}
 		
+	/**
+	 * A private method used to test if the given class already exist in the 
+	 * List of class.
+	 * 
+	 * @param promotion The given class to be checked.
+	 * @return <code>true</code> if the class is already listed, <code>false</code> if not.
+	 */
 	private boolean promoExist(String promotion){
 		
 		boolean unBoolean = false;
@@ -598,20 +620,36 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		return unBoolean;
 	}
 		
+	/**
+	 * Return the List of registered class.
+	 * 
+	 * @return The List of registered class.
+	 */
 	public List<String> getPromo() {
 		Collections.sort(promo);
 		return promo;
 	}
 
+	/**
+	 * Return the List of ghost position (index).
+	 * 
+	 * @return The List of ghost position (index).
+	 */
 	public List<Integer> getFantome() {
 		return fantome;
 	}
 	
+	/* (non-Javadoc)
+	 * @see javax.swing.SwingWorker#doInBackground()
+	 */
 	@Override
 	public Boolean doInBackground() throws Exception {
 		return creationArbreBinaire(0, 100);
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.swing.SwingWorker#done()
+	 */
 	@Override
 	protected void done() {
 		try {
@@ -623,10 +661,11 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		}
 	}
 
-	public void setFantome(List<Integer> fantome) {
-		this.fantome = fantome;
-	}
-
+	/**
+	 * Return the name of the binary file.
+	 * 
+	 * @return The name of the binary file.
+	 */
 	public String getFichierSortie() {
 		return fichierSortie;
 	}
