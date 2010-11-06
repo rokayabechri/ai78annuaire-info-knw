@@ -16,6 +16,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -26,7 +27,7 @@ import fr.afcepf.ai78.projet1.objets.Noeud;
 import fr.afcepf.ai78.projet1.objets.Stagiaire;
 
 
-public class AffichageAnnuaire extends JPanel implements ActionListener,MouseListener,KeyListener, FocusListener{
+public class AffichageAnnuaire extends JPanel implements ActionListener,MouseListener,KeyListener, FocusListener,MouseMotionListener{
 
 	private JTable table;
 	private JScrollPane scrollPane = new JScrollPane();
@@ -95,15 +96,19 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		table.getTableHeader().setReorderingAllowed(false);
 
 		btnRechercher.addActionListener(this);
+		btnRechercher.addMouseMotionListener(this);
 		btnAjouter.addActionListener(this);
+		btnAjouter.addMouseMotionListener(this);
 		btnAfficherTout.addActionListener(this);
+		btnAfficherTout.addMouseMotionListener(this);
 		btnEditer.addActionListener(this);
+		btnEditer.addMouseMotionListener(this);
 		btnSupprimer.addActionListener(this);
+		btnSupprimer.addMouseMotionListener(this);
 		txtEntree.addKeyListener(this);
 		table.addFocusListener(this);
 		table.addKeyListener(this);
-		//table.t
-		
+		//table.t		
 	}
 
 	@Override
@@ -153,34 +158,29 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		}
 
 		if (e.getSource() == btnSupprimer) {
-			
+
 			int [] tabIndice =  table.getSelectedRows();
-			
-		if(tabIndice.length==1)	{
-			int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer "+table.getValueAt(tabIndice[0], 0), "Confirmation",JOptionPane.OK_CANCEL_OPTION);
-			if(val==0){
+						
+			if(tabIndice.length==1)	{
+				int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer "+table.getValueAt(tabIndice[0], 0), "Confirmation",JOptionPane.OK_CANCEL_OPTION);
+				if(val==0){
 
-				Noeud  unNoeud = new Noeud(table.getValueAt(tabIndice[0], 0).toString(),table.getValueAt(tabIndice[0], 1).toString(),table.getValueAt(tabIndice[0], 4).toString(),table.getValueAt(tabIndice[0], 2).toString(),Integer.parseInt(table.getValueAt(tabIndice[0], 3).toString()));
-				frame.getAnnuaireCourant().supprimer(unNoeud, 0);
-			}
-
-		}else{
-			
-			int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer la selection", "Confirmation",JOptionPane.OK_CANCEL_OPTION);
-			if(val==0){
-				for (int i : tabIndice) {
-					
-					System.out.println(i);
-					
-					Noeud  unNoeud = new Noeud(table.getValueAt(i, 0).toString(),table.getValueAt(i, 1).toString(),table.getValueAt(i, 4).toString(),table.getValueAt(i, 2).toString(),Integer.parseInt(table.getValueAt(i, 3).toString()));
+					Noeud  unNoeud = new Noeud(table.getValueAt(tabIndice[0], 0).toString(),table.getValueAt(tabIndice[0], 1).toString(),table.getValueAt(tabIndice[0], 4).toString(),table.getValueAt(tabIndice[0], 2).toString(),Integer.parseInt(table.getValueAt(tabIndice[0], 3).toString()));
 					frame.getAnnuaireCourant().supprimer(unNoeud, 0);
 				}
 
+			}else{
+
+				int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer la selection", "Confirmation",JOptionPane.OK_CANCEL_OPTION);
+				if(val==0){
+					for (int i : tabIndice) {
+						Noeud  unNoeud = new Noeud(table.getValueAt(i, 0).toString(),table.getValueAt(i, 1).toString(),table.getValueAt(i, 4).toString(),table.getValueAt(i, 2).toString(),Integer.parseInt(table.getValueAt(i, 3).toString()));
+						frame.getAnnuaireCourant().supprimer(unNoeud, 0);
+					}
+				}
 			}
-			
-		}
-		e.setSource(btnAfficherTout);
-		actionPerformed(e);
+			e.setSource(btnAfficherTout);
+			actionPerformed(e);
 
 		}
 
@@ -228,12 +228,12 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	public JTable getTable() {
 		return table;
 	}
-	
+
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode()==127 && frame.isConnected()){
 			int [] tabIndice =  table.getSelectedRows();
-			
+
 			if(tabIndice.length==1)	{
 				int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer "+table.getValueAt(tabIndice[0], 0), "Confirmation",JOptionPane.OK_CANCEL_OPTION);
 				if(val==0){
@@ -243,59 +243,46 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 				}
 
 			}else{
-				
+
 				int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer la selection", "Confirmation",JOptionPane.OK_CANCEL_OPTION);
 				if(val==0){
 					for (int i : tabIndice) {
-						
+
 						Noeud  unNoeud = new Noeud(table.getValueAt(i, 0).toString(),table.getValueAt(i, 1).toString(),table.getValueAt(i, 4).toString(),table.getValueAt(i, 2).toString(),Integer.parseInt(table.getValueAt(i, 3).toString()));
 						frame.getAnnuaireCourant().supprimer(unNoeud, 0);
 					}
 
 				}
-				
+
 			}
 			AffichageAnnuaire affichage = (AffichageAnnuaire)frame.getContentPane().getComponent(0);
 			affichage.getTable().setModel(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout()));
 
 		}		
 	}
-	
+
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(e.getKeyCode()==10){
-			String recherche = txtEntree.getText();
 
-			if (!recherche.equals("")) {
-				table.setModel(new ModeleStagiaire(frame.getAnnuaireCourant().rechercher(recherche, 0, new ArrayList<Stagiaire>())));
-				btnSupprimer.setEnabled(false);
-				btnEditer.setEnabled(false);
-			}else{
-				table.setModel(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout()));
-				btnSupprimer.setEnabled(false);
-				btnEditer.setEnabled(false);
-			}
-		}else{
 			String recherche = txtEntree.getText();
 			if (!recherche.equals("")) {
 				table.setModel(new ModeleStagiaire(frame.getAnnuaireCourant().rechercherDynamique(recherche, 0, new ArrayList<Stagiaire>())));
 				btnSupprimer.setEnabled(false);
 				btnEditer.setEnabled(false);
 			}else{
-				if(e.getKeyCode()==8){	
+				if(e.getKeyCode()==8){ //retour.
 					table.setModel(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout()));
 					btnSupprimer.setEnabled(false);
 					btnEditer.setEnabled(false);
 				}
-				
 			}
 		}
-		
-	}
-		
+
+
+
 	@Override	
 	public void keyTyped(KeyEvent e) {}
-	
+
 	@Override
 	public void focusGained(FocusEvent arg0) {}
 
@@ -317,7 +304,19 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	public JPanel getPanelOption() {
 		return panelOption;
 	}
-	
+
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
 
 

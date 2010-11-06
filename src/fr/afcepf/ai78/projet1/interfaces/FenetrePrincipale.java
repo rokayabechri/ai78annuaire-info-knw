@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.PrintJob;
 
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -54,6 +55,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	private JButton btnDeconnexion;
 	private JButton btnConnexion;
 	private boolean isConnected = false;
+	private JMenuItem mntmSupprimerAnnuaire;
 
 
 
@@ -103,6 +105,10 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		mntmOuvrir = new JMenuItem("Ouvrir");
 		mntmOuvrir.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/menu_ouvrir.png")));
 		mnFichier.add(mntmOuvrir);
+
+		mntmSupprimerAnnuaire = new JMenuItem("Supprimer annuaire");
+		mntmSupprimerAnnuaire.setEnabled(isConnected);
+		mnFichier.add(mntmSupprimerAnnuaire);
 
 		mntmImprimer = new JMenuItem("Imprimer");
 		mntmImprimer.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/menu_impression.png")));
@@ -172,6 +178,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		mntmImprimer.addActionListener(this);
 		btnConnexion.addActionListener(this);
 		btnDeconnexion.addActionListener(this);
+		mntmSupprimerAnnuaire.addActionListener(this);
 
 	}
 
@@ -180,7 +187,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 
 
 		if(e.getSource() == btnOuvrirAnnuaire || e.getSource() == mntmOuvrir){
-
+			
 			this.setEnabled(false);
 
 			File repertoire = new File(AnnuaireConstante.BIN_PATH);
@@ -233,28 +240,28 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 			System.exit(0);	
 		}
 
-//		if (e.getSource() == menuAide) {
-//			if(this.getPopUp()==null){
-//				this.setPopUp(new JDialog(this,"programme realiser par W.Lepante, K.Augerau, N.Chouaib"));
-//				this.getPopUp().setLocationRelativeTo(this);
-//				this.getPopUp().setVisible(true);
-//
-//			}else{
-//				if(this.getPopUp().getClass().equals("fr.afcepf.ai78.projet1.interfaces.FenetrePrincipale")){
-//					this.getPopUp().toFront();
-//				}else{
-//					this.getPopUp().dispose();
-//					this.setPopUp(new NouvelAnnuaire(this));
-//					this.getPopUp().setLocationRelativeTo(this);
-//					this.getPopUp().setVisible(true);
-//
-//				}
-//
-//			}
-//
-//
-//		}
-		
+		//		if (e.getSource() == menuAide) {
+		//			if(this.getPopUp()==null){
+		//				this.setPopUp(new JDialog(this,"programme realiser par W.Lepante, K.Augerau, N.Chouaib"));
+		//				this.getPopUp().setLocationRelativeTo(this);
+		//				this.getPopUp().setVisible(true);
+		//
+		//			}else{
+		//				if(this.getPopUp().getClass().equals("fr.afcepf.ai78.projet1.interfaces.FenetrePrincipale")){
+		//					this.getPopUp().toFront();
+		//				}else{
+		//					this.getPopUp().dispose();
+		//					this.setPopUp(new NouvelAnnuaire(this));
+		//					this.getPopUp().setLocationRelativeTo(this);
+		//					this.getPopUp().setVisible(true);
+		//
+		//				}
+		//
+		//			}
+		//
+		//
+		//		}
+
 		if (e.getSource() == mntmImprimer) {
 
 
@@ -267,6 +274,27 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 				}
 
 
+			}
+
+		}
+
+		if (e.getSource() == mntmSupprimerAnnuaire&&isConnected) {
+			this.setEnabled(false);
+
+			if(this.getPopUp()==null){
+				this.setPopUp(new SupprimerAnnuaire(this));
+				this.getPopUp().setLocationRelativeTo(this);
+				this.getPopUp().setVisible(true);
+
+			}else{
+				if(this.getPopUp().getClass().equals("fr.afcepf.ai78.projet1.interfaces.FenetrePrincipale")){
+					this.getPopUp().toFront();
+				}else{
+					this.setPopUp(new SupprimerAnnuaire(this));
+					this.getPopUp().setLocationRelativeTo(this);
+					this.getPopUp().setVisible(true);
+					this.getPopUp().dispose();
+				}
 			}
 
 		}
@@ -294,6 +322,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 
 
 		}
+
 		if (e.getSource() == btnDeconnexion) {
 
 
@@ -322,7 +351,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 			JOptionPane.showMessageDialog(this, "Fichier incorrect");
 			setEnabled(true);
 		}
-
 
 	}
 
@@ -376,5 +404,9 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 
 	public void setBtnConnexion(JButton btnConnexion) {
 		this.btnConnexion = btnConnexion;
+	}
+
+	public JMenuItem getMntmSupprimerAnnuaire() {
+		return mntmSupprimerAnnuaire;
 	}
 }

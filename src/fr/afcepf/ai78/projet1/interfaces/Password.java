@@ -2,6 +2,8 @@ package fr.afcepf.ai78.projet1.interfaces;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import javax.swing.JButton;
@@ -13,7 +15,7 @@ import javax.swing.JLabel;
 import fr.afcepf.ai78.projet1.constante.AnnuaireConstante;
 import javax.swing.ImageIcon;
 
-public class Password extends JDialog implements ActionListener,WindowListener {
+public class Password extends JDialog implements ActionListener,WindowListener,KeyListener {
 	
 	
 	private FenetrePrincipale frame;
@@ -56,6 +58,7 @@ public class Password extends JDialog implements ActionListener,WindowListener {
 		btnValider.addActionListener(this);
 		btnAnnuler.addActionListener(this);
 		this.addWindowListener(this);
+		passwordField.addKeyListener(this);
 	}
 	
 	
@@ -63,47 +66,45 @@ public class Password extends JDialog implements ActionListener,WindowListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource()==btnValider){
-
-			String password="";
-			for (char lettre : passwordField.getPassword()) {
-				password+=lettre+"";
-			}
-
-			if(!password.equals("")){
-
-
-				if(password.equals(AnnuaireConstante.PASSWORD)){
-					frame.setConnected(true);
-					if(frame.getContentPane().getComponent(0) != frame.getPanelLancement()){
-						AffichageAnnuaire aa = (AffichageAnnuaire) frame.getContentPane().getComponent(0);
-						aa.getPanelOption().setVisible(true);
-
-					}
-					
-					frame.getBtnConnexion().setVisible(false);
-					frame.getBtnDeconnexion().setVisible(true);
-					frame.setPopUp(null);
-					frame.setEnabled(true);
-					frame.toFront();
-					this.dispose();					
-				}else{
-					JOptionPane.showMessageDialog(this, "Password incorrect");					
-				}
-			}else{
-				JOptionPane.showMessageDialog(this, "Saisir Password");
-			}
-
+			verifPassword();
 		}
-
+		
 		if(e.getSource()==btnAnnuler){
 			frame.setPopUp(null);
 			frame.setEnabled(true);
 			frame.toFront();
 			this.dispose();
-		}
-		
+		}	
 	}
 	
+	private void verifPassword(){
+		
+		String password="";
+		for (char lettre : passwordField.getPassword()) {
+			password+=lettre+"";
+		}
+
+		if(!password.equals("")){
+			if(password.equals(AnnuaireConstante.PASSWORD)){
+				frame.setConnected(true);
+				if(frame.getContentPane().getComponent(0) != frame.getPanelLancement()){
+					AffichageAnnuaire aa = (AffichageAnnuaire) frame.getContentPane().getComponent(0);
+					aa.getPanelOption().setVisible(true);
+				}
+				frame.getMntmSupprimerAnnuaire().setEnabled(true);
+				frame.getBtnConnexion().setVisible(false);
+				frame.getBtnDeconnexion().setVisible(true);
+				frame.setPopUp(null);
+				frame.setEnabled(true);
+				frame.toFront();
+				this.dispose();					
+			}else{
+				JOptionPane.showMessageDialog(this, "Password incorrect");					
+			}
+		}else{
+			JOptionPane.showMessageDialog(this, "Saisir Password");
+		}
+	}
 	
 	@Override
 	public void windowActivated(WindowEvent e) {}
@@ -130,4 +131,25 @@ public class Password extends JDialog implements ActionListener,WindowListener {
 	
 	@Override
 	public void windowOpened(WindowEvent e) {}
+
+
+	@Override
+	public void keyPressed(KeyEvent e) {	
+		if(e.getKeyCode()==10){
+			verifPassword();
+		}
+	}
+
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+	
+	}
+
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }
