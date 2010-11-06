@@ -2,11 +2,7 @@ package fr.afcepf.ai78.projet1.interfaces;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.Graphics;
-import java.awt.PrintJob;
-
 import javax.swing.JDialog;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -24,9 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
 import java.io.File;
-import java.util.Properties;
 import javax.swing.ImageIcon;
-
 import fr.afcepf.ai78.projet1.constante.AnnuaireConstante;
 import fr.afcepf.ai78.projet1.fileManager.GestionBinaire;
 import java.awt.Toolkit;
@@ -107,7 +101,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		mnFichier.add(mntmOuvrir);
 
 		mntmSupprimerAnnuaire = new JMenuItem("Supprimer annuaire");
-		mntmSupprimerAnnuaire.setEnabled(isConnected);
+		mntmSupprimerAnnuaire.setEnabled(false);
+		mntmSupprimerAnnuaire.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/menu_supprimer.png")));
 		mnFichier.add(mntmSupprimerAnnuaire);
 
 		mntmImprimer = new JMenuItem("Imprimer");
@@ -191,12 +186,14 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 			this.setEnabled(false);
 
 			File repertoire = new File(AnnuaireConstante.BIN_PATH);
-			String [] listefichiers;  
-			listefichiers  = repertoire.list();
+			if(!repertoire.exists()){
+				repertoire.mkdirs();
+			}
+			String [] listefichiers = repertoire.list();
 
 
 			if(this.getPopUp()==null){
-				this.setPopUp(new AnnaireExistant(this,listefichiers));
+				this.setPopUp(new OuvrirAnnuaire(this,listefichiers));
 				this.getPopUp().setLocationRelativeTo(this);
 				this.getPopUp().setVisible(true);
 
@@ -204,7 +201,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 				if(this.getPopUp().getClass().equals("fr.afcepf.ai78.projet1.interfaces.FenetrePrincipale")){
 					this.getPopUp().toFront();
 				}else{
-					this.setPopUp(new AnnaireExistant(this,listefichiers));
+					this.setPopUp(new OuvrirAnnuaire(this,listefichiers));
 					this.getPopUp().setLocationRelativeTo(this);
 					this.getPopUp().setVisible(true);
 					this.getPopUp().dispose();
@@ -215,6 +212,11 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		if (e.getSource() == btnNouvelAnnuaire || e.getSource() == mntmNouveau) {
 
 			this.setEnabled(false);
+			
+			File repertoire = new File(AnnuaireConstante.BIN_PATH);
+			if(!repertoire.exists()){
+				repertoire.mkdirs();
+			}
 
 			if(this.getPopUp()==null){
 				this.setPopUp(new NouvelAnnuaire(this));
@@ -351,7 +353,13 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 			JOptionPane.showMessageDialog(this, "Fichier incorrect");
 			setEnabled(true);
 		}
+	}
 
+	public void disposePopUp() {
+		popUp.dispose();
+		setPopUp(null);
+		setEnabled(true);
+		toFront();
 	}
 
 	public JPanel getContentPane() {

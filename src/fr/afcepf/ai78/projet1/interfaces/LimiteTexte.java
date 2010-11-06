@@ -1,13 +1,13 @@
 package fr.afcepf.ai78.projet1.interfaces;
 
+import java.awt.Toolkit;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
-import java.awt.Toolkit;
 import javax.swing.text.PlainDocument;
 
 public class LimiteTexte extends PlainDocument {
-	private static final long serialVersionUID = 6016644222758009922L;
- 
+	
+	private static final long serialVersionUID = 1L;
 	private int max;
 	
 	public LimiteTexte(int max){
@@ -23,8 +23,7 @@ public class LimiteTexte extends PlainDocument {
 		}
 	}
  
-	public void replace(int offset, int length, String chaine, AttributeSet attribut)
-			throws BadLocationException {
+	public void replace(int offset, int length, String chaine, AttributeSet attribut) throws BadLocationException {
 		if (chaine != null && getLength() + chaine.length() - length > max) {
 			Toolkit.getDefaultToolkit().beep();
 		} else {

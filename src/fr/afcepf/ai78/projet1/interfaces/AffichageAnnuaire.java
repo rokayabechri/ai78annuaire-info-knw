@@ -20,13 +20,11 @@ import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
-
 import fr.afcepf.ai78.projet1.constante.AnnuaireConstante;
 import fr.afcepf.ai78.projet1.objets.Noeud;
 import fr.afcepf.ai78.projet1.objets.Stagiaire;
@@ -121,7 +119,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 
 		if (e.getSource() == btnRechercher) {
 			if(frame.getPopUp()==null){
-				frame.setPopUp(new RechercheAvancee(this));
+				frame.setPopUp(new RechercheAvancee(frame));
 
 				frame.getPopUp().setLocationRelativeTo(frame);
 				frame.getPopUp().setVisible(true);
@@ -131,7 +129,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 					frame.getPopUp().toFront();
 				}else{
 					frame.getPopUp().dispose();
-					frame.setPopUp(new RechercheAvancee(this));
+					frame.setPopUp(new RechercheAvancee(frame));
 					frame.getPopUp().setLocationRelativeTo(frame);
 					frame.getPopUp().setVisible(true);
 				}
@@ -216,13 +214,13 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 
 			if(frame.getPopUp()==null){
 
-				frame.setPopUp(new Editer(this,unNoeud));
+				frame.setPopUp(new Editer(frame,unNoeud));
 				frame.getPopUp().setLocationRelativeTo(frame);
 				frame.getPopUp().setVisible(true);
 
 			}else{
 				frame.getPopUp().dispose();
-				frame.setPopUp(new Editer(this,unNoeud));
+				frame.setPopUp(new Editer(frame,unNoeud));
 				frame.getPopUp().setLocationRelativeTo(frame);
 				frame.getPopUp().setVisible(true);
 			}
@@ -344,5 +342,3 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	}
 
 }
-
-
