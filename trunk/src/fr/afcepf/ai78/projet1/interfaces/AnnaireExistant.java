@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import fr.afcepf.ai78.projet1.constante.AnnuaireConstante;
 import fr.afcepf.ai78.projet1.fileManager.GestionBinaire;
 import java.awt.Toolkit;
+import java.util.List;
+
 import javax.swing.ImageIcon;
 
 public class AnnaireExistant extends JDialog implements ActionListener,WindowListener{
@@ -79,14 +81,13 @@ public class AnnaireExistant extends JDialog implements ActionListener,WindowLis
 		if(e.getSource()==btnValider){
 			if(!comboBox.getSelectedItem().toString().equals("")){
 
-				String nomFichier = comboBox.getSelectedItem().toString();			
-				
+				String nomFichier = comboBox.getSelectedItem().toString();				
 				frame.setAnnuaireCourant(new GestionBinaire(frame,"", AnnuaireConstante.BIN_PATH+nomFichier+".bin"));
+				frame.setTitle("Gestion d'annuaire : "+nomFichier);
 				frame.appelAffichage(true);
 				frame.setPopUp(null);
 				this.dispose();
-
-
+					
 			}else{
 				JOptionPane.showMessageDialog(this, "Selectionner un ficher");
 			}
