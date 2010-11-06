@@ -193,8 +193,13 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 			});
 
 			frame.setAnnuaireCourant(gb);
-			frame.getAnnuaireCourant().execute();
-			frame.setTitle("Gestion d'annuaire : "+nomFichier);
+			frame.getAnnuaireCourant().execute();	
+			if(frame.isConnected()){
+				frame.setTitle("Gestion d'annuaire : "+nomFichier+" (Connecté)");
+			}else{
+				frame.setTitle("Gestion d'annuaire : "+nomFichier);
+			}
+
 			frame.setPopUp(null);
 			frame.toFront();
 			this.dispose();
@@ -212,7 +217,11 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 		}
 		frame.setAnnuaireCourant(new GestionBinaire(frame,"", AnnuaireConstante.BIN_PATH+nomFichier+".bin"));						
 		frame.appelAffichage(true);
-		frame.setTitle("Gestion d'annuaire : "+nomFichier);
+		if(frame.isConnected()){
+			frame.setTitle("Gestion d'annuaire : "+nomFichier+" (Connecté)");
+		}else{
+			frame.setTitle("Gestion d'annuaire : "+nomFichier);
+		}
 		frame.setPopUp(null);
 		frame.toFront();
 		this.dispose();

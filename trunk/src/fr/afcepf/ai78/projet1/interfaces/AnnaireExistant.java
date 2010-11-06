@@ -83,7 +83,11 @@ public class AnnaireExistant extends JDialog implements ActionListener,WindowLis
 
 				String nomFichier = comboBox.getSelectedItem().toString();				
 				frame.setAnnuaireCourant(new GestionBinaire(frame,"", AnnuaireConstante.BIN_PATH+nomFichier+".bin"));
-				frame.setTitle("Gestion d'annuaire : "+nomFichier);
+				if(frame.isConnected()){
+					frame.setTitle("Gestion d'annuaire : "+nomFichier+" (Connecté)");
+				}else{
+					frame.setTitle("Gestion d'annuaire : "+nomFichier);
+				}
 				frame.appelAffichage(true);
 				frame.setPopUp(null);
 				this.dispose();
