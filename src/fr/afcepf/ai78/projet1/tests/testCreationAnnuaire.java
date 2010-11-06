@@ -1,11 +1,10 @@
 package fr.afcepf.ai78.projet1.tests;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import fr.afcepf.ai78.projet1.fileManager.GestionBinaire;
-import fr.afcepf.ai78.projet1.objets.Noeud;
-import fr.afcepf.ai78.projet1.objets.Stagiaire;
+//import java.util.ArrayList;
+//import java.util.List;
+//import fr.afcepf.ai78.projet1.fileManager.GestionBinaire;
+//import fr.afcepf.ai78.projet1.objets.Noeud;
+//import fr.afcepf.ai78.projet1.objets.Stagiaire;
 
 public class testCreationAnnuaire {
 
