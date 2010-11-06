@@ -1,163 +1,115 @@
 package fr.afcepf.ai78.projet1.interfaces;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import fr.afcepf.ai78.projet1.constante.AnnuaireConstante;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
-import java.util.List;
-
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
-
-import fr.afcepf.ai78.projet1.constante.AnnuaireConstante;
+import javax.swing.JOptionPane;
+import javax.swing.JComboBox;
 
 public class SupprimerAnnuaire extends JDialog implements ActionListener,WindowListener {
-	private JComboBox comboBoxAnnuaire;
-	private JButton btnSupprimer;
-	private JButton btnAnnuler;
+	
+	private static final long serialVersionUID = 1L;
+	private JComboBox comboBoxAnnuaire = new JComboBox();
+	private JButton btnSupprimer = new JButton("Supprimer");
+	private JButton btnAnnuler = new JButton("Annuler");
+	private JLabel lblAnnuaire = new JLabel("Annuaires : ");
+	private JLabel lblImage = new JLabel("");
 	private FenetrePrincipale frame;
 	private File erase;
-
-
 
 	/**
 	 * Create the dialog.
 	 */
 	public SupprimerAnnuaire(FenetrePrincipale frame) {
-		
 		this.frame=frame;
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 280, 209);
+		setTitle("Suppression d'annuaire");
+		setResizable(false);
+		setSize(250, 180);
+		
 		getContentPane().setLayout(null);
 		
-		comboBoxAnnuaire = new JComboBox();
-		comboBoxAnnuaire.setBounds(54, 61, 175, 26);
+		comboBoxAnnuaire.setBounds(95, 45, 130, 25);
 		getContentPane().add(comboBoxAnnuaire);
 		
-		btnSupprimer = new JButton("Supprimer");
-		btnSupprimer.setBounds(35, 134, 91, 23);
+		btnSupprimer.setBounds(20, 105, 90, 25);
 		getContentPane().add(btnSupprimer);
 		
-		btnAnnuler = new JButton("Annuler");
-		btnAnnuler.setBounds(150, 134, 91, 23);
+		btnAnnuler.setBounds(130, 105, 90, 25);
 		getContentPane().add(btnAnnuler);
 		
-		JLabel lblAnnuaire = new JLabel("Annuaires : ");
-		lblAnnuaire.setBounds(54, 36, 69, 14);
+		lblAnnuaire.setBounds(95, 10, 145, 20);
 		getContentPane().add(lblAnnuaire);
 		comboBoxAnnuaire.addItem("");
 		
-		erase = new File(AnnuaireConstante.BIN_PATH);
+		lblImage.setIcon(new ImageIcon(SupprimerAnnuaire.class.getResource("/fr/afcepf/ai78/projet1/images/supprimer_icon.png")));
+		lblImage.setBounds(10, 15, 75, 75);
+		getContentPane().add(lblImage);
 		
-		String [] tabAnnuaire = erase.list();
-		
-		for (String string : tabAnnuaire) {
-			
+		erase = new File(AnnuaireConstante.BIN_PATH);		
+		for (String string : erase.list()) {
 			comboBoxAnnuaire.addItem(string.substring(0, string.indexOf(".")));
 		}
+		
 		btnSupprimer.addActionListener(this);
 		btnAnnuler.addActionListener(this);
-		this.addWindowListener(this);	}
-	
-	
+		this.addWindowListener(this);
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-
 		if(e.getSource()==btnSupprimer){
 			if(!comboBoxAnnuaire.getSelectedItem().toString().equals("")){
 				String nomFichier = comboBoxAnnuaire.getSelectedItem().toString();
-				int val = JOptionPane.showConfirmDialog(this, "Voulez-vous supprimer "+nomFichier+" ?","",JOptionPane.OK_CANCEL_OPTION);
-				if(val==0){
+				
+				if(JOptionPane.showConfirmDialog(this, "Voulez-vous supprimer "+nomFichier+" ?","",JOptionPane.OK_CANCEL_OPTION)==0){
 										
 					erase = new File(AnnuaireConstante.BIN_PATH+nomFichier+".bin");
 					erase.delete();
 				
-					frame.setPopUp(null);
-					if((AnnuaireConstante.BIN_PATH+nomFichier+".bin").equals(frame.getAnnuaireCourant().getFichierSortie())){
-						AffichageAnnuaire affichageCourant = (AffichageAnnuaire) frame.getContentPane().getComponent(0);
-						frame.getContentPane().remove(affichageCourant);
+					if( (frame.getAnnuaireCourant() != null) && (AnnuaireConstante.BIN_PATH+nomFichier+".bin").equals(frame.getAnnuaireCourant().getFichierSortie()) ){
+						frame.getContentPane().remove(frame.getContentPane().getComponent(0));
 						frame.getContentPane().add(frame.getPanelLancement());
 						frame.setTitle("Gestion d'annuaire");
 						frame.getContentPane().revalidate();
 					}
-					frame.setEnabled(true);
-					frame.toFront();
-					this.dispose();
+					frame.disposePopUp();
 				}
 			}
 		}
 
 		if(e.getSource()==btnAnnuler){
-			frame.setPopUp(null);
-			frame.setEnabled(true);
-			frame.toFront();
-			this.dispose();
-
+			frame.disposePopUp();
 		}
-		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	@Override
-	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowActivated(WindowEvent e) {}
 
 	@Override
-	public void windowClosed(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowClosed(WindowEvent e) {}
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		frame.setPopUp(null);
-		frame.setEnabled(true);
-		frame.toFront();
-		
+		frame.disposePopUp();
 	}
 
 	@Override
-	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowDeactivated(WindowEvent e) {}
 
 	@Override
-	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowDeiconified(WindowEvent e) {}
 
 	@Override
-	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowIconified(WindowEvent e) {}
 
 	@Override
-	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
+	public void windowOpened(WindowEvent e) {}
 }

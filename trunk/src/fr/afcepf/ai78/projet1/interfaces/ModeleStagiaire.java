@@ -1,20 +1,15 @@
 package fr.afcepf.ai78.projet1.interfaces;
 
+import fr.afcepf.ai78.projet1.objets.Stagiaire;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.table.AbstractTableModel;
-
-import fr.afcepf.ai78.projet1.objets.Stagiaire;
 
 public class ModeleStagiaire extends AbstractTableModel {
 
-
+	private static final long serialVersionUID = 1L;
 	private String[] entete = {"Nom","Prénom","Promotion","Année","Département"};
 	private List<Stagiaire> donnees = new ArrayList<Stagiaire>();
-
-	public ModeleStagiaire(){
-	}
 
 	public ModeleStagiaire(List<Stagiaire> donnees){
 		this.donnees = donnees;
@@ -27,7 +22,6 @@ public class ModeleStagiaire extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-
 		return donnees.size();
 	}
 
@@ -50,7 +44,6 @@ public class ModeleStagiaire extends AbstractTableModel {
 		case 4:
 			result = donnees.get(row).getDepartement();
 			break;
-
 		}
 		return result;
 	}
@@ -59,6 +52,4 @@ public class ModeleStagiaire extends AbstractTableModel {
 	public String getColumnName(int column) {
 		return entete[column];
 	}
-
-
 }

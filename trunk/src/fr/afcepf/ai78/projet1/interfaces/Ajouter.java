@@ -1,59 +1,52 @@
 package fr.afcepf.ai78.projet1.interfaces;
 
-
-import java.awt.Dimension;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.io.IOException;
-import java.text.ParseException;
-
-import javax.swing.JDialog;
-import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
-
 import fr.afcepf.ai78.projet1.objets.Noeud;
-
-import javax.swing.JComboBox;
-import javax.swing.text.MaskFormatter;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class Ajouter extends JDialog implements ActionListener,WindowListener{
 
-	private JButton btnAnnuler;
-	private JButton btnSauvegarder;
-	private JLabel lblPrenom;
-	private JLabel lblNom;
-	private JLabel lblAnnee;
-	private JLabel lblDepartement;
-	private JLabel lblPromotion;
-	private JTextField textNom;
-	private JTextField textPrenom;
-	private JTextField textDepartement;
-	private JTextField textPromotion;
-	private JTextField textAnnee;
-	private JComboBox comboBox;
+	private static final long serialVersionUID = 1L;
+	private JButton btnAnnuler 		   = new JButton("Annuler");
+	private JButton btnSauvegarder 	   = new JButton("Sauvegarder");
+	private JLabel lblPrenom 		   = new JLabel("Prénom :");
+	private JLabel lblNom 			   = new JLabel("Nom :");
+	private JLabel lblAnnee 		   = new JLabel("Année :");
+	private JLabel lblDepartement 	   = new JLabel("Département :");
+	private JLabel lblPromotion		   = new JLabel("Promotion :");
+	private JLabel lblImage 		   = new JLabel("");
+	private JTextField txtNom 		   = new JTextField();
+	private JTextField txtPrenom 	   = new JTextField();
+	private JTextField txtDepartement  = new JTextField();
+	private JTextField txtPromotion    = new JTextField();
+	private JTextField txtAnnee 	   = new JTextField();
+	private JComboBox comboBox 		   = new JComboBox();
 	private FenetrePrincipale frame;
-	private JLabel label;
-
 
 	/**
 	 * Create the panel.
 	 */
 	public Ajouter(FenetrePrincipale frame) {
+		
+		this.frame = frame;
 		setTitle("Ajouter un stagiaire");
 		setResizable(false);
 		setSize(405, 300);
-		this.frame = frame;
+		
 		getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("85px"),
@@ -75,103 +68,61 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("45px"),}));
 
-		lblNom = new JLabel("Nom :");
-		getContentPane().add(lblNom, "2, 2, right, center");
-
-
-
-		textNom = new JTextField();
-		textNom.setToolTipText("<html>Renseigner le nom du nouveau stagiaire.</html>");
-		getContentPane().add(textNom, "4, 2, fill, default");
-		textNom.setColumns(10);
-		textNom.setDocument(new LimiteTexte(30));
-
-		label = new JLabel("");
-		label.setIcon(new ImageIcon(Ajouter.class.getResource("/fr/afcepf/ai78/projet1/images/ajout_icon.png")));
-		getContentPane().add(label, "6, 1, 2, 5, center, default");
-
-
-		lblPrenom = new JLabel("Prénom :");
-		lblPrenom.setHorizontalAlignment(SwingConstants.RIGHT);
+		getContentPane().add(lblNom, "2, 2, right, default");
 		getContentPane().add(lblPrenom, "2, 4, right, default");
-
-
-
-		textPrenom = new JTextField();
-		textPrenom.setToolTipText("<html>Renseigner le prénom du nouveau stagiaire.</html>");
-		textPrenom.setColumns(10);
-		getContentPane().add(textPrenom, "4, 4, fill, default");
-		textPrenom.setDocument(new LimiteTexte(30));
-
-
-		lblPromotion = new JLabel("Promotion :");
-		lblPromotion.setHorizontalAlignment(SwingConstants.RIGHT);
 		getContentPane().add(lblPromotion, "2, 6, right, default");
+		getContentPane().add(lblAnnee, "2, 8, right, default");
+		getContentPane().add(lblDepartement, "2, 10, right, default");
+		
+		txtNom.setToolTipText("<html>Renseigner le nom du nouveau stagiaire.</html>");
+		txtNom.setColumns(10);
+		txtNom.setDocument(new LimiteTexte(30));
+		getContentPane().add(txtNom, "4, 2, fill, default");
 
+		txtPrenom.setToolTipText("<html>Renseigner le prénom du nouveau stagiaire.</html>");
+		txtPrenom.setColumns(10);
+		txtPrenom.setDocument(new LimiteTexte(30));
+		getContentPane().add(txtPrenom, "4, 4, fill, default");
 
-		comboBox = new JComboBox();
-		comboBox.setToolTipText("<html>Selectionner une promotion dans la liste déroulante.<br/>Choisir \"autres\" pour créer une nouvelle promotion.</html>");
+		txtAnnee.setToolTipText("<html>Renseigner l'année de promotion du nouveau stagiaire.</html>");
+		txtAnnee.setColumns(10);
+		txtAnnee.setDocument(new LimiteTexte(4));
+		getContentPane().add(txtAnnee, "4, 8, left, default");
+		
+		txtDepartement.setToolTipText("<html>Renseigner le code département du nouveau stagiaire.</html>");
+		txtDepartement.setColumns(10);
+		txtDepartement.setDocument(new LimiteTexte(2));
+		getContentPane().add(txtDepartement, "4, 10, left, default");
+		
+		txtPromotion.setToolTipText("<html>Renseigner une nouvelle année de promotion.</html>");
+		txtPromotion.setVisible(false);
+		txtPromotion.setColumns(10);
+		txtPromotion.setDocument(new LimiteTexte(10));
+		getContentPane().add(txtPromotion, "6, 6");
+		
+		comboBox.setToolTipText("<html>Sélectionner une promotion dans la liste déroulante.<br/>Choisir \"Autre\" pour créer une nouvelle promotion.</html>");
 		comboBox.setMinimumSize(new Dimension(12, 26));
-		getContentPane().add(comboBox, "4, 6");
-		comboBox.removeAllItems();
 		comboBox.addItem("");
 
 		for (String string : frame.getAnnuaireCourant().getPromo()) {
-
 			comboBox.addItem(string);
 		}
-		comboBox.addItem("autre");	
-		textPromotion = new JTextField();
-		textPromotion.setToolTipText("<html>Renseigner une nouvelle année de promotion.</html>");
-		textPromotion.setVisible(false);
-		getContentPane().add(textPromotion, "6, 6");
-		textPromotion.setColumns(10);
-		textPromotion.setDocument(new LimiteTexte(10));
-
-
-		lblAnnee = new JLabel("Année :");
-		getContentPane().add(lblAnnee, "2, 8, right, default");
-
-
-
-		textAnnee = new JTextField();
-		textAnnee.setToolTipText("<html>Renseigner l'année de promotion du nouveau stagiaire.</html>");
-		getContentPane().add(textAnnee, "4, 8, left, default");
-		textAnnee.setColumns(10);
-		textAnnee.setDocument(new LimiteTexte(4));
-
-
-
-		btnSauvegarder = new JButton("Sauvegarder");
-		btnSauvegarder.setToolTipText("<html>Sauvegarder votre nouvelle enregistrement.</html>");
+		comboBox.addItem("Autre");
+		getContentPane().add(comboBox, "4, 6");
+		
+		lblImage.setIcon(new ImageIcon(Ajouter.class.getResource("/fr/afcepf/ai78/projet1/images/ajout_icon.png")));
+		getContentPane().add(lblImage, "6, 1, 2, 5, default, top");
+		
+		btnSauvegarder.setToolTipText("<html>Sauvegarder votre nouvel enregistrement.</html>");
 		getContentPane().add(btnSauvegarder, "6, 8");
-
+		
+		btnAnnuler.setToolTipText("<html>Annuler votre enregistrement.</html>");
+		getContentPane().add(btnAnnuler, "6, 10");
 
 		btnSauvegarder.addActionListener(this);
-
-
-		lblDepartement = new JLabel("Département :");
-		lblDepartement.setHorizontalAlignment(SwingConstants.RIGHT);
-		getContentPane().add(lblDepartement, "2, 10, right, default");
-
-
-
-		textDepartement = new JTextField();
-		textDepartement.setToolTipText("<html>Renseigner le code département du nouveau stagiaire.</html>");
-		getContentPane().add(textDepartement, "4, 10, left, default");
-		textDepartement.setColumns(10);
-		textDepartement.setDocument(new LimiteTexte(2));
-
-
-		btnAnnuler = new JButton("Annuler");
-		btnAnnuler.setToolTipText("<html>Annuler votre enregistrement.<br/></html>");
-		getContentPane().add(btnAnnuler, "6, 10");
 		btnAnnuler.addActionListener(this);
 		comboBox.addActionListener(this);
 		this.addWindowListener(this);
-
-
-
 	}
 
 	@Override
@@ -179,72 +130,60 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 
 		if(e.getSource()==btnSauvegarder){
 
-			String nom = textNom.getText().toUpperCase();
-			String chaine = textPrenom.getText();
-			String p = chaine.substring(0,1).toUpperCase();
-			String renom = chaine.substring(1).toLowerCase();
-			String  prenom = p+renom;
-			String promotion;
-			if(comboBox.getSelectedItem().toString().equals("autre")){
-				promotion = textPromotion.getText();
-			}else{
-				textPromotion.setText(comboBox.getSelectedItem().toString());
-				promotion = textPromotion.getText();
-			}
-
-			String departement = textDepartement.getText();
-			String annee = textAnnee.getText();
-
-			if((!nom.equals("")&&!prenom.equals("")&&!promotion.equals("")&&!annee.equals(""))){
-				Noeud unNoeud = new Noeud(nom,prenom,departement,promotion,Integer.parseInt(annee));
-				if(!frame.getAnnuaireCourant().ajoutElementArbreBinaire(unNoeud,-1,0,false,frame.getAnnuaireCourant().getPositionAjout())){
-					frame.getAnnuaireCourant().ecrireNoeud(frame.getAnnuaireCourant().getPositionAjout(),unNoeud);
+			if( !txtNom.getText().equals("") && !txtPrenom.getText().equals("") && !txtPromotion.getText().equals("") && !txtAnnee.getText().equals("") ){
+				
+				String prenom = txtPrenom.getText().substring(0,1).toUpperCase()+txtPrenom.getText().substring(1).toLowerCase();
+				
+				Noeud nouveauNoeud = new Noeud(txtNom.getText().toUpperCase(),
+												prenom,
+												txtDepartement.getText(),
+												txtPromotion.getText(),
+												Integer.parseInt(txtAnnee.getText()));
+				
+				if(!frame.getAnnuaireCourant().ajoutElementArbreBinaire(nouveauNoeud,-1,0,false,frame.getAnnuaireCourant().getPositionAjout())){
+					frame.getAnnuaireCourant().ecrireNoeud(frame.getAnnuaireCourant().getPositionAjout(),nouveauNoeud);
+					
 					AffichageAnnuaire affichage = (AffichageAnnuaire)frame.getContentPane().getComponent(0);
 					affichage.getTable().setModel(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout()));
+					
 					if (!frame.getAnnuaireCourant().getFantome().isEmpty()) {
 						frame.getAnnuaireCourant().getFantome().remove(frame.getAnnuaireCourant().getFantome().get(frame.getAnnuaireCourant().getFantome().size()-1));
 					}
 				}else{
-					JOptionPane.showMessageDialog(this, "Ce nom existe deja");
+					JOptionPane.showMessageDialog(this, "Ce stagiaire existe deja");
 				}
-
-
-				this.dispose();
-				frame.setPopUp(null);
-			}		
+				frame.disposePopUp();
+			}else{
+				JOptionPane.showMessageDialog(this, "Nom, Prénom, Promotion et Année nécessaires");
+			}
 		}
 
 		if(e.getSource()==btnAnnuler){
-
-			this.dispose();
-			frame.setPopUp(null);
+			frame.disposePopUp();
 		}
 
 		if(e.getSource()==comboBox){
 
-			if(comboBox.getSelectedItem().toString().equals("autre")){
-				textPromotion.setText("");
-				textPromotion.setVisible(true);
+			if(comboBox.getSelectedItem().toString().equals("Autre")){
+				txtPromotion.setText("");
+				txtPromotion.setVisible(true);
 			}else {
-				textPromotion.setVisible(false);
+				txtPromotion.setText(comboBox.getSelectedItem().toString());
+				txtPromotion.setVisible(false);
 			}
 		}
 
 	}
 
 	@Override
-	public void windowActivated(WindowEvent arg0) {
-		textPromotion.setText(comboBox.getSelectedItem().toString());
-
-	}
+	public void windowActivated(WindowEvent arg0) {}
 
 	@Override
 	public void windowClosed(WindowEvent arg0) {}
 
 	@Override
 	public void windowClosing(WindowEvent arg0) {
-		frame.setPopUp(null);
-
+		frame.disposePopUp();
 	}
 
 	@Override
