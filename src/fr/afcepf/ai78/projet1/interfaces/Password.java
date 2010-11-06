@@ -95,6 +95,7 @@ public class Password extends JDialog implements ActionListener,WindowListener,K
 				frame.getBtnConnexion().setVisible(false);
 				frame.getBtnDeconnexion().setVisible(true);
 				frame.setPopUp(null);
+				frame.setTitle(frame.getTitle()+" (Connecté)");
 				frame.setEnabled(true);
 				frame.toFront();
 				this.dispose();					

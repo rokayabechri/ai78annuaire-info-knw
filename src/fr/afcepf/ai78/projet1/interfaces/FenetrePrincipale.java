@@ -327,11 +327,11 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 
 
 			setConnected(false);
-
 			if(getContentPane().getComponent(0) != getPanelLancement()){
 				AffichageAnnuaire aa = (AffichageAnnuaire) getContentPane().getComponent(0);
 				aa.getPanelOption().setVisible(false);
 			}
+			this.setTitle((getTitle().subSequence(0, getTitle().indexOf(" (Connecté)")).toString()));
 			btnDeconnexion.setVisible(false);
 			btnConnexion.setVisible(true);
 
