@@ -17,12 +17,17 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
+
+import fr.afcepf.ai78.projet1.constante.AnnuaireConstante;
 import fr.afcepf.ai78.projet1.objets.Noeud;
 import fr.afcepf.ai78.projet1.objets.Stagiaire;
 
@@ -164,19 +169,40 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 			if(tabIndice.length==1)	{
 				int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer "+table.getValueAt(tabIndice[0], 0), "Confirmation",JOptionPane.OK_CANCEL_OPTION);
 				if(val==0){
-
+					if(!(tabIndice.length==table.getRowCount())){
 					Noeud  unNoeud = new Noeud(table.getValueAt(tabIndice[0], 0).toString(),table.getValueAt(tabIndice[0], 1).toString(),table.getValueAt(tabIndice[0], 4).toString(),table.getValueAt(tabIndice[0], 2).toString(),Integer.parseInt(table.getValueAt(tabIndice[0], 3).toString()));
 					frame.getAnnuaireCourant().supprimer(unNoeud, 0);
+					}else{
+						File fichierASpprimer = new File(AnnuaireConstante.BIN_PATH+frame.getAnnuaireCourant().getFichierSortie());
+						List<Integer> fantome = frame.getAnnuaireCourant().getFantome();
+						fantome.clear();
+						fichierASpprimer.delete();
+						List<Stagiaire> listeStagiaire = frame.getAnnuaireCourant().afficherTout();
+						AffichageAnnuaire affichage = (AffichageAnnuaire) frame.getContentPane().getComponent(0);
+						affichage.getTable().setModel(new ModeleStagiaire(listeStagiaire));
+					}
 				}
 
 			}else{
-
 				int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer la selection", "Confirmation",JOptionPane.OK_CANCEL_OPTION);
 				if(val==0){
-					for (int i : tabIndice) {
-						Noeud  unNoeud = new Noeud(table.getValueAt(i, 0).toString(),table.getValueAt(i, 1).toString(),table.getValueAt(i, 4).toString(),table.getValueAt(i, 2).toString(),Integer.parseInt(table.getValueAt(i, 3).toString()));
-						frame.getAnnuaireCourant().supprimer(unNoeud, 0);
+					
+					if(!(tabIndice.length==table.getRowCount())){
+						for (int i : tabIndice) {
+							Noeud  unNoeud = new Noeud(table.getValueAt(i, 0).toString(),table.getValueAt(i, 1).toString(),table.getValueAt(i, 4).toString(),table.getValueAt(i, 2).toString(),Integer.parseInt(table.getValueAt(i, 3).toString()));
+							frame.getAnnuaireCourant().supprimer(unNoeud, 0);
+						}
+					}else{
+						System.out.println("ok");
+						File fichierASpprimer = new File(AnnuaireConstante.BIN_PATH+frame.getAnnuaireCourant().getFichierSortie());
+						List<Integer> fantome = frame.getAnnuaireCourant().getFantome();
+						fantome.clear();
+						fichierASpprimer.delete();
+						List<Stagiaire> listeStagiaire = frame.getAnnuaireCourant().afficherTout();
+						AffichageAnnuaire affichage = (AffichageAnnuaire) frame.getContentPane().getComponent(0);
+						affichage.getTable().setModel(new ModeleStagiaire(listeStagiaire));	
 					}
+
 				}
 			}
 			e.setSource(btnAfficherTout);
