@@ -1,69 +1,63 @@
 package fr.afcepf.ai78.projet1.interfaces;
 
+import fr.afcepf.ai78.projet1.constante.AnnuaireConstante;
+import fr.afcepf.ai78.projet1.fileManager.GestionBinaire;
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.SwingConstants;
-import java.awt.FlowLayout;
-import javax.swing.JButton;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
-import java.io.File;
-import javax.swing.ImageIcon;
-import fr.afcepf.ai78.projet1.constante.AnnuaireConstante;
-import fr.afcepf.ai78.projet1.fileManager.GestionBinaire;
+import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.Toolkit;
-import javax.swing.JLabel;
-
+import java.io.File;
+import javax.swing.border.EmptyBorder;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.JRadioButtonMenuItem;
 
 public class FenetrePrincipale extends JFrame implements ActionListener{
 
-	private JPanel contentPane;
-	private JPanel panelLancement;
-	private JMenu mnFichier;
-	private JMenuItem mntmNouveau;
-	private JMenuItem mntmOuvrir;
-	private JMenuItem mntmImprimer;
-	private JMenuBar menuBar;
-	private JButton btnOuvrirAnnuaire;
-	private JButton btnNouvelAnnuaire;
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane				   = new JPanel();
+	private JPanel panelLancement			   = new JPanel();
+	private JMenuBar menuBar				   = new JMenuBar();
+	private JMenu mnFichier					   = new JMenu("Fichier");
+	private JMenu mnInfo					   = new JMenu("?");
+	private JMenu mnApparence				   = new JMenu("Apparence");
+	private JMenuItem mntmNouveau			   = new JMenuItem("Nouveau");
+	private JMenuItem mntmOuvrir			   = new JMenuItem("Ouvrir");
+	private JMenuItem mntmImprimer			   = new JMenuItem("Imprimer");
+	private JMenuItem mntmSupprimerAnnuaire	   = new JMenuItem("Supprimer annuaire");
+	private JMenuItem mntmQuitter			   = new JMenuItem("Quitter");
+	private JMenuItem mntmAide				   = new JMenuItem("Aide");
+	private JButton btnOuvrirAnnuaire		   = new JButton("Ouvrir Annuaire");
+	private JButton btnNouvelAnnuaire		   = new JButton("Nouvel Annuaire");
+	private JButton btnDeconnexion			   = new JButton("Deconnexion");
+	private JButton btnConnexion			   = new JButton("Connexion");
+	private JProgressBar progressBar		   = new JProgressBar();
+	private boolean isConnected				   = false;
 	private JDialog popUp;
-	private JProgressBar progressBar;
 	private GestionBinaire annuaireCourant;
-	private JMenuItem mntmQuitter;
-	private JLabel label;
-	private JLabel label_1;
-	private JMenu menu;
-	private JMenuItem mntmAide;
-	private JButton btnDeconnexion;
-	private JButton btnConnexion;
-	private boolean isConnected = false;
-	private JMenuItem mntmSupprimerAnnuaire;
-
-
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-
 			public void run() {
-
 				try {
-					//UIManager.setLookAndFeel("com.jtattoo.plaf.aero.AeroLookAndFeel");
-					//UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
 					UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
 					FenetrePrincipale frame = new FenetrePrincipale();
 					frame.setLocationRelativeTo(null);
@@ -80,90 +74,91 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	 */
 	public FenetrePrincipale() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/frame_icon.png")));
-
 		setTitle("Gestion d'annuaire");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 550, 400);
 
-		menuBar = new JMenuBar();
+		
 		setJMenuBar(menuBar);
 
-		mnFichier = new JMenu("Fichier");
-		menuBar.add(mnFichier);
-
-		mntmNouveau = new JMenuItem("Nouveau");
 		mntmNouveau.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/menu_nouveau.png")));
-		mntmNouveau.setHorizontalAlignment(SwingConstants.LEFT);
 		mnFichier.add(mntmNouveau);
-
-		mntmOuvrir = new JMenuItem("Ouvrir");
+		
 		mntmOuvrir.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/menu_ouvrir.png")));
 		mnFichier.add(mntmOuvrir);
-
-		mntmSupprimerAnnuaire = new JMenuItem("Supprimer annuaire");
-		mntmSupprimerAnnuaire.setEnabled(false);
+		
+		mntmSupprimerAnnuaire.setEnabled(isConnected);
 		mntmSupprimerAnnuaire.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/menu_supprimer.png")));
 		mnFichier.add(mntmSupprimerAnnuaire);
-
-		mntmImprimer = new JMenuItem("Imprimer");
+		
 		mntmImprimer.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/menu_impression.png")));
 		mnFichier.add(mntmImprimer);
-
-		mntmQuitter = new JMenuItem("Quitter");
+		
 		mntmQuitter.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/menu_quitter.png")));
 		mnFichier.add(mntmQuitter);
-
-		btnConnexion = new JButton("  Connexion  ");
+		
+		menuBar.add(mnFichier);
+		btnConnexion.setBorderPainted(false);
+		
 		btnConnexion.setBorder(null);
-		btnConnexion.setPreferredSize(new Dimension(100, 19));
+		btnConnexion.setMinimumSize(new Dimension(90, 28));
+		btnConnexion.setMaximumSize(new Dimension(90, 28));
 		btnConnexion.setFocusable(false);
 		btnConnexion.setContentAreaFilled(false);
 		menuBar.add(btnConnexion);
-
-		btnDeconnexion = new JButton("Deconnexion");
+		btnDeconnexion.setBorderPainted(false);
+		
 		btnDeconnexion.setVisible(false);
 		btnDeconnexion.setBorder(null);
-		btnDeconnexion.setHorizontalTextPosition(SwingConstants.LEFT);
-		btnDeconnexion.setMinimumSize(new Dimension(98, 28));
-		btnDeconnexion.setMaximumSize(new Dimension(98, 28));
-		btnDeconnexion.setPreferredSize(new Dimension(100, 19));
+		btnDeconnexion.setMinimumSize(new Dimension(90, 28));
+		btnDeconnexion.setMaximumSize(new Dimension(90, 28));
 		btnDeconnexion.setFocusable(false);
 		btnDeconnexion.setContentAreaFilled(false);
 		menuBar.add(btnDeconnexion);
+		
+		ButtonGroup skin = new ButtonGroup();	
+		/**************************************************/
+		for(String[] laf : getLookAndFeelsMap()){
+			final String classe = laf[1];
+			
+			JRadioButtonMenuItem item = new JRadioButtonMenuItem(laf[0], laf[0].equals("Default"));
+			item.addActionListener(new ActionListener(){ 
+				public void actionPerformed(ActionEvent ae){ 
+					try{
+						UIManager.setLookAndFeel(classe);
+						SwingUtilities.updateComponentTreeUI(FenetrePrincipale.this);
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+				} 
+			});
+			
+			skin.add(item); 
+			mnApparence.add(item);  	
+		}
+		/**************************************************/
+		menuBar.add(mnApparence);
 
-		menu = new JMenu("?");
-		menuBar.add(menu);
-
-		mntmAide = new JMenuItem("Aide");
-		menu.add(mntmAide);
-
-		label = new JLabel("");
-		menuBar.add(label);
-
-		label_1 = new JLabel("");
-		menuBar.add(label_1);
-		contentPane = new JPanel();
+		mnInfo.add(mntmAide);
+		
+		menuBar.add(mnInfo);
+		
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout());
 		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
-
-		panelLancement = new JPanel();
-		contentPane.add(panelLancement);
+		
 		panelLancement.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-
-		btnNouvelAnnuaire = new JButton("Nouvel Annuaire");
+		contentPane.add(panelLancement);
+		
 		//btnNouvelAnnuaire.setSelectedIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/btn_nouveau_over.png")));
 		btnNouvelAnnuaire.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/btn_nouveau_over.png")));
 		btnNouvelAnnuaire.setPreferredSize(new Dimension(250, 300));
 		panelLancement.add(btnNouvelAnnuaire);
-
-		btnOuvrirAnnuaire = new JButton("Ouvrir Annuaire");
+		
 		//btnOuvrirAnnuaire.setSelectedIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/btn_ouvrir_over.png")));
 		btnOuvrirAnnuaire.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/btn_ouvrir_over.png")));
 		btnOuvrirAnnuaire.setPreferredSize(new Dimension(250, 300));
 		panelLancement.add(btnOuvrirAnnuaire);
-
-		progressBar = new JProgressBar();
 
 		btnOuvrirAnnuaire.addActionListener(this);
 		btnNouvelAnnuaire.addActionListener(this);
@@ -174,172 +169,95 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		btnConnexion.addActionListener(this);
 		btnDeconnexion.addActionListener(this);
 		mntmSupprimerAnnuaire.addActionListener(this);
-
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-
 		if(e.getSource() == btnOuvrirAnnuaire || e.getSource() == mntmOuvrir){
 			
-			this.setEnabled(false);
-
 			File repertoire = new File(AnnuaireConstante.BIN_PATH);
 			if(!repertoire.exists()){
 				repertoire.mkdirs();
 			}
 			String [] listefichiers = repertoire.list();
 
-
-			if(this.getPopUp()==null){
-				this.setPopUp(new OuvrirAnnuaire(this,listefichiers));
-				this.getPopUp().setLocationRelativeTo(this);
-				this.getPopUp().setVisible(true);
-
-			}else{
-				if(this.getPopUp().getClass().equals("fr.afcepf.ai78.projet1.interfaces.FenetrePrincipale")){
-					this.getPopUp().toFront();
-				}else{
-					this.setPopUp(new OuvrirAnnuaire(this,listefichiers));
-					this.getPopUp().setLocationRelativeTo(this);
-					this.getPopUp().setVisible(true);
-					this.getPopUp().dispose();
-				}
+			if(this.getPopUp()!=null){
+				this.disposePopUp();
 			}
+			this.setPopUp(new OuvrirAnnuaire(this,listefichiers));
+			this.getPopUp().setLocationRelativeTo(this);
+			this.getPopUp().setVisible(true);
 		}
 
 		if (e.getSource() == btnNouvelAnnuaire || e.getSource() == mntmNouveau) {
-
-			this.setEnabled(false);
 			
 			File repertoire = new File(AnnuaireConstante.BIN_PATH);
 			if(!repertoire.exists()){
 				repertoire.mkdirs();
 			}
 
-			if(this.getPopUp()==null){
-				this.setPopUp(new NouvelAnnuaire(this));
-				this.getPopUp().setLocationRelativeTo(this);
-				this.getPopUp().setVisible(true);
-
-			}else{
-				if(this.getPopUp().getClass().equals("fr.afcepf.ai78.projet1.interfaces.FenetrePrincipale")){
-					this.getPopUp().toFront();
-				}else{
-					this.setPopUp(new NouvelAnnuaire(this));
-					this.getPopUp().setLocationRelativeTo(this);
-					this.getPopUp().setVisible(true);
-					this.getPopUp().dispose();
-				}
+			if(this.getPopUp()!=null){
+				this.disposePopUp();
 			}
-
-
-
+			this.setPopUp(new NouvelAnnuaire(this));
+			this.getPopUp().setLocationRelativeTo(this);
+			this.getPopUp().setVisible(true);
 		}
+		
 		if(e.getSource() == mntmQuitter){
-
 			System.exit(0);	
 		}
 
-		//		if (e.getSource() == menuAide) {
-		//			if(this.getPopUp()==null){
-		//				this.setPopUp(new JDialog(this,"programme realiser par W.Lepante, K.Augerau, N.Chouaib"));
-		//				this.getPopUp().setLocationRelativeTo(this);
-		//				this.getPopUp().setVisible(true);
-		//
-		//			}else{
-		//				if(this.getPopUp().getClass().equals("fr.afcepf.ai78.projet1.interfaces.FenetrePrincipale")){
-		//					this.getPopUp().toFront();
-		//				}else{
-		//					this.getPopUp().dispose();
-		//					this.setPopUp(new NouvelAnnuaire(this));
-		//					this.getPopUp().setLocationRelativeTo(this);
-		//					this.getPopUp().setVisible(true);
-		//
-		//				}
-		//
-		//			}
-		//
-		//
-		//		}
-
 		if (e.getSource() == mntmImprimer) {
-
 
 			if(getContentPane().getComponent(0) != getPanelLancement()){
 				try {
-					AffichageAnnuaire aa = (AffichageAnnuaire) getContentPane().getComponent(0);
-					aa.getTable().print();
+					AffichageAnnuaire affichage = (AffichageAnnuaire) getContentPane().getComponent(0);
+					affichage.getTable().print();
 				} catch (PrinterException e1) {
 					e1.printStackTrace();
 				}
-
-
 			}
-
 		}
 
-		if (e.getSource() == mntmSupprimerAnnuaire&&isConnected) {
-			this.setEnabled(false);
+		if ( (e.getSource()==mntmSupprimerAnnuaire) && isConnected) {
 
-			if(this.getPopUp()==null){
-				this.setPopUp(new SupprimerAnnuaire(this));
-				this.getPopUp().setLocationRelativeTo(this);
-				this.getPopUp().setVisible(true);
-
-			}else{
-				if(this.getPopUp().getClass().equals("fr.afcepf.ai78.projet1.interfaces.FenetrePrincipale")){
-					this.getPopUp().toFront();
-				}else{
-					this.setPopUp(new SupprimerAnnuaire(this));
-					this.getPopUp().setLocationRelativeTo(this);
-					this.getPopUp().setVisible(true);
-					this.getPopUp().dispose();
-				}
+			if(this.getPopUp()!=null){
+				this.disposePopUp();
 			}
-
+			this.setPopUp(new SupprimerAnnuaire(this));
+			this.getPopUp().setLocationRelativeTo(this);
+			this.getPopUp().setVisible(true);
 		}
 
 
 		if (e.getSource() == btnConnexion) {
-
-			this.setEnabled(false);
-
-			if(this.getPopUp()==null){
-				this.setPopUp(new Password(this));
-				this.getPopUp().setLocationRelativeTo(this);
-				this.getPopUp().setVisible(true);
-
-			}else{
-				if(this.getPopUp().getClass().equals("fr.afcepf.ai78.projet1.interfaces.FenetrePrincipale")){
-					this.getPopUp().toFront();
-				}else{
-					this.setPopUp(new Password(this));
-					this.getPopUp().setLocationRelativeTo(this);
-					this.getPopUp().setVisible(true);
-					this.getPopUp().dispose();
-				}
+			
+			if(this.getPopUp()!=null){
+				this.disposePopUp();
 			}
-
-
+			this.setPopUp(new Password(this));
+			this.getPopUp().setLocationRelativeTo(this);
+			this.getPopUp().setVisible(true);
 		}
 
 		if (e.getSource() == btnDeconnexion) {
 
-
-			setConnected(false);
+			this.setConnected(false);
+			if(popUp != null){
+				this.disposePopUp();
+			}
+			
 			if(getContentPane().getComponent(0) != getPanelLancement()){
-				AffichageAnnuaire aa = (AffichageAnnuaire) getContentPane().getComponent(0);
-				aa.getPanelOption().setVisible(false);
+				AffichageAnnuaire affichage = (AffichageAnnuaire) getContentPane().getComponent(0);
+				affichage.getPanelOption().setVisible(false);
 			}
 			this.setTitle((getTitle().subSequence(0, getTitle().indexOf(" (Connecté)")).toString()));
+			
 			btnDeconnexion.setVisible(false);
 			btnConnexion.setVisible(true);
-
 		}
-
-
 	}
 
 	public void appelAffichage(boolean liste){
@@ -347,19 +265,19 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 			contentPane.remove(progressBar);
 			contentPane.remove(contentPane.getComponent(0));
 			contentPane.add(new AffichageAnnuaire(this),BorderLayout.CENTER);
-			setEnabled(true);
+			this.setEnabled(true);
 			contentPane.revalidate();
 		}else{
 			JOptionPane.showMessageDialog(this, "Fichier incorrect");
-			setEnabled(true);
+			this.setEnabled(true);
 		}
 	}
 
 	public void disposePopUp() {
 		popUp.dispose();
-		setPopUp(null);
-		setEnabled(true);
-		toFront();
+		this.setPopUp(null);
+		this.setEnabled(true);
+		this.toFront();
 	}
 
 	public JPanel getContentPane() {
@@ -416,5 +334,23 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 
 	public JMenuItem getMntmSupprimerAnnuaire() {
 		return mntmSupprimerAnnuaire;
+	}
+	
+	public String[][] getLookAndFeelsMap(){
+		String [][] info = {{"Default", "com.jtattoo.plaf.graphite.GraphiteLookAndFeel"},
+							//{"Aero", "com.jtattoo.plaf.aero.AeroLookAndFeel"},
+							//{"Acryl", "com.jtattoo.plaf.acryl.AcrylLookAndFeel"},
+							//{"Aluminium","com.jtattoo.plaf.aluminium.AluminiumLookAndFeel"},
+							//{"Noire","com.jtattoo.plaf.noire.NoireLookAndFeel"},
+							//{"Windows","com.sun.java.swing.plaf.windows.WindowsLookAndFeel"},
+							//{"Nimbus","com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel"},
+							{"Black","org.pushingpixels.substance.api.skin.SubstanceBusinessBlackSteelLookAndFeel"},
+							{"Blue","org.pushingpixels.substance.api.skin.SubstanceBusinessBlueSteelLookAndFeel"},
+							{"Classic","org.pushingpixels.substance.api.skin.SubstanceBusinessLookAndFeel"},
+							{"Coffee","org.pushingpixels.substance.api.skin.SubstanceCremeCoffeeLookAndFeel"},
+							{"SubGraphite","org.pushingpixels.substance.api.skin.SubstanceGraphiteLookAndFeel"},
+							{"White","org.pushingpixels.substance.api.skin.SubstanceNebulaLookAndFeel"}
+		};
+		return info;	
 	}
 }

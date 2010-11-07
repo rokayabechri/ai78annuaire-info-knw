@@ -652,6 +652,7 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 	 */
 	@Override
 	protected void done() {
+		interfaceAnnuaire.setEnabled(true);
 		try {
 			interfaceAnnuaire.appelAffichage(get());
 		} catch (InterruptedException e) {
