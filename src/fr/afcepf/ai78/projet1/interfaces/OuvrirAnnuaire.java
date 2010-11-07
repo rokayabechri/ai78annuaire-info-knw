@@ -30,6 +30,7 @@ public class OuvrirAnnuaire extends JDialog implements ActionListener,WindowList
 	 * Create the dialog.
 	 */
 	public OuvrirAnnuaire(FenetrePrincipale frame, String [] listefichiers) {
+		super(frame, true);
 		this.frame = frame;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(OuvrirAnnuaire.class.getResource("/fr/afcepf/ai78/projet1/images/menu_ouvrir.png")));
 		setTitle("Ouvrir annuaire");
