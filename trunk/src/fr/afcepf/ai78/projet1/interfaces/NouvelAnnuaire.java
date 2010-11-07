@@ -37,6 +37,7 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 	 * Create the dialog.
 	 */
 	public  NouvelAnnuaire(FenetrePrincipale frame) {
+		super(frame, true);
 		this.frame = frame;
 		
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);

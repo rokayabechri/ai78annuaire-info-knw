@@ -28,6 +28,7 @@ public class SupprimerAnnuaire extends JDialog implements ActionListener,WindowL
 	 * Create the dialog.
 	 */
 	public SupprimerAnnuaire(FenetrePrincipale frame) {
+		super(frame, true);
 		this.frame=frame;
 		setTitle("Suppression d'annuaire");
 		setResizable(false);

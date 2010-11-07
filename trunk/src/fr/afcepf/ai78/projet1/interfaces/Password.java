@@ -28,6 +28,7 @@ public class Password extends JDialog implements ActionListener,WindowListener,K
 	 * Create the dialog.
 	 */
 	public Password(FenetrePrincipale frame) {
+		super(frame, true);
 		this.frame = frame;
 		setTitle("Connection");
 		setSize(240, 155);
