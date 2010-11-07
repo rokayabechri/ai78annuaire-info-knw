@@ -12,6 +12,8 @@ import java.awt.Toolkit;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -47,11 +49,15 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 		setTitle("Créer annuaire");
 		getContentPane().setLayout(null);
 
+		ButtonGroup choose = new ButtonGroup();
+		
 		rdbtnNouveauFichier.setSelected(true);
 		rdbtnNouveauFichier.setBounds(95, 95, 140, 25);
+		choose.add(rdbtnNouveauFichier);
 		getContentPane().add(rdbtnNouveauFichier);
 		
 		rdbtnAPartirDun.setBounds(95, 125, 140, 25);
+		choose.add(rdbtnAPartirDun);
 		getContentPane().add(rdbtnAPartirDun);
 
 		txtAnnuaire.setBounds(94, 49, 152, 30);
@@ -89,18 +95,6 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 
 		if(e.getSource()==btnAnnuler){
 			frame.disposePopUp();
-		}
-		
-		if(e.getSource()==rdbtnAPartirDun){
-			if(rdbtnNouveauFichier.isSelected()){
-				rdbtnNouveauFichier.setSelected(false);
-			}
-		}
-		
-		if(e.getSource()==rdbtnNouveauFichier){
-			if(rdbtnAPartirDun.isSelected()){
-				rdbtnAPartirDun.setSelected(false);
-			}
 		}
 	}
 
@@ -140,7 +134,7 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 		boolean trouve = false;
 		
 		for (String chemin : f.list()) {
-			if(chemin.equals(nomFichier+".bin")) {
+			if(chemin.equalsIgnoreCase(nomFichier+".bin")) {
 				trouve = true;
 			}
 		}
@@ -167,7 +161,6 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 					}
 				}
 			});
-			
 			gb.execute();
 			frame.setAnnuaireCourant(gb);
 			
@@ -177,6 +170,7 @@ public class NouvelAnnuaire extends JDialog implements ActionListener,WindowList
 				frame.setTitle("Gestion d'annuaire : "+nomFichier);
 			}
 			frame.disposePopUp();
+			frame.setEnabled(false);
 		}
 	}	
 	
