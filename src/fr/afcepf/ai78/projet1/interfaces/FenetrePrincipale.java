@@ -348,6 +348,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 							{"Blue","org.pushingpixels.substance.api.skin.SubstanceBusinessBlueSteelLookAndFeel"},
 							{"Classic","org.pushingpixels.substance.api.skin.SubstanceBusinessLookAndFeel"},
 							{"Coffee","org.pushingpixels.substance.api.skin.SubstanceCremeCoffeeLookAndFeel"},
+							{"Sand","org.pushingpixels.substance.api.skin.SubstanceNebulaBrickWallLookAndFeel"},
 							{"SubGraphite","org.pushingpixels.substance.api.skin.SubstanceGraphiteLookAndFeel"},
 							{"White","org.pushingpixels.substance.api.skin.SubstanceNebulaLookAndFeel"}
 		};
