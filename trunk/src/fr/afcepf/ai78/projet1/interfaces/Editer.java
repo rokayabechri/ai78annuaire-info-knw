@@ -10,31 +10,35 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.text.ParseException;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 
 public class Editer extends JDialog implements ActionListener,WindowListener{
 
 	private static final long serialVersionUID = 1L;
-	private JButton btnAnnuler 		   = new JButton("Annuler");
-	private JButton btnValider	 	   = new JButton("Sauvegarder");
-	private JLabel lblPrenom 		   = new JLabel("Prénom :");
-	private JLabel lblNom 			   = new JLabel("Nom :");
-	private JLabel lblAnnee 		   = new JLabel("Année :");
-	private JLabel lblDepartement 	   = new JLabel("Département :");
-	private JLabel lblPromotion		   = new JLabel("Promotion :");
-	private JLabel lblImage 		   = new JLabel("");
-	private JTextField txtNom 		   = new JTextField();
-	private JTextField txtPrenom 	   = new JTextField();
-	private JTextField txtDepartement  = new JTextField();
-	private JTextField txtPromotion    = new JTextField();
-	private JTextField txtAnnee 	   = new JTextField();
-	private JComboBox comboBox 		   = new JComboBox();
+	private JButton btnAnnuler 		   		   = new JButton("Annuler");
+	private JButton btnValider	 	   		   = new JButton("Sauvegarder");
+	private JLabel lblPrenom 		   		   = new JLabel("Prénom :");
+	private JLabel lblNom 			   		   = new JLabel("Nom :");
+	private JLabel lblAnnee 		   		   = new JLabel("Année :");
+	private JLabel lblDepartement 	   		   = new JLabel("Département :");
+	private JLabel lblPromotion		   		   = new JLabel("Promotion :");
+	private JLabel lblImage 		   		   = new JLabel("");
+	private JTextField txtNom 		   		   = new JTextField();
+	private JTextField txtPrenom 	   		   = new JTextField();
+	private JTextField txtPromotion   		   = new JTextField();
+	private JFormattedTextField txtDepartement = new JFormattedTextField();
+	private JFormattedTextField txtAnnee 	   = new JFormattedTextField();
+	private JComboBox comboBox 		   		   = new JComboBox();
 	private FenetrePrincipale frame;
 	private Noeud unNoeudAModifier;
 
@@ -87,15 +91,23 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		txtPrenom.setText(unNoeudAModifier.getPrenom());
 		getContentPane().add(txtPrenom, "4, 4, fill, default");
 
+		try {
+			txtAnnee = new JFormattedTextField(new MaskFormatter("####"));
+		} catch (ParseException e) {
+			txtAnnee.setDocument(new LimiteTexte(4));
+		}
 		txtAnnee.setToolTipText("<html>Modifier l'année de promotion du stagiaire.</html>");
 		txtAnnee.setColumns(10);
-		txtAnnee.setDocument(new LimiteTexte(4));
 		txtAnnee.setText(unNoeudAModifier.getAnnee()+"");
 		getContentPane().add(txtAnnee, "4, 8, left, default");
 
+		try {
+			txtDepartement = new JFormattedTextField(new MaskFormatter("AA"));
+		} catch (ParseException e) {
+			txtDepartement.setDocument(new LimiteTexte(2));
+		}
 		txtDepartement.setToolTipText("<html>Modifier le code département du stagiaire.</html>");
 		txtDepartement.setColumns(10);
-		txtDepartement.setDocument(new LimiteTexte(2));
 		txtDepartement.setText(unNoeudAModifier.getDepartement());
 		getContentPane().add(txtDepartement, "4, 10, left, default");
 
