@@ -50,6 +50,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	private boolean isConnected				   = false;
 	private JDialog popUp;
 	private GestionBinaire annuaireCourant;
+	private final JMenuItem menuItem = new JMenuItem("");
 
 	/**
 	 * Launch the application.
@@ -77,9 +78,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		setTitle("Gestion d'annuaire");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 550, 400);
-
-		
 		setJMenuBar(menuBar);
+		setContentPane(contentPane);
 
 		mntmNouveau.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/menu_nouveau.png")));
 		mnFichier.add(mntmNouveau);
@@ -98,23 +98,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		mnFichier.add(mntmQuitter);
 		
 		menuBar.add(mnFichier);
-		btnConnexion.setBorderPainted(false);
-		
-		btnConnexion.setBorder(null);
-		btnConnexion.setMinimumSize(new Dimension(90, 28));
-		btnConnexion.setMaximumSize(new Dimension(90, 28));
-		btnConnexion.setFocusable(false);
-		btnConnexion.setContentAreaFilled(false);
-		menuBar.add(btnConnexion);
-		btnDeconnexion.setBorderPainted(false);
-		
-		btnDeconnexion.setVisible(false);
-		btnDeconnexion.setBorder(null);
-		btnDeconnexion.setMinimumSize(new Dimension(90, 28));
-		btnDeconnexion.setMaximumSize(new Dimension(90, 28));
-		btnDeconnexion.setFocusable(false);
-		btnDeconnexion.setContentAreaFilled(false);
-		menuBar.add(btnDeconnexion);
 		
 		ButtonGroup skin = new ButtonGroup();	
 		/**************************************************/
@@ -138,14 +121,31 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		}
 		/**************************************************/
 		menuBar.add(mnApparence);
-
 		mnInfo.add(mntmAide);
-		
 		menuBar.add(mnInfo);
+		
+		menuItem.setMaximumSize(new Dimension(32767, 0));
+		menuItem.setEnabled(false);
+		
+		menuBar.add(menuItem);
+		
+		btnConnexion.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/connexion_icon.png")));
+		btnConnexion.setFocusable(false);
+		btnConnexion.setContentAreaFilled(false);
+		btnConnexion.setPreferredSize(new Dimension(106, 24));
+		btnConnexion.setBorderPainted(false);
+		menuBar.add(btnConnexion);
+		
+		btnDeconnexion.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/deconnexion_icon.png")));
+		btnDeconnexion.setFocusable(false);
+		btnDeconnexion.setContentAreaFilled(false);
+		btnDeconnexion.setPreferredSize(new Dimension(106, 24));
+		btnDeconnexion.setBorderPainted(false);
+		btnDeconnexion.setVisible(isConnected);
+		menuBar.add(btnDeconnexion);
 		
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout());
-		setContentPane(contentPane);
 		
 		panelLancement.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		contentPane.add(panelLancement);
@@ -162,12 +162,12 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 
 		btnOuvrirAnnuaire.addActionListener(this);
 		btnNouvelAnnuaire.addActionListener(this);
+		btnDeconnexion.addActionListener(this);
+		btnConnexion.addActionListener(this);
 		mntmNouveau.addActionListener(this);
 		mntmOuvrir.addActionListener(this);
 		mntmQuitter.addActionListener(this);
 		mntmImprimer.addActionListener(this);
-		btnConnexion.addActionListener(this);
-		btnDeconnexion.addActionListener(this);
 		mntmSupprimerAnnuaire.addActionListener(this);
 	}
 
