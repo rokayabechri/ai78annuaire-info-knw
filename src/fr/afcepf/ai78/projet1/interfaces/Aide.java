@@ -20,6 +20,8 @@ import java.awt.Toolkit;
 public class Aide extends JFrame implements TreeSelectionListener {
 
 	private static final long serialVersionUID = 1L;
+	private static boolean isInstancie = false;
+	private static Aide instance;
 	private JPanel contentPane 			= new JPanel();
 	private JLabel txtAfficheur 		= new JLabel();
 	private JScrollPane scrollPaneTree 	= new JScrollPane();
@@ -29,9 +31,15 @@ public class Aide extends JFrame implements TreeSelectionListener {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
-					Aide frame = new Aide();
-					frame.setLocationRelativeTo(null);
-					frame.setVisible(true);
+					if(Aide.isInstancie){
+						Aide.instance.toFront();
+						Aide.instance.setLocationRelativeTo(null);
+						Aide.instance.setVisible(true);
+					}else {
+						Aide frame = new Aide();
+						frame.setLocationRelativeTo(null);
+						frame.setVisible(true);
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -39,8 +47,10 @@ public class Aide extends JFrame implements TreeSelectionListener {
 		});
 	}
 
-	public Aide() {
+	private Aide() {
 		super("Gestion d'annuaire : Aide");
+		isInstancie = true;
+		instance = this;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Aide.class.getResource("/fr/afcepf/ai78/projet1/images/aide_icon.png")));
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setContentPane(contentPane);
