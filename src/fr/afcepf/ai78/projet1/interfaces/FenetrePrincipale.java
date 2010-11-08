@@ -173,6 +173,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		mntmImprimer.addActionListener(this);
 		mntmSupprimerAnnuaire.addActionListener(this);
 		mntmAPropos.addActionListener(this);
+		mntmAide.addActionListener(this);
 	}
 
 	@Override
@@ -272,6 +273,10 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 			this.setPopUp(new Apropos(this));
 			this.getPopUp().setLocationRelativeTo(this);
 			this.getPopUp().setVisible(true);
+		}
+		
+		if(e.getSource() == mntmAide){
+			Aide.main(null);
 		}
 	}
 

@@ -2,12 +2,13 @@ package fr.afcepf.ai78.projet1.constante;
 
 public class AideConstante {
 
-	public static final String	Presentation=	"<html>- L'informatisation de la <B>gestion d'annuaire</B> est de plus en plus présente et indispensable de nos jours." +
-												"<Br/><Br/>- C'est pour cela que nous proposons un outil de gestion d'annuaire qui se veut évolutif.<Br/><Br/>- Ce dernier donne la possibilité d'enrichir, d'administrer et de consolider ses données avec beaucoup de facilité et de simplicité." +
-												"<Br/><Br/>- Les chapitres suivants auront pour but d'introduire aux mécanismes d'utilisation du logiciel <B>Gestion d'Annuaire</B>.<html>";
-	public static final String	InstallationEtDesinstallationDeGestionDannuaire=	"<html>- Pour installer l'application Gestion d'annuaire il suffit juste de copier le fichier <B>Gestion d'Annuaires.jar</B> sur le poste en question à votre convenance." +
-																					"<Br/><Br/>- Il est conseillé de copier ce dernier sur votre <B>bureau</B>." +
-																					"<Br/><Br/>- En vue d'une désinstallation il suffira alors de supprimer le fichier <B>Gestion d'Annuaires.jar</B>.<html>";
+	public static final String	Presentation=	"<html><p>L'informatisation de la <B>gestion d'annuaire</B> est de plus en plus présente et indispensable de nos jours.</p>" +
+												"<br/><p>C'est pour cela que nous proposons un outil de gestion d'annuaire qui se veut évolutif.</p>"+
+												"<br/><p>Ce dernier donne la possibilité d'enrichir, d'administrer et de consolider ses données avec beaucoup de facilité et de simplicité.</p>" +
+												"<br/><p>Les chapitres suivants auront pour but d'introduire aux mécanismes d'utilisation du logiciel <B>Gestion d'Annuaire</B>.</p><html>";
+	public static final String	InstallationEtDesinstallationDeGestionDannuaire=	"<html><p>Pour installer l'application Gestion d'annuaire il suffit juste de copier le fichier <B>Gestion d'Annuaires.jar</B> sur le poste en question à votre convenance.</p>" +
+																					"<br/><p>Il est conseillé de copier ce dernier sur votre <B>bureau</B>.</p>" +
+																					"<br/><p>En vue d'une désinstallation il suffira alors de supprimer le fichier <B>Gestion d'Annuaires.jar</B>.</p><html>";
 	public static final String	CreationDunNouvelleAnnuaire=	"<html>- Juste aprés lancement de l'application, on a la possibilité d'ouvrir un annuaire existant en cliquant sur le bouton 'Nouveaux' ou en utilisant dans le menu <B>Fichier-Nouveaux</B>." +
 																"<Br/><Br/>- A ce stade on peut créer un nouvel annuaire ou bien importer un nouveau fichier <B>.DON</B>.<html>";
 	public static final String	OuvrirUnAnnuaire=		"<html>- Juste aprés lancement de l'application, on a la possibilité d'ouvrir un annuaire existant en cliquant sur le bouton <B>Ouvrir</B> ou en utilisant dans le menu <B>Fichier-Ouvrir</B>.<html>";
