@@ -10,10 +10,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
@@ -24,26 +25,24 @@ import javax.swing.JTable;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import java.awt.FlowLayout;
-import java.awt.Font;
 
 public class AffichageAnnuaire extends JPanel implements ActionListener,MouseListener,KeyListener{
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID	= 1L;
+	private JScrollPane scrollPane 				= new JScrollPane();
+	private JTextField txtEntree 				= new JTextField();
+	private JLabel lblEntree					= new JLabel("");
+	private JPanel panelOption 					= new JPanel();
+	private JPanel panelRecherche 				= new JPanel();
+	private JLabel lblStagiaire 				= new JLabel("Stagiaires : 0");
+	private JButton btnAfficherTout 			= new JButton("Afficher Tout");
+	private JButton btnRechercher 				= new JButton("Recherche avancée");
+	private JButton btnAjouter 					= new JButton("Ajouter");
+	private JButton btnSupprimer 				= new JButton("Supprimer");
+	private JButton btnEditer 					= new JButton("Editer");
 	private JTable table;
-	private JScrollPane scrollPane = new JScrollPane();
-	private JTextField txtEntree = new JTextField();
-	private JLabel lblEntree= new JLabel("");
-	private JPanel panelOption = new JPanel();
-	private JPanel panelRecherche = new JPanel();
-	private JButton btnAfficherTout = new JButton("Afficher Tout");
-	private JButton btnRechercher = new JButton("Recherche avancée");
-	private JButton btnAjouter = new JButton("Ajouter");
-	private JButton btnSupprimer = new JButton("Supprimer");
-	private JButton btnEditer = new JButton("Editer");
 	private FenetrePrincipale frame;
-	private final JLabel lblStagiaire = new JLabel("Stagiaires : 0");
-
+	
 	/**
 	 * Create the panel.
 	 */
