@@ -161,9 +161,6 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 				if(!frame.getAnnuaireCourant().ajoutElementArbreBinaire(nouveauNoeud,-1,0,false,frame.getAnnuaireCourant().getPositionAjout())){
 					frame.getAnnuaireCourant().ecrireNoeud(frame.getAnnuaireCourant().getPositionAjout(),nouveauNoeud);
 
-					AffichageAnnuaire affichage = (AffichageAnnuaire)frame.getContentPane().getComponent(0);
-					affichage.getTable().setModel(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout()));
-
 					if (!frame.getAnnuaireCourant().getFantome().isEmpty()) {
 						frame.getAnnuaireCourant().getFantome().remove(frame.getAnnuaireCourant().getFantome().get(frame.getAnnuaireCourant().getFantome().size()-1));
 					}
@@ -174,6 +171,8 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 			}else{
 				JOptionPane.showMessageDialog(this, "Nom, Prénom, Promotion et Année nécessaires");
 			}
+			AffichageAnnuaire affichage = (AffichageAnnuaire)frame.getContentPane().getComponent(0);
+			affichage.getTable().setModel(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout()));				
 		}
 
 		if(e.getSource()==btnAnnuler){
