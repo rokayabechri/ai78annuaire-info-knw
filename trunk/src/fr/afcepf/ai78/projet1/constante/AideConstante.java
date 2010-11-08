@@ -22,7 +22,7 @@ public class AideConstante {
 	public static final String	RechercheParNomDeStagiaireRechercheParDefaut=	"<html>- Le champ saisie en haut à droite de la boite de dialogue <B>Gestion d'annuaire</B> permet d'effectuer une recherche sur le <B>Nom</B> du stagiaire recherché." +
 																				"<Br/><Br/>- <U><B><I>Remarque</U></B></I>: C'est un outil de recherche par défaut.<html>";
 	public static final String	LeBoutonRechercheAvancee=	"<html>- Le bouton <B>Rechercher Avancée</B> ouvre la boite de dialogue <B>Rechercher Avancée</B>." +
-															"<Br/><Br/>- <U><B><I>Rappel</U></B></I> : Cette derniére donne la possibilité d'effectuer des recherches multicritéres (nom, prénom, promotion, année de promotion et département).<html>";
+															"<Br/><Br/>- <U><B><I>Rappel</U></B></I> : Cette dernière donne la possibilité d'effectuer des recherches multicritéres (nom, prénom, promotion, année de promotion et département).<html>";
 	public static final String	LeBoutonAfficherTout=	"<html>- Le bouton <B>Afficher Tout</B> permet d'afficher la totalité des stagiaire présent de la base de données <B>Gestion d'annuaire</B>.<html>";
 	public static final String	LeBoutonAjouter=	"<html>- Le bouton <B>Ajouter</B> ouvre la boite de dialogue <B>Ajouter</B>." +
 													"<Br/><Br/>- Ce bouton donne la possibilité de créer de nouveaux stagiaires dans la base de données <B>Gestion Annuaire</B>." +
