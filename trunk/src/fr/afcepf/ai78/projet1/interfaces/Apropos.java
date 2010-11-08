@@ -27,6 +27,7 @@ public class Apropos extends JDialog implements ActionListener,WindowListener{
 		
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
+		setTitle("À propos de Gestion annuaire");
 		
 		JLabel lblCePrgrammeA = new JLabel("Ce programme a \u00E9t\u00E9 développer par K.Augereau, W.Lepante, N, Chouaib.");
 		lblCePrgrammeA.setBounds(12, 80, 420, 23);
