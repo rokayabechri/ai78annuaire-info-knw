@@ -122,10 +122,10 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		}
 		/**************************************************/
 		menuBar.add(mnApparence);
-		mnInfo.add(mntmAide);
-		menuBar.add(mnInfo);
 		
+		mnInfo.add(mntmAide);
 		mnInfo.add(mntmAPropos);
+		menuBar.add(mnInfo);
 		
 		menuItem.setMaximumSize(new Dimension(32767, 0));
 		menuItem.setEnabled(false);

@@ -84,19 +84,19 @@ public class GestionBinaire extends SwingWorker<Boolean, String>{
 		if (arbre.hasFilsG()) {
 			liste = rechercheRec(arbre.getFilsG(), nom, prenom, promotion, annee, departement, liste);
 		}
-		if (ajout && !nom.equalsIgnoreCase("") && !arbre.getNom().equalsIgnoreCase(nom)) {
+		if (ajout && !nom.equalsIgnoreCase("") && !arbre.getNom().trim().equalsIgnoreCase(nom)) {
 			ajout = false ;
 		}
-		if (ajout && !prenom.equalsIgnoreCase("") && !arbre.getPrenom().equalsIgnoreCase(prenom)) {
+		if (ajout && !prenom.equalsIgnoreCase("") && !arbre.getPrenom().trim().equalsIgnoreCase(prenom)) {
 			ajout = false ;
 		}
-		if (ajout && !promotion.equalsIgnoreCase("") && !arbre.getPromotion().equalsIgnoreCase(promotion)) {
+		if (ajout && !promotion.equalsIgnoreCase("") && !arbre.getPromotion().trim().equalsIgnoreCase(promotion)) {
 			ajout = false ;
 		}
 		if (ajout && annee != -1 &&  arbre.getAnnee()!= annee) {
 			ajout = false ;
 		}
-		if (ajout && !departement.equalsIgnoreCase("") && !arbre.getDepartement().equalsIgnoreCase(departement)) {
+		if (ajout && !departement.equalsIgnoreCase("") && !arbre.getDepartement().trim().equalsIgnoreCase(departement)) {
 			ajout = false ;
 		}
 		

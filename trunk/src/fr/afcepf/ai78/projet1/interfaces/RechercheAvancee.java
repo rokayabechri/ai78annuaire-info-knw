@@ -134,13 +134,13 @@ public class RechercheAvancee extends JDialog implements ActionListener,WindowLi
 			} catch (NumberFormatException e2) {
 				//e2.printStackTrace();
 			}
-			
+			String departement = txtDepartement.getText().equals("  ")?"":txtDepartement.getText();
 			List<Stagiaire> liste = frame.getAnnuaireCourant().rechercheRec(0,
 																txtNom.getText(),
 																txtPrenom.getText(),
 																comboBox.getSelectedItem().toString(),
 																annee,
-																txtDepartement.getText(),
+																departement,
 																new ArrayList<Stagiaire>());
 			 
 			AffichageAnnuaire affichage = (AffichageAnnuaire) frame.getContentPane().getComponent(0);
