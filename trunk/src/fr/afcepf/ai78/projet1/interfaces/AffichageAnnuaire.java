@@ -171,7 +171,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 					Noeud  unNoeud = new Noeud(table.getValueAt(tabIndice[0], 0).toString(),table.getValueAt(tabIndice[0], 1).toString(),table.getValueAt(tabIndice[0], 4).toString(),table.getValueAt(tabIndice[0], 2).toString(),Integer.parseInt(table.getValueAt(tabIndice[0], 3).toString()));
 					frame.getAnnuaireCourant().supprimer(unNoeud, 0);
 					}else{
-						File fichierASpprimer = new File(AnnuaireConstante.BIN_PATH+frame.getAnnuaireCourant().getFichierSortie());
+						File fichierASpprimer = new File(frame.getAnnuaireCourant().getFichierSortie());
 						List<Integer> fantome = frame.getAnnuaireCourant().getFantome();
 						fantome.clear();
 						fichierASpprimer.delete();
@@ -191,8 +191,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 							frame.getAnnuaireCourant().supprimer(unNoeud, 0);
 						}
 					}else{
-						System.out.println("ok");
-						File fichierASpprimer = new File(AnnuaireConstante.BIN_PATH+frame.getAnnuaireCourant().getFichierSortie());
+						File fichierASpprimer = new File(frame.getAnnuaireCourant().getFichierSortie());
 						List<Integer> fantome = frame.getAnnuaireCourant().getFantome();
 						fantome.clear();
 						fichierASpprimer.delete();
@@ -261,23 +260,34 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 			if(tabIndice.length==1)	{
 				int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer "+table.getValueAt(tabIndice[0], 0), "Confirmation",JOptionPane.OK_CANCEL_OPTION);
 				if(val==0){
-
+					if(!(tabIndice.length==table.getRowCount())){
 					Noeud  unNoeud = new Noeud(table.getValueAt(tabIndice[0], 0).toString(),table.getValueAt(tabIndice[0], 1).toString(),table.getValueAt(tabIndice[0], 4).toString(),table.getValueAt(tabIndice[0], 2).toString(),Integer.parseInt(table.getValueAt(tabIndice[0], 3).toString()));
 					frame.getAnnuaireCourant().supprimer(unNoeud, 0);
+					}else{
+						File fichierASpprimer = new File(frame.getAnnuaireCourant().getFichierSortie());
+						List<Integer> fantome = frame.getAnnuaireCourant().getFantome();
+						fantome.clear();
+						fichierASpprimer.delete();
+					}
 				}
 
 			}else{
-
 				int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer la selection", "Confirmation",JOptionPane.OK_CANCEL_OPTION);
 				if(val==0){
-					for (int i : tabIndice) {
-
-						Noeud  unNoeud = new Noeud(table.getValueAt(i, 0).toString(),table.getValueAt(i, 1).toString(),table.getValueAt(i, 4).toString(),table.getValueAt(i, 2).toString(),Integer.parseInt(table.getValueAt(i, 3).toString()));
-						frame.getAnnuaireCourant().supprimer(unNoeud, 0);
+					
+					if(!(tabIndice.length==table.getRowCount())){
+						for (int i : tabIndice) {
+							Noeud  unNoeud = new Noeud(table.getValueAt(i, 0).toString(),table.getValueAt(i, 1).toString(),table.getValueAt(i, 4).toString(),table.getValueAt(i, 2).toString(),Integer.parseInt(table.getValueAt(i, 3).toString()));
+							frame.getAnnuaireCourant().supprimer(unNoeud, 0);
+						}
+					}else{
+						File fichierASpprimer = new File(frame.getAnnuaireCourant().getFichierSortie());
+						List<Integer> fantome = frame.getAnnuaireCourant().getFantome();
+						fantome.clear();
+						fichierASpprimer.delete();
 					}
 
 				}
-
 			}
 			AffichageAnnuaire affichage = (AffichageAnnuaire)frame.getContentPane().getComponent(0);
 			affichage.getTable().setModel(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout()));
