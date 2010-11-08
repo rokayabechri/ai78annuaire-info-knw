@@ -182,7 +182,7 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 		}
 
 		if(e.getSource()==comboBox){
-			if(comboBox.getSelectedItem().toString().equals("autre")){
+			if(comboBox.getSelectedItem().toString().equals("Autre")){
 				txtPromotion.setText("");
 				txtPromotion.setVisible(true);
 			}else {
