@@ -1,37 +1,50 @@
 package fr.afcepf.ai78.projet1.interfaces;
-import java.awt.BorderLayout;
-import java.awt.Font;
 
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-
-import fr.afcepf.ai78.projet1.images.*;
-import fr.afcepf.ai78.projet1.constante.AideConstante;
 import fr.afcepf.ai78.projet1.constante.AideConstante;
 import javax.swing.border.EmptyBorder;
+import java.awt.Toolkit;
 
 public class Aide extends JFrame implements TreeSelectionListener {
 
-	private JPanel contentPane = new JPanel();
-	private JLabel txtAfficheur = new JLabel();
-	private JScrollPane scrollPaneTree = new JScrollPane();
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane 			= new JPanel();
+	private JLabel txtAfficheur 		= new JLabel();
+	private JScrollPane scrollPaneTree 	= new JScrollPane();
 
 	public static void main(String[] args) {
-		new Aide();
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
+					Aide frame = new Aide();
+					frame.setLocationRelativeTo(null);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	public Aide() {
 		super("Gestion d'annuaire : Aide");
-		Aide.class.getProtectionDomain().getCodeSource().getLocation();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Aide.class.getResource("/fr/afcepf/ai78/projet1/images/aide_icon.png")));
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setContentPane(contentPane);
+		setSize(662, 500);
 
 		Object[] hierarchy =
 		{
@@ -91,15 +104,11 @@ public class Aide extends JFrame implements TreeSelectionListener {
 
 		contentPane.add(scrollPaneTree,BorderLayout.WEST);
 		scrollPaneTree.setViewportView(tree);
-		txtAfficheur.setBorder(new EmptyBorder(0, 15, 0, 0));
+		txtAfficheur.setBorder(new EmptyBorder(15, 15, 15, 15));
 		txtAfficheur.setFont(new Font("Tahoma", Font.PLAIN, 11));
 
 		contentPane.add(txtAfficheur, BorderLayout.CENTER);
 		txtAfficheur.setVerticalAlignment(SwingConstants.TOP);
-
-		setSize(662, 500);
-		setVisible(true);
-
 	}
 
 
@@ -120,8 +129,7 @@ public class Aide extends JFrame implements TreeSelectionListener {
 
 	@Override
 	public void valueChanged(TreeSelectionEvent node) {
-		System.out.println(node.getPath().getLastPathComponent());	
-		System.out.println(Aide.class.getProtectionDomain().getCodeSource().getLocation());
+		//System.out.println(Aide.class.getProtectionDomain().getCodeSource().getLocation());
 		txtAfficheur.setText(node.getPath().getLastPathComponent().toString());
 		if (node.getPath().getLastPathComponent().toString().equals("Présentation")) {txtAfficheur.setText(AideConstante.Presentation);}
 		if (node.getPath().getLastPathComponent().toString().equals("Installation et désinstallation de 'Gestion d'annuaire'")) {txtAfficheur.setText(AideConstante.InstallationEtDesinstallationDeGestionDannuaire);}
