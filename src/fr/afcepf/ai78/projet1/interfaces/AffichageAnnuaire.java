@@ -165,7 +165,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 			int [] tabIndice =  table.getSelectedRows();
 						
 			if(tabIndice.length==1)	{
-				int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer "+table.getValueAt(tabIndice[0], 0), "Confirmation",JOptionPane.OK_CANCEL_OPTION);
+				int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer "+table.getValueAt(tabIndice[0], 0)+" ?", "Confirmation",JOptionPane.OK_CANCEL_OPTION);
 				if(val==0){
 					if(!(tabIndice.length==table.getRowCount())){
 					Noeud  unNoeud = new Noeud(table.getValueAt(tabIndice[0], 0).toString(),table.getValueAt(tabIndice[0], 1).toString(),table.getValueAt(tabIndice[0], 4).toString(),table.getValueAt(tabIndice[0], 2).toString(),Integer.parseInt(table.getValueAt(tabIndice[0], 3).toString()));
@@ -182,7 +182,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 				}
 
 			}else{
-				int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer la selection", "Confirmation",JOptionPane.OK_CANCEL_OPTION);
+				int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer la selection ?", "Confirmation",JOptionPane.OK_CANCEL_OPTION);
 				if(val==0){
 					
 					if(!(tabIndice.length==table.getRowCount())){
@@ -258,7 +258,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 			int [] tabIndice =  table.getSelectedRows();
 
 			if(tabIndice.length==1)	{
-				int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer "+table.getValueAt(tabIndice[0], 0), "Confirmation",JOptionPane.OK_CANCEL_OPTION);
+				int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer "+table.getValueAt(tabIndice[0], 0)+" ?", "Confirmation",JOptionPane.OK_CANCEL_OPTION);
 				if(val==0){
 					if(!(tabIndice.length==table.getRowCount())){
 					Noeud  unNoeud = new Noeud(table.getValueAt(tabIndice[0], 0).toString(),table.getValueAt(tabIndice[0], 1).toString(),table.getValueAt(tabIndice[0], 4).toString(),table.getValueAt(tabIndice[0], 2).toString(),Integer.parseInt(table.getValueAt(tabIndice[0], 3).toString()));
@@ -272,7 +272,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 				}
 
 			}else{
-				int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer la selection", "Confirmation",JOptionPane.OK_CANCEL_OPTION);
+				int val = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer la selection ?", "Confirmation",JOptionPane.OK_CANCEL_OPTION);
 				if(val==0){
 					
 					if(!(tabIndice.length==table.getRowCount())){
