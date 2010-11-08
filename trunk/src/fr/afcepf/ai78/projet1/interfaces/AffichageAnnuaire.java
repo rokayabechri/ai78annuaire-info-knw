@@ -12,6 +12,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
@@ -23,6 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
+import java.awt.Font;
 
 public class AffichageAnnuaire extends JPanel implements ActionListener,MouseListener,KeyListener{
 
@@ -39,6 +42,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	private JButton btnSupprimer = new JButton("Supprimer");
 	private JButton btnEditer = new JButton("Editer");
 	private FenetrePrincipale frame;
+	private final JLabel lblStagiaire = new JLabel("Stagiaires : 0");
 
 	/**
 	 * Create the panel.
@@ -86,7 +90,9 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 
 		add(scrollPane, BorderLayout.CENTER);
 
-		table = new JTable(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout()));
+		List<Stagiaire> liste = frame.getAnnuaireCourant().afficherTout();
+		table = new JTable(new ModeleStagiaire(liste));
+		getLblStagiaire().setText("Stagiaires : "+liste.size());
 		table.addMouseListener(this);
 		table.getTableHeader().setReorderingAllowed(false);
 		scrollPane.setViewportView(table);
@@ -98,6 +104,10 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		btnSupprimer.addActionListener(this);
 		txtEntree.addKeyListener(this);
 		table.addKeyListener(this);
+		lblStagiaire.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblStagiaire.setFont(new Font("Dialog", Font.BOLD, 13));
+		
+		add(lblStagiaire, BorderLayout.SOUTH);
 	}
 
 	@Override
@@ -196,7 +206,9 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	}
 
 	private void afficherTout() {
-		table.setModel(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout()));
+		List<Stagiaire> liste = frame.getAnnuaireCourant().afficherTout();
+		table.setModel(new ModeleStagiaire(liste));
+		getLblStagiaire().setText("Stagiaires : "+liste.size());
 		btnSupprimer.setEnabled(false);
 		btnEditer.setEnabled(false);
 	}
@@ -255,7 +267,9 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 
 		String recherche = txtEntree.getText();
 		if (!recherche.equals("")) {
-			table.setModel(new ModeleStagiaire(frame.getAnnuaireCourant().rechercherDynamique(recherche, 0, new ArrayList<Stagiaire>())));
+			List<Stagiaire> liste = frame.getAnnuaireCourant().rechercherDynamique(recherche, 0, new ArrayList<Stagiaire>());
+			table.setModel(new ModeleStagiaire(liste));
+			getLblStagiaire().setText("Stagiaires : "+liste.size());
 			btnSupprimer.setEnabled(false);
 			btnEditer.setEnabled(false);
 		}else if(e.getKeyCode()==KeyEvent.VK_BACK_SPACE){
@@ -265,5 +279,11 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 
 	@Override	
 	public void keyTyped(KeyEvent e) {}
+
+	public JLabel getLblStagiaire() {
+		return lblStagiaire;
+	}
+
+
 
 }
