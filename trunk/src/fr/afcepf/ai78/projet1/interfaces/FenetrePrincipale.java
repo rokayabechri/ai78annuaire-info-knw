@@ -142,7 +142,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		btnDeconnexion.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/fr/afcepf/ai78/projet1/images/deconnexion_icon.png")));
 		btnDeconnexion.setFocusable(false);
 		btnDeconnexion.setContentAreaFilled(false);
-		btnDeconnexion.setPreferredSize(new Dimension(106, 24));
+		btnDeconnexion.setPreferredSize(new Dimension(110, 24));
 		btnDeconnexion.setBorderPainted(false);
 		btnDeconnexion.setVisible(isConnected);
 		menuBar.add(btnDeconnexion);
