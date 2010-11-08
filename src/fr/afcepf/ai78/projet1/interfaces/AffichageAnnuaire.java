@@ -22,6 +22,7 @@ import javax.swing.JTable;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import java.awt.FlowLayout;
 
 public class AffichageAnnuaire extends JPanel implements ActionListener,MouseListener,KeyListener{
 
@@ -61,6 +62,8 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		btnEditer.setPreferredSize(new Dimension(95, 30));
 		btnEditer.setEnabled(false);
 		panelOption.add(btnEditer);
+		FlowLayout flowLayout = (FlowLayout) panelRecherche.getLayout();
+		flowLayout.setAlignment(FlowLayout.RIGHT);
 
 		panelRecherche.setPreferredSize(new Dimension(10, 35));
 		add(panelRecherche, BorderLayout.NORTH);
