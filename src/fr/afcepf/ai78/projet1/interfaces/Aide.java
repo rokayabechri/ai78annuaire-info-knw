@@ -1,15 +1,14 @@
 package fr.afcepf.ai78.projet1.interfaces;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.Font;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -26,25 +25,12 @@ public class Aide extends JFrame implements TreeSelectionListener {
 	private JLabel txtAfficheur 		= new JLabel();
 	private JScrollPane scrollPaneTree 	= new JScrollPane();
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
-					if(Aide.isInstancie){
-						Aide.instance.toFront();
-						Aide.instance.setLocationRelativeTo(null);
-						Aide.instance.setVisible(true);
-					}else {
-						Aide frame = new Aide();
-						frame.setLocationRelativeTo(null);
-						frame.setVisible(true);
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public static Aide getInstance(){
+		if(isInstancie){
+			return instance;
+		}else{
+			return new Aide();
+		}
 	}
 
 	private Aide() {
@@ -54,7 +40,7 @@ public class Aide extends JFrame implements TreeSelectionListener {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Aide.class.getResource("/fr/afcepf/ai78/projet1/images/aide_icon.png")));
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setContentPane(contentPane);
-		setSize(662, 500);
+		setSize(900, 350);
 
 		Object[] hierarchy =
 		{
@@ -175,9 +161,28 @@ public class Aide extends JFrame implements TreeSelectionListener {
 		if (node.getPath().getLastPathComponent().toString().equals("'Rechercher' et 'Annuler' son opération")) {txtAfficheur.setText(AideConstante.RechercherEtAnnulerSonOperation);}
 		if (node.getPath().getLastPathComponent().toString().equals("Suppresion de stagiaires")) {txtAfficheur.setText(AideConstante.SuppresionDeStagiaires);}
 		if (node.getPath().getLastPathComponent().toString().equals("'Connexion' à l'application")) {txtAfficheur.setText(AideConstante.ConnexionALAapplication);}
-		//if (node.getPath().getLastPathComponent().toString().equals("'Connexion' à l'application")) {imageAfficheur.setIcon(images.btn_nouveau.png);}
-		//Thread.currentThread().getContextClassLoader().getResourceAsStream(name);
+
+
+
+		if (node.getPath().getLastPathComponent().toString().equals("Suppresion de stagiaires")) {txtAfficheur.setIcon(new ImageIcon(Ajouter.class.getResource("/fr/afcepf/ai78/projet1/images/AideSuppresionDeStagiaires.png")));}
+
 		
+		if (node.getPath().getLastPathComponent().toString().equals("La Recherche avancée")) 					{txtAfficheur.setIcon(new ImageIcon(Ajouter.class.getResource("/fr/afcepf/ai78/projet1/images/AideRechercheAvancee.png")));}
+		if (node.getPath().getLastPathComponent().toString().equals("Fenêtre Recherche avancée")) 				{txtAfficheur.setIcon(new ImageIcon(Ajouter.class.getResource("/fr/afcepf/ai78/projet1/images/AideRechercheAvancee.png")));}
+		if (node.getPath().getLastPathComponent().toString().equals("Recherche avancée sur le 'Nom'")) 			{txtAfficheur.setIcon(new ImageIcon(Ajouter.class.getResource("/fr/afcepf/ai78/projet1/images/AideRechercheAvanceeSurLeNom.png")));}
+		if (node.getPath().getLastPathComponent().toString().equals("Recherche avancée sur le 'Prénom'")) 		{txtAfficheur.setIcon(new ImageIcon(Ajouter.class.getResource("/fr/afcepf/ai78/projet1/images/AideRechercheAvanceeSurLePrenom.png")));}
+		if (node.getPath().getLastPathComponent().toString().equals("Recherche avancée sur le 'Promotion'")) 	{txtAfficheur.setIcon(new ImageIcon(Ajouter.class.getResource("/fr/afcepf/ai78/projet1/images/AideRechercheAvanceeSurLePromotion.png")));}
+		if (node.getPath().getLastPathComponent().toString().equals("Recherche avancée sur le 'Année'")) 		{txtAfficheur.setIcon(new ImageIcon(Ajouter.class.getResource("/fr/afcepf/ai78/projet1/images/AideRechercheAvanceeSurLeAnnee.png")));}
+		if (node.getPath().getLastPathComponent().toString().equals("Recherche avancée sur le 'Departement'")) 	{txtAfficheur.setIcon(new ImageIcon(Ajouter.class.getResource("/fr/afcepf/ai78/projet1/images/AideRechercheAvanceeSurLeDepartement.png")));}
+		if (node.getPath().getLastPathComponent().toString().equals("'Rechercher' et 'Annuler' son opération")) {txtAfficheur.setIcon(new ImageIcon(Ajouter.class.getResource("/fr/afcepf/ai78/projet1/images/AdieRechercherEtAnnulerSonOperation.png")));}
 	
+		if (node.getPath().getLastPathComponent().toString().equals("Editer le 'Nom'")) 						{txtAfficheur.setIcon(new ImageIcon(Ajouter.class.getResource("/fr/afcepf/ai78/projet1/images/AideRechercheAvancee.png")));}
+		if (node.getPath().getLastPathComponent().toString().equals("Editer le 'Prénom'")) 						{txtAfficheur.setIcon(new ImageIcon(Ajouter.class.getResource("/fr/afcepf/ai78/projet1/images/AideRechercheAvancee.png")));}
+		if (node.getPath().getLastPathComponent().toString().equals("'Choisir' une promotion")) 				{txtAfficheur.setIcon(new ImageIcon(Ajouter.class.getResource("/fr/afcepf/ai78/projet1/images/AideRechercheAvancee.png")));}
+		if (node.getPath().getLastPathComponent().toString().equals("'Créer' une nouvelle promotion")) 			{txtAfficheur.setIcon(new ImageIcon(Ajouter.class.getResource("/fr/afcepf/ai78/projet1/images/AideRechercheAvancee.png")));}
+		if (node.getPath().getLastPathComponent().toString().equals("Editer le 'Année'")) 						{txtAfficheur.setIcon(new ImageIcon(Ajouter.class.getResource("/fr/afcepf/ai78/projet1/images/AideRechercheAvancee.png")));}
+		if (node.getPath().getLastPathComponent().toString().equals("Editer le 'Departement'")) 				{txtAfficheur.setIcon(new ImageIcon(Ajouter.class.getResource("/fr/afcepf/ai78/projet1/images/AideRechercheAvancee.png")));}
+		if (node.getPath().getLastPathComponent().toString().equals("'Valider' et 'Annuler' son opération")) 	{txtAfficheur.setIcon(new ImageIcon(Ajouter.class.getResource("/fr/afcepf/ai78/projet1/images/AideRechercheAvancee.png")));}
+		
 	}
 }
