@@ -149,10 +149,10 @@ public class Editer extends JDialog implements ActionListener,WindowListener{
 			if( !txtNom.getText().equals("") && !txtPrenom.getText().equals("") && !txtPromotion.getText().equals("") && !txtAnnee.getText().equals("") ){
 
 				String prenom = txtPrenom.getText().substring(0,1).toUpperCase()+txtPrenom.getText().substring(1).toLowerCase();
-
+				String departement = txtDepartement.getText().equals("  ")?"":txtDepartement.getText();
 				Noeud nouveauNoeud = new Noeud(txtNom.getText().toUpperCase(),
 												prenom,
-												txtDepartement.getText(),
+												departement,
 												txtPromotion.getText(),
 												Integer.parseInt(txtAnnee.getText()));
 				
