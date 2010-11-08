@@ -117,8 +117,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 				} 
 			});
 			
-			skin.add(item); 
-			mnApparence.add(item);  	
+			skin.add(item);
+			mnApparence.add(item);
 		}
 		/**************************************************/
 		menuBar.add(mnApparence);
@@ -276,7 +276,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		}
 		
 		if(e.getSource() == mntmAide){
-			Aide.main(null);
+			Aide.getInstance().setVisible(true);
 		}
 	}
 
