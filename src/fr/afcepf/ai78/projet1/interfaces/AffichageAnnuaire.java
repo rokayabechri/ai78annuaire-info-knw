@@ -1,5 +1,6 @@
 package fr.afcepf.ai78.projet1.interfaces;
 
+import fr.afcepf.ai78.projet1.constante.AnnuaireConstante;
 import fr.afcepf.ai78.projet1.objets.Noeud;
 import fr.afcepf.ai78.projet1.objets.Stagiaire;
 import java.awt.BorderLayout;
@@ -170,33 +171,33 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 
 	private void suppression() {
 		int [] tabIndice =  table.getSelectedRows();
-		
+		File fichierASupprimer = new File(frame.getAnnuaireCourant().getFichierSortie());
 		if(tabIndice.length==1)	{
 
 			if(JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer "+table.getValueAt(tabIndice[0], 0)+" ?", "Confirmation",JOptionPane.OK_CANCEL_OPTION)==0){
-				if(!(tabIndice.length==table.getRowCount())){
-					
-					Noeud  unNoeud = new Noeud(table.getValueAt(tabIndice[0], 0).toString(),table.getValueAt(tabIndice[0], 1).toString(),table.getValueAt(tabIndice[0], 4).toString(),table.getValueAt(tabIndice[0], 2).toString(),Integer.parseInt(table.getValueAt(tabIndice[0], 3).toString()));
-					frame.getAnnuaireCourant().supprimer(unNoeud, 0);
-				}else{
-					File fichierASupprimer = new File(frame.getAnnuaireCourant().getFichierSortie());
+
+				if((tabIndice.length==table.getRowCount())&& (((fichierASupprimer.length())/AnnuaireConstante.TAILLE_NOEUD)==(tabIndice.length+frame.getAnnuaireCourant().getFantome().size()))){
 					frame.getAnnuaireCourant().getFantome().clear();
 					fichierASupprimer.delete();
+
+				}else{
+					Noeud  unNoeud = new Noeud(table.getValueAt(tabIndice[0], 0).toString(),table.getValueAt(tabIndice[0], 1).toString(),table.getValueAt(tabIndice[0], 4).toString(),table.getValueAt(tabIndice[0], 2).toString(),Integer.parseInt(table.getValueAt(tabIndice[0], 3).toString()));
+					frame.getAnnuaireCourant().supprimer(unNoeud, 0);
 				}
 			}
 
 		}else{
 
 			if(JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer la selection ?", "Confirmation",JOptionPane.OK_CANCEL_OPTION)==0){
-				if(!(tabIndice.length==table.getRowCount())){
+				if((tabIndice.length==table.getRowCount())&&(((fichierASupprimer.length())/AnnuaireConstante.TAILLE_NOEUD)==(tabIndice.length+frame.getAnnuaireCourant().getFantome().size()))){				
+					frame.getAnnuaireCourant().getFantome().clear();
+					fichierASupprimer.delete();
+				}else{
 					for (int i : tabIndice) {
 						Noeud  unNoeud = new Noeud(table.getValueAt(i, 0).toString(),table.getValueAt(i, 1).toString(),table.getValueAt(i, 4).toString(),table.getValueAt(i, 2).toString(),Integer.parseInt(table.getValueAt(i, 3).toString()));
 						frame.getAnnuaireCourant().supprimer(unNoeud, 0);
 					}
-				}else{
-					File fichierASpprimer = new File(frame.getAnnuaireCourant().getFichierSortie());
-					frame.getAnnuaireCourant().getFantome().clear();
-					fichierASpprimer.delete();
+
 				}
 
 			}
