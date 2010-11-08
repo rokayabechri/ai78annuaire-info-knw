@@ -42,6 +42,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	private JMenuItem mntmSupprimerAnnuaire	   = new JMenuItem("Supprimer annuaire");
 	private JMenuItem mntmQuitter			   = new JMenuItem("Quitter");
 	private JMenuItem mntmAide				   = new JMenuItem("Aide");
+	private JMenuItem menuItem 				   = new JMenuItem("");
+	private JMenuItem mntmAPropos 			   = new JMenuItem("À propos");
 	private JButton btnOuvrirAnnuaire		   = new JButton("Ouvrir Annuaire");
 	private JButton btnNouvelAnnuaire		   = new JButton("Nouvel Annuaire");
 	private JButton btnDeconnexion			   = new JButton("Deconnexion");
@@ -50,8 +52,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	private boolean isConnected				   = false;
 	private JDialog popUp;
 	private GestionBinaire annuaireCourant;
-	private final JMenuItem menuItem = new JMenuItem("");
-	private final JMenuItem mntmAPropos = new JMenuItem("\u00C0 propos");
 
 	/**
 	 * Launch the application.
@@ -364,6 +364,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 							{"Classic","org.pushingpixels.substance.api.skin.SubstanceBusinessLookAndFeel"},
 							{"Coffee","org.pushingpixels.substance.api.skin.SubstanceCremeCoffeeLookAndFeel"},
 							{"Ice","org.pushingpixels.substance.api.skin.SubstanceNebulaLookAndFeel"},
+							//{"Nimrod","com.nilo.plaf.nimrod.NimRODLookAndFeel"},
 							{"Sand","org.pushingpixels.substance.api.skin.SubstanceNebulaBrickWallLookAndFeel"},
 							{"SubGraphite","org.pushingpixels.substance.api.skin.SubstanceGraphiteLookAndFeel"},
 		};
