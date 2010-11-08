@@ -51,6 +51,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 	private JDialog popUp;
 	private GestionBinaire annuaireCourant;
 	private final JMenuItem menuItem = new JMenuItem("");
+	private final JMenuItem mntmAPropos = new JMenuItem("\u00C0 propos");
 
 	/**
 	 * Launch the application.
@@ -124,6 +125,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		mnInfo.add(mntmAide);
 		menuBar.add(mnInfo);
 		
+		mnInfo.add(mntmAPropos);
+		
 		menuItem.setMaximumSize(new Dimension(32767, 0));
 		menuItem.setEnabled(false);
 		
@@ -169,6 +172,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 		mntmQuitter.addActionListener(this);
 		mntmImprimer.addActionListener(this);
 		mntmSupprimerAnnuaire.addActionListener(this);
+		mntmAPropos.addActionListener(this);
 	}
 
 	@Override
@@ -257,6 +261,17 @@ public class FenetrePrincipale extends JFrame implements ActionListener{
 			
 			btnDeconnexion.setVisible(false);
 			btnConnexion.setVisible(true);
+		}
+		
+		
+		if (e.getSource() == mntmAPropos) {
+
+			if(this.getPopUp()!=null){
+				this.disposePopUp();
+			}
+			this.setPopUp(new Apropos(this));
+			this.getPopUp().setLocationRelativeTo(this);
+			this.getPopUp().setVisible(true);
 		}
 	}
 
