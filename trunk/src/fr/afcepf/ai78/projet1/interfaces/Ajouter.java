@@ -5,12 +5,15 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import fr.afcepf.ai78.projet1.objets.Noeud;
+import fr.afcepf.ai78.projet1.objets.Stagiaire;
+
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.text.ParseException;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -156,7 +159,9 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 					frame.getAnnuaireCourant().ecrireNoeud(frame.getAnnuaireCourant().getPositionAjout(),nouveauNoeud);
 					
 					AffichageAnnuaire affichage = (AffichageAnnuaire)frame.getContentPane().getComponent(0);
-					affichage.getTable().setModel(new ModeleStagiaire(frame.getAnnuaireCourant().afficherTout()));
+					List<Stagiaire> liste = frame.getAnnuaireCourant().afficherTout();
+					affichage.getTable().setModel(new ModeleStagiaire(liste));
+					affichage.getLblStagiaire().setText("Stagiaires : "+liste.size());
 					
 					if (!frame.getAnnuaireCourant().getFantome().isEmpty()) {
 						frame.getAnnuaireCourant().getFantome().remove(frame.getAnnuaireCourant().getFantome().get(frame.getAnnuaireCourant().getFantome().size()-1));
