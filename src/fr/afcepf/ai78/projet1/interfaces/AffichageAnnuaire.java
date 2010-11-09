@@ -92,7 +92,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 
 		List<Stagiaire> liste = frame.getAnnuaireCourant().afficherTout();
 		table = new JTable(new ModeleStagiaire(liste));
-		getLblStagiaire().setText("Stagiaires : "+liste.size());
+		getLblStagiaire().setText("Stagiaire(s) : "+liste.size());
 		table.addMouseListener(this);
 		table.getTableHeader().setReorderingAllowed(false);
 		scrollPane.setViewportView(table);
@@ -208,7 +208,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 	private void afficherTout() {
 		List<Stagiaire> liste = frame.getAnnuaireCourant().afficherTout();
 		table.setModel(new ModeleStagiaire(liste));
-		getLblStagiaire().setText("Stagiaires : "+liste.size());
+		getLblStagiaire().setText("Stagiaire(s) : "+liste.size());
 		btnSupprimer.setEnabled(false);
 		btnEditer.setEnabled(false);
 	}
@@ -269,7 +269,7 @@ public class AffichageAnnuaire extends JPanel implements ActionListener,MouseLis
 		if (!recherche.equals("")) {
 			List<Stagiaire> liste = frame.getAnnuaireCourant().rechercherDynamique(recherche, 0, new ArrayList<Stagiaire>());
 			table.setModel(new ModeleStagiaire(liste));
-			getLblStagiaire().setText("Stagiaires : "+liste.size());
+			getLblStagiaire().setText("Stagiaire(s) : "+liste.size());
 			btnSupprimer.setEnabled(false);
 			btnEditer.setEnabled(false);
 		}else if(e.getKeyCode()==KeyEvent.VK_BACK_SPACE){

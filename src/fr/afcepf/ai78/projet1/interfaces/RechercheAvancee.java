@@ -145,7 +145,7 @@ public class RechercheAvancee extends JDialog implements ActionListener,WindowLi
 			 
 			AffichageAnnuaire affichage = (AffichageAnnuaire) frame.getContentPane().getComponent(0);
 			affichage.getTable().setModel(new ModeleStagiaire(liste));
-			affichage.getLblStagiaire().setText("Stagiaires : "+liste.size());
+			affichage.getLblStagiaire().setText("Stagiaire(s) : "+liste.size());
 			frame.disposePopUp();
 		}	
 		

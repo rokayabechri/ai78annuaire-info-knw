@@ -161,7 +161,7 @@ public class Ajouter extends JDialog implements ActionListener,WindowListener{
 					AffichageAnnuaire affichage = (AffichageAnnuaire)frame.getContentPane().getComponent(0);
 					List<Stagiaire> liste = frame.getAnnuaireCourant().afficherTout();
 					affichage.getTable().setModel(new ModeleStagiaire(liste));
-					affichage.getLblStagiaire().setText("Stagiaires : "+liste.size());
+					affichage.getLblStagiaire().setText("Stagiaire(s) : "+liste.size());
 					
 					if (!frame.getAnnuaireCourant().getFantome().isEmpty()) {
 						frame.getAnnuaireCourant().getFantome().remove(frame.getAnnuaireCourant().getFantome().get(frame.getAnnuaireCourant().getFantome().size()-1));
